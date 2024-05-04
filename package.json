@@ -1,0 +1,37 @@
+{
+	"name": "dotya",
+	"type": "module",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"format": "prettier --write './**/*.{md,css,scss,astro,json,js,jsx,cjs,mjs,ts,tsx,yaml,yml,html}'",
+		"lint": "eslint \"./**/*.{astro,js,jsx,cjs,mjs,ts,tsx}\"",
+		"lint:fix": "bun lint -- --fix && bun format"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.5.10",
+		"@astrojs/react": "^3.3.2",
+		"@astrojs/sitemap": "^3.1.4",
+		"@emotion/react": "^11.11.4",
+		"@types/react": "^18.3.1",
+		"@types/react-dom": "^18.3.0",
+		"astro": "^4.7.0",
+		"microcms-js-sdk": "^3.1.1",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"sass": "^1.76.0",
+		"typescript": "^5.4.5"
+	},
+	"devDependencies": {
+		"eslint": "9.1.1",
+		"eslint-config-prettier": "9.1.0",
+		"eslint-config-standard-with-typescript": "43.0.1",
+		"eslint-plugin-astro": "1.1.1",
+		"prettier": "3.2.5",
+		"prettier-plugin-astro": "0.13.0"
+	}
+}

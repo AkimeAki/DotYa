@@ -1,0 +1,53 @@
+---
+import Body from "@/components/Body";
+import "@/global.scss";
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogType?: string;
+	ogImage?: string;
+}
+
+const {
+	title,
+	description = "ドット絵のフリーイラスト素材屋さんです。",
+	ogType = "article",
+	ogImage = "/default-ogp.png"
+} = Astro.props;
+
+const serviceTitle = "どっとや";
+const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitle}`;
+const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="format-detection" content="email=no,telephone=no,address=no" />
+		<meta name="author" content="彩季" />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:url" content={`https://dotya.aki.wtf/${path}`} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={serviceTitle} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@Akime_Aki" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<title>{pageTitle}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<Body>
+			<slot />
+		</Body>
+	</body>
+</html>

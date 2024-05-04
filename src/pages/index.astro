@@ -1,0 +1,10 @@
+---
+import Base from "@/layouts/Base.astro";
+import Page from "./_page";
+import type { DotIllust } from "@/types";
+import { getListAllContents } from "@/libs/microcms";
+
+const dots = await getListAllContents<DotIllust>("dot");
+---
+
+<Base><Page dots={dots} /></Base>
