@@ -27,4 +27,4 @@ if (id === undefined) {
 const dot = await getContentsDetail<DotIllust>("dot", id);
 ---
 
-<Base><Page dot={dot} /></Base>
+<Base title={dot.title}><Page dot={dot} /></Base>
