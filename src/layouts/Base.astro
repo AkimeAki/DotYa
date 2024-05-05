@@ -32,7 +32,7 @@ const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:url" content={`https://dotya.aki.wtf/${path}`} />
 		<meta property="og:type" content={ogType} />
-		<meta property="og:title" content={pageTitle} />
+		<meta property="og:title" content={title ?? serviceTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:site_name" content={serviceTitle} />
 		<meta property="og:image" content={ogImage} />
