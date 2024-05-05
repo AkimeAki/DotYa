@@ -48,6 +48,49 @@ export default function ({ dot }: Props): JSX.Element {
 					/>
 				))}
 			</div>
+			<div
+				css={css`
+					margin-top: 30px;
+				`}
+			>
+				<span
+					onClick={() => {
+						const download = async () => {
+							try {
+								const image = await fetch(`${dot.dot.url}?fm=png`);
+								const imageBlob = await image.blob();
+								const imageURL = URL.createObjectURL(imageBlob);
+
+								const link = document.createElement("a");
+								link.href = imageURL;
+								link.download = `${dot.title}.png`;
+								link.click();
+							} catch (e) {}
+						};
+
+						void download();
+					}}
+					css={css`
+						padding: 15px 20px 17px;
+						display: block;
+						text-decoration: none;
+						background-color: #4d3d36;
+						color: #faf5b1;
+						border-radius: 4px;
+						border-bottom: 2px solid #111516;
+						border-top: 2px solid #6e6358;
+						user-select: none;
+						text-align: center;
+						cursor: pointer;
+
+						&:hover {
+							background-color: #554a46;
+						}
+					`}
+				>
+					ダウンロード
+				</span>
+			</div>
 		</>
 	);
 }

@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import type { DotIllust } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import { spWidth } from "@/define";
 
 interface Props {
 	dots: Array<DotIllust & MicroCMSContentId & MicroCMSDate>;
@@ -13,9 +14,25 @@ export default function ({ dots }: Props): JSX.Element {
 		<div
 			css={css`
 				display: grid;
-				grid-template-columns: 1fr 1fr 1fr 1fr;
+				grid-template-columns: repeat(4, 1fr);
 				column-gap: 20px;
 				row-gap: 30px;
+
+				@media (max-width: ${spWidth}px) {
+					grid-template-columns: repeat(5, 1fr);
+				}
+
+				@media (max-width: 900px) {
+					grid-template-columns: repeat(4, 1fr);
+				}
+
+				@media (max-width: 700px) {
+					grid-template-columns: repeat(3, 1fr);
+				}
+
+				@media (max-width: 500px) {
+					grid-template-columns: repeat(2, 1fr);
+				}
 			`}
 		>
 			{dots.map((illust) => {
@@ -27,6 +44,7 @@ export default function ({ dots }: Props): JSX.Element {
 							cursor: pointer;
 							display: block;
 							text-decoration: none;
+							user-select: none;
 
 							&:hover {
 								opacity: 0.8;
@@ -40,6 +58,7 @@ export default function ({ dots }: Props): JSX.Element {
 								width: 100%;
 								aspect-ratio: 1/1;
 								image-rendering: pixelated;
+								pointer-events: none;
 							`}
 							src={illust.dot.url}
 							alt={illust.title}

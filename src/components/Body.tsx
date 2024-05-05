@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import SidebarLink from "@/components/SidebarLink";
 import { css } from "@emotion/react";
+import Sidebar from "@/components/Sidebar";
 
 interface Props {
 	children: React.ReactNode;
@@ -23,10 +23,66 @@ export default function ({ children }: Props): JSX.Element {
 			>
 				<header
 					css={css`
-						background-color: #f89b4e;
+						position: relative;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						gap: 10px;
+						justify-content: center;
+						background-color: #ebae7e;
 						padding: 30px 0;
+						border: 7px solid #492b18;
 					`}
 				>
+					<span
+						css={css`
+							position: absolute;
+							top: 17px;
+							left: 17px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #613e28;
+						`}
+					/>
+					<span
+						css={css`
+							position: absolute;
+							top: 10px;
+							left: 10px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #492b18;
+						`}
+					/>
+
+					<span
+						css={css`
+							position: absolute;
+							bottom: 10px;
+							right: 10px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #613e28;
+						`}
+					/>
+					<span
+						css={css`
+							position: absolute;
+							bottom: 17px;
+							right: 17px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #492b18;
+						`}
+					/>
 					<a
 						css={css`
 							text-decoration: none;
@@ -35,9 +91,19 @@ export default function ({ children }: Props): JSX.Element {
 					>
 						<h1
 							css={css`
-								text-align: center;
+								display: inline-block;
 								font-size: 30px;
 								font-weight: bold;
+								color: #86664f;
+								text-shadow:
+									1px 1px 0 #492b18,
+									-1px -1px 0 #492b18,
+									-1px 1px 0 #492b18,
+									1px -1px 0 #492b18,
+									0px 1px 0 #492b18,
+									-1px 0 #492b18,
+									-1px 0 0 #492b18,
+									1px 0 0 #492b18;
 							`}
 						>
 							どっとや
@@ -46,7 +112,7 @@ export default function ({ children }: Props): JSX.Element {
 					<p
 						css={css`
 							text-align: center;
-							margin-top: 10px;
+							color: #313131;
 						`}
 					>
 						ドット絵のフリーイラスト素材屋さんです。
@@ -54,26 +120,19 @@ export default function ({ children }: Props): JSX.Element {
 				</header>
 				<main
 					css={css`
-						padding: 50px 0;
+						padding: 50px 10px;
 						display: flex;
 						gap: 30px;
 						max-width: 1300px;
 						width: 100%;
 						margin: 0 auto;
+
+						@media (max-width: 1130px) {
+							flex-direction: column;
+						}
 					`}
 				>
-					<aside
-						css={css`
-							display: flex;
-							flex-direction: column;
-							width: 300px;
-							gap: 15px;
-						`}
-					>
-						<SidebarLink href="/">ホーム</SidebarLink>
-						<SidebarLink href="/terms">利用規約</SidebarLink>
-						<SidebarLink href="/contact">お問い合わせ</SidebarLink>
-					</aside>
+					<Sidebar />
 					<div
 						css={css`
 							flex: 1;
@@ -105,11 +164,11 @@ export default function ({ children }: Props): JSX.Element {
 					`}
 				>
 					<span>Created by</span>
-					<a href="https://twitter.com/acharom032" target="_blank" rel="noreferrer">
+					<a href="https://stagnation.xyz" target="_blank" rel="noreferrer">
 						acharom
 					</a>
 					<span>&</span>
-					<a href="https://twitter.com/Akime_Aki" target="_blank" rel="noreferrer">
+					<a href="https://aki.wtf" target="_blank" rel="noreferrer">
 						彩季
 					</a>
 				</p>

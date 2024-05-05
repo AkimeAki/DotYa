@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import type { HTMLAttributeAnchorTarget } from "react";
+import { type HTMLAttributeAnchorTarget } from "react";
 import { css } from "@emotion/react";
 
 interface Props {

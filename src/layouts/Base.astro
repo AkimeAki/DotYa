@@ -46,7 +46,7 @@ const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
 	</head>
 	<body>
-		<Body>
+		<Body client:only="react">
 			<slot />
 		</Body>
 	</body>
