@@ -203,6 +203,7 @@ export default function ({ dots }: Props): JSX.Element {
 							>
 								{illust.dot32 !== undefined && (
 									<PixelButton
+										color="#dd5a21"
 										onClick={() => {
 											changePixel(illust.id, 32);
 										}}
@@ -213,6 +214,7 @@ export default function ({ dots }: Props): JSX.Element {
 								)}
 								{illust.dot16 !== undefined && (
 									<PixelButton
+										color="#dd21be"
 										onClick={() => {
 											changePixel(illust.id, 16);
 										}}

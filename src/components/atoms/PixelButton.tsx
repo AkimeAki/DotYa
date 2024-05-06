@@ -7,9 +7,10 @@ interface Props {
 	onClick?: () => void;
 	disabled?: boolean;
 	attached?: boolean;
+	color: string;
 }
 
-export default function ({ children, onClick, disabled = false, attached = true }: Props) {
+export default function ({ children, onClick, disabled = false, attached = true, color }: Props) {
 	return (
 		<button
 			onClick={() => {
@@ -21,7 +22,7 @@ export default function ({ children, onClick, disabled = false, attached = true 
 				padding: 2px 3px 3px;
 				display: inline-block;
 				text-decoration: none;
-				background-color: #dd5a21;
+				background-color: ${color};
 				color: #faf5b1;
 				border-radius: 4px;
 				border-bottom: 2px solid #111516;
@@ -32,7 +33,7 @@ export default function ({ children, onClick, disabled = false, attached = true 
 				font-size: 14px;
 
 				&:hover {
-					background-color: #b34618;
+					background-color: ${color};
 				}
 
 				${!attached &&
