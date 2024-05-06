@@ -36,3 +36,13 @@ export const getContentsDetail = async <T>(
 
 	return nullToUndefined<T & MicroCMSContentId & MicroCMSDate>(content);
 };
+
+let cacheData: { [key: string]: any } = {};
+
+export const cache = async <T>(key: string, factory: () => Promise<T>) => {
+	if (!cacheData[key]) {
+		cacheData[key] = await factory();
+	}
+
+	return cacheData[key] as T;
+};

@@ -1,8 +1,9 @@
 ---
 import Body from "@/components/templates/Body";
 import "@/global.scss";
-import { getListAllContents } from "@/libs/microcms";
+import { cache, getListAllContents } from "@/libs/microcms";
 import type { DotIllustTag } from "@/types";
+import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 interface Props {
 	title?: string;
@@ -22,7 +23,10 @@ const serviceTitle = "どっとや";
 const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitle}`;
 const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 
-const tags = await getListAllContents<DotIllustTag>("tags");
+const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
+	"allTags",
+	async () => await getListAllContents<DotIllustTag>("tags", { fields: ["id", "name"] })
+);
 ---
 
 <html lang="ja">
