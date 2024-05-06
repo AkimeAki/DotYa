@@ -25,8 +25,10 @@ export default function ({ children, onClick, disabled = false, attached = true,
 		background-color: ${color};
 		color: #faf5b1;
 		border-radius: 4px;
+		border-right: 2px solid #111516;
 		border-bottom: 2px solid #111516;
 		border-top: 2px solid #6e6358;
+		border-left: 2px solid #6e6358;
 		user-select: none;
 		text-align: center;
 		cursor: pointer;
