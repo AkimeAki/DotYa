@@ -24,7 +24,7 @@ if (id === undefined) {
 	return;
 }
 
-const dot = await getContentsDetail<DotIllust>("dot", id);
+const dot = await getContentsDetail<DotIllust>("dot", id, { fields: ["id", "title", "dot32", "dot16"] });
 
 const illust = dot.dot32 ?? dot.dot16;
 if (illust === undefined) {
