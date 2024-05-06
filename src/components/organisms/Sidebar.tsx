@@ -116,6 +116,7 @@ export default function ({ tags }: Props): JSX.Element {
 						transform: translateX(${isOpen ? "0" : "-100%"});
 						transition-duration: 200ms;
 						transition-property: transform;
+						z-index: 9999999;
 					}
 				`}
 			>
