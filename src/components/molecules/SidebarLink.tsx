@@ -23,8 +23,10 @@ export default function ({ href, children, target }: Props): JSX.Element {
 				border-top: 2px solid #6e6358;
 				user-select: none;
 
-				&:hover {
-					background-color: #554a46;
+				@media (hover: hover) {
+					&:hover {
+						background-color: #554a46;
+					}
 				}
 			`}
 			href={href}

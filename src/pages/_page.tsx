@@ -150,8 +150,10 @@ export default function ({ dots, title }: Props): JSX.Element {
 									text-decoration: none;
 									user-select: none;
 
-									&:hover {
-										opacity: 0.8;
+									@media (hover: hover) {
+										&:hover {
+											opacity: 0.8;
+										}
 									}
 								`}
 							>

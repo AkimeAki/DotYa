@@ -28,8 +28,10 @@ export default function ({ children, onClick }: Props) {
 				text-align: center;
 				cursor: pointer;
 
-				&:hover {
-					background-color: #554a46;
+				@media (hover: hover) {
+					&:hover {
+						background-color: #554a46;
+					}
 				}
 			`}
 		>

@@ -47,8 +47,10 @@ export default function ({ children, onClick, disabled = false, attached = true,
 			background-color: #2c1308;
 			cursor: default;
 
-			&:hover {
-				background-color: inherit;
+			@media (hover: hover) {
+				&:hover {
+					background-color: inherit;
+				}
 			}
 		`}
 	`;
