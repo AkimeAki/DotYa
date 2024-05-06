@@ -26,7 +26,8 @@ if (id === undefined) {
 
 const tag = await getContentsDetail<DotIllustTag>("tags", id);
 const dots = await getListAllContents<DotIllust>("dot", {
-	filters: `tags[contains]${tag.id}`
+	filters: `tags[contains]${tag.id}`,
+	fields: ["id", "title", "dot32", "dot16", "tags"]
 });
 ---
 
