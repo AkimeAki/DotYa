@@ -7,4 +7,4 @@ import { getListAllContents } from "@/libs/microcms";
 const dots = await getListAllContents<DotIllust>("dot");
 ---
 
-<Base><Page dots={dots} client:only="react" /></Base>
+<Base><Page title="ドット絵一覧" dots={dots} client:only="react" /></Base>

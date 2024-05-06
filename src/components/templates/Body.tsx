@@ -2,12 +2,15 @@
 
 import { css } from "@emotion/react";
 import Sidebar from "@/components/organisms/Sidebar";
+import type { MicroCMSListContent } from "microcms-js-sdk";
+import type { DotIllustTag } from "@/types";
 
 interface Props {
 	children: React.ReactNode;
+	tags: (DotIllustTag & MicroCMSListContent)[];
 }
 
-export default function ({ children }: Props): JSX.Element {
+export default function ({ children, tags }: Props): JSX.Element {
 	return (
 		<div
 			css={css`
@@ -132,7 +135,7 @@ export default function ({ children }: Props): JSX.Element {
 						}
 					`}
 				>
-					<Sidebar />
+					<Sidebar tags={tags} />
 					<div
 						css={css`
 							flex: 1;

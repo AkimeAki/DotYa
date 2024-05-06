@@ -2,10 +2,17 @@
 
 import SidebarLink from "@/components/molecules/SidebarLink";
 import { spWidth } from "@/define";
+import type { DotIllustTag } from "@/types";
 import { css } from "@emotion/react";
+import type { MicroCMSListContent } from "microcms-js-sdk";
 import { useState } from "react";
+import PixelButton from "@/components/atoms/PixelButton";
 
-export default function (): JSX.Element {
+interface Props {
+	tags: (DotIllustTag & MicroCMSListContent)[];
+}
+
+export default function ({ tags }: Props): JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
@@ -115,6 +122,21 @@ export default function (): JSX.Element {
 				<SidebarLink href="/">ホーム</SidebarLink>
 				<SidebarLink href="/terms">利用規約</SidebarLink>
 				<SidebarLink href="/contact">お問い合わせ</SidebarLink>
+				<div
+					css={css`
+						display: flex;
+						gap: 5px;
+						flex-wrap: wrap;
+					`}
+				>
+					{tags.map((tag) => {
+						return (
+							<PixelButton href={`/tags/${tag.id}`} color="#4d3d36">
+								{tag.name}
+							</PixelButton>
+						);
+					})}
+				</div>
 			</aside>
 		</>
 	);

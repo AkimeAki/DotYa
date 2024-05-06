@@ -1,6 +1,8 @@
 ---
 import Body from "@/components/templates/Body";
 import "@/global.scss";
+import { getListAllContents } from "@/libs/microcms";
+import type { DotIllustTag } from "@/types";
 
 interface Props {
 	title?: string;
@@ -19,6 +21,8 @@ const {
 const serviceTitle = "どっとや";
 const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitle}`;
 const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
+
+const tags = await getListAllContents<DotIllustTag>("tags");
 ---
 
 <html lang="ja">
@@ -46,7 +50,7 @@ const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
 	</head>
 	<body>
-		<Body client:only="react">
+		<Body tags={tags} client:only="react">
 			<slot />
 		</Body>
 	</body>

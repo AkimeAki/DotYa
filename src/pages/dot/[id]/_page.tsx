@@ -5,6 +5,7 @@ import type { DotIllust } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Button from "@/components/atoms/Button";
 import { downloadImage } from "@/libs/download-image";
+import Title from "@/components/atoms/Title";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -13,20 +14,7 @@ interface Props {
 export default function ({ dot }: Props): JSX.Element {
 	return (
 		<>
-			<h2
-				css={css`
-					padding: 15px 20px 20px;
-					text-decoration: none;
-					background-color: #36364d;
-					color: #faf5b1;
-					border-radius: 4px;
-					border-bottom: 2px solid #111116;
-					border-top: 2px solid #58586e;
-					font-size: 30px;
-				`}
-			>
-				{dot.title}
-			</h2>
+			<Title>{dot.title}</Title>
 			<div
 				css={css`
 					display: flex;
