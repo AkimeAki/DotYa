@@ -1,6 +1,12 @@
-import type { MicroCMSImage } from "microcms-js-sdk";
+import type { MicroCMSImage, MicroCMSListContent } from "microcms-js-sdk";
+
+interface Tags {
+	name: string;
+}
 
 export interface DotIllust {
 	title: string;
-	dot: MicroCMSImage;
+	dot32?: MicroCMSImage;
+	dot16?: MicroCMSImage;
+	tags: (Tags & MicroCMSListContent)[];
 }

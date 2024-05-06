@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/organisms/Sidebar";
 
 interface Props {
 	children: React.ReactNode;

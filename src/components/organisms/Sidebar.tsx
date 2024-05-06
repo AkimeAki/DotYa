@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import SidebarLink from "@/components/SidebarLink";
+import SidebarLink from "@/components/molecules/SidebarLink";
 import { spWidth } from "@/define";
 import { css } from "@emotion/react";
 import { useState } from "react";
