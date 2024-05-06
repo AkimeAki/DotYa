@@ -5,7 +5,7 @@ import type { DotIllust } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface SelectPixel {
 	[key: string]: {
