@@ -132,7 +132,7 @@ export default function ({ tags }: Props): JSX.Element {
 				>
 					{tags.map((tag) => {
 						return (
-							<PixelButton href={`/tags/${tag.id}`} color="#4d3d36">
+							<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
 								{tag.name}
 							</PixelButton>
 						);
