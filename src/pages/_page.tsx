@@ -111,6 +111,8 @@ export default function ({ dots, title }: Props): JSX.Element {
 								css={css`
 									display: flex;
 									gap: 5px;
+									user-select: none;
+									pointer-events: none;
 								`}
 							>
 								{illust.dot32 !== undefined && (
