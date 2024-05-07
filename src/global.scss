@@ -40,6 +40,10 @@ ol {
 
 a {
 	color: #1976d2;
+
+	* {
+		color: inherit;
+	}
 }
 
 p {
@@ -48,4 +52,8 @@ p {
 
 li {
 	line-height: 1.8;
+}
+
+strong {
+	font-weight: bold;
 }

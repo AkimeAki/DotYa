@@ -10,3 +10,8 @@ export interface DotIllust {
 	dot16?: MicroCMSImage;
 	tags: (DotIllustTag & MicroCMSListContent)[];
 }
+
+export interface CMSPage {
+	title: string;
+	content: string;
+}

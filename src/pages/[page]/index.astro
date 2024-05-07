@@ -1,0 +1,36 @@
+---
+import Base from "@/layouts/Base.astro";
+import Page from "./_page";
+import type { CMSPage } from "@/types";
+import { getContentsDetail, getListAllContents } from "@/libs/microcms";
+
+interface pathType {
+	params: {
+		page: string;
+	};
+}
+
+export const getStaticPaths = async (): Promise<pathType[]> => {
+	const response = await getListAllContents<CMSPage>("page", { fields: ["id"] });
+
+	return response.map((content) => ({
+		params: {
+			page: content.id
+		}
+	}));
+};
+
+const { page } = Astro.params;
+if (page === undefined) {
+	return;
+}
+
+const detail = await getContentsDetail<CMSPage>("page", page, { fields: ["id", "title", "content"] });
+---
+
+<Base
+	title={detail.title}
+	description={`${detail.title}ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
+>
+	<Page title={detail.title} content={detail.content} />
+</Base>
