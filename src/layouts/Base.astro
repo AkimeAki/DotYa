@@ -46,6 +46,16 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 		<meta property="og:image" content={ogImage} />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@Akime_Aki" />
+		<!-- Google Tag Manager -->
+		<script is:inline>
+			// prettier-ignore
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-M74W225P');
+		</script>
+		<!-- End Google Tag Manager -->
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<title>{pageTitle}</title>
@@ -54,6 +64,15 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript>
+			<iframe
+				src="https://www.googletagmanager.com/ns.html?id=GTM-M74W225P"
+				height="0"
+				width="0"
+				style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<Body tags={tags} client:only="react">
 			<slot />
 		</Body>
