@@ -154,12 +154,24 @@ export default function ({ dots, title }: Props): JSX.Element {
 
 									@media (hover: hover) {
 										&:hover {
-											opacity: 0.8;
+											.image-wrapper {
+												&:before {
+													content: "";
+													display: block;
+													position: absolute;
+													top: 0;
+													left: 0;
+													width: calc(100% - 6px);
+													height: calc(100% - 6px);
+													border: 3px solid #492b18;
+												}
+											}
 										}
 									}
 								`}
 							>
 								<div
+									className="image-wrapper"
 									css={css`
 										position: relative;
 										padding: 10px;

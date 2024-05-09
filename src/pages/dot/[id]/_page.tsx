@@ -6,6 +6,7 @@ import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Button from "@/components/atoms/Button";
 import { downloadImage } from "@/libs/download-image";
 import Title from "@/components/atoms/Title";
+import PictureFrame from "@/components/atoms/PictureFrame";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -13,7 +14,13 @@ interface Props {
 
 export default function ({ dot }: Props): JSX.Element {
 	return (
-		<>
+		<div
+			css={css`
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
+			`}
+		>
 			<Title>{dot.title}</Title>
 			<div
 				css={css`
@@ -31,21 +38,12 @@ export default function ({ dot }: Props): JSX.Element {
 								align-items: flex-end;
 								user-select: none;
 								pointer-events: none;
+								gap: 20px;
 							`}
 						>
 							{[128, 64, 32].map((pixel) => {
 								return (
-									<img
-										key={pixel}
-										css={css`
-											display: block;
-											width: ${pixel}px;
-											aspect-ratio: 1/1;
-											image-rendering: pixelated;
-										`}
-										src={dot.dot32?.url}
-										alt={dot.title}
-									/>
+									<PictureFrame key={pixel} size={pixel} src={dot.dot32?.url ?? ""} alt={dot.title} />
 								);
 							})}
 						</div>
@@ -73,21 +71,12 @@ export default function ({ dot }: Props): JSX.Element {
 								align-items: flex-end;
 								user-select: none;
 								pointer-events: none;
+								gap: 20px;
 							`}
 						>
 							{[128, 64, 32].map((pixel) => {
 								return (
-									<img
-										key={pixel}
-										css={css`
-											display: block;
-											width: ${pixel}px;
-											aspect-ratio: 1/1;
-											image-rendering: pixelated;
-										`}
-										src={dot.dot16?.url}
-										alt={dot.title}
-									/>
+									<PictureFrame key={pixel} size={pixel} src={dot.dot16?.url ?? ""} alt={dot.title} />
 								);
 							})}
 						</div>
@@ -107,6 +96,6 @@ export default function ({ dot }: Props): JSX.Element {
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	);
 }
