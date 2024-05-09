@@ -10,13 +10,15 @@ interface Props {
 	description?: string;
 	ogType?: string;
 	ogImage?: string;
+	notFound?: boolean;
 }
 
 const {
 	title,
 	description = "ドット絵のフリーイラスト素材屋さんです。",
 	ogType = "article",
-	ogImage = "/default-ogp.png"
+	ogImage = "/default-ogp.png",
+	notFound = false
 } = Astro.props;
 
 const serviceTitle = "どっとや";
@@ -38,7 +40,7 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 		<meta name="format-detection" content="email=no,telephone=no,address=no" />
 		<meta name="author" content="彩季" />
 		<meta name="generator" content={Astro.generator} />
-		<meta property="og:url" content={`https://dotya.aki.wtf/${path}`} />
+		<meta property="og:url" content={`${Astro.site}${path}`} />
 		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title ?? serviceTitle} />
 		<meta property="og:description" content={description} />
@@ -62,6 +64,7 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+		{!notFound && <link rel="canonical" href={`${Astro.site}${path}`} />}
 	</head>
 	<body>
 		<!-- Google Tag Manager (noscript) -->
