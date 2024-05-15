@@ -174,7 +174,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 						`}
 					>
 						<span>Created by</span>
-						<a href="https://stagnation.xyz" target="_blank" rel="noreferrer">
+						<a href="https://twitter.com/acharom032" target="_blank" rel="noreferrer">
 							acharom
 						</a>
 						<span>&</span>
