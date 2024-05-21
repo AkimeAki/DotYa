@@ -29,6 +29,13 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 	"allTags",
 	async () => await getListAllContents<DotIllustTag>("tags", { fields: ["id", "name"] })
 );
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: serviceTitle,
+	url: Astro.site
+};
 ---
 
 <html lang="ja">
@@ -58,8 +65,9 @@ const tags = await cache<(DotIllustTag & MicroCMSContentId & MicroCMSDate)[]>(
 			})(window,document,'script','dataLayer','GTM-M74W225P');
 		</script>
 		<!-- End Google Tag Manager -->
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="icon" href={`${Astro.site}favicon.ico`} />
+		<link rel="sitemap" href={`${Astro.site}sitemap-index.xml`} />
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 		<title>{pageTitle}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -2,12 +2,15 @@
 import Base from "@/layouts/Base.astro";
 import Page from "@/pages/_page";
 import type { DotIllust, DotIllustTag } from "@/types";
-import { cache, getContentsDetail, getListAllContents } from "@/libs/microcms";
+import { cache, getListAllContents } from "@/libs/microcms";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 interface pathType {
 	params: {
 		id: string;
+	};
+	props: {
+		tag: DotIllustTag & MicroCMSContentId & MicroCMSDate;
 	};
 }
 
@@ -20,6 +23,9 @@ export const getStaticPaths = async (): Promise<pathType[]> => {
 	return response.map((content) => ({
 		params: {
 			id: content.id
+		},
+		props: {
+			tag: content
 		}
 	}));
 };
@@ -29,7 +35,7 @@ if (id === undefined) {
 	return;
 }
 
-const tag = await getContentsDetail<DotIllustTag>("tags", id, { fields: ["id", "name"] });
+const { tag } = Astro.props;
 const dots = await getListAllContents<DotIllust>("dot", {
 	filters: `tags[contains]${tag.id}`,
 	fields: ["id", "title", "dot32", "dot16", "tags"]

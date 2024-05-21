@@ -2,20 +2,27 @@
 import Base from "@/layouts/Base.astro";
 import Page from "./_page";
 import type { CMSPage } from "@/types";
-import { getContentsDetail, getListAllContents } from "@/libs/microcms";
+import { getListAllContents } from "@/libs/microcms";
+import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 interface pathType {
 	params: {
 		page: string;
 	};
+	props: {
+		detail: CMSPage & MicroCMSContentId & MicroCMSDate;
+	};
 }
 
 export const getStaticPaths = async (): Promise<pathType[]> => {
-	const response = await getListAllContents<CMSPage>("page", { fields: ["id"] });
+	const response = await getListAllContents<CMSPage>("page", { fields: ["id", "title", "content"] });
 
 	return response.map((content) => ({
 		params: {
 			page: content.id
+		},
+		props: {
+			detail: content
 		}
 	}));
 };
@@ -25,7 +32,7 @@ if (page === undefined) {
 	return;
 }
 
-const detail = await getContentsDetail<CMSPage>("page", page, { fields: ["id", "title", "content"] });
+const { detail } = Astro.props;
 ---
 
 <Base
