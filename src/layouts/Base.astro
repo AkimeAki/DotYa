@@ -69,9 +69,6 @@ const schema = {
 		<link rel="sitemap" href={`${Astro.site}sitemap-index.xml`} />
 		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 		<title>{pageTitle}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
 		{!notFound && <link rel="canonical" href={`${Astro.site}${path}`} />}
 	</head>
 	<body>
