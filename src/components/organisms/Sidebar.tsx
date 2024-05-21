@@ -123,6 +123,7 @@ export default function ({ tags }: Props): JSX.Element {
 				<SidebarLink href="/">ホーム</SidebarLink>
 				<SidebarLink href="/terms">利用規約</SidebarLink>
 				<SidebarLink href="/contact">お問い合わせ</SidebarLink>
+				<SidebarLink href="/update">更新履歴</SidebarLink>
 				<div
 					css={css`
 						display: flex;
