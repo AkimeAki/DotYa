@@ -46,5 +46,5 @@ const px = dot.dot32 !== undefined ? 16 : dot.dot16 !== undefined ? 32 : 16;
 	ogImage={`${illust.url}?w=512&q=100&px=${px}`}
 	description={`${dot.title}のドット絵です。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
 >
-	<Page client:only="react" dot={dot} />
+	<Page client:load dot={dot} />
 </Base>
