@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Page from "@/pages/_page";
+import List from "@/components/templates/List";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { cache, getListAllContents } from "@/libs/microcms";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
@@ -46,5 +46,5 @@ const dots = await getListAllContents<DotIllust>("dot", {
 	title={tag.name}
 	description={`${tag.name}タグが付いたドット絵一覧ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
 >
-	<Page title={`${tag.name}タグが付いたドット絵一覧`} dots={dots} client:load />
+	<List title={`${tag.name}タグが付いたドット絵一覧`} dots={dots} client:only="react" />
 </Base>
