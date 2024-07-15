@@ -8,7 +8,7 @@ export default defineConfig({
 		port: 9001,
 		host: "0.0.0.0"
 	},
-	site: "https://dotya.aki.wtf",
+	site: "https://pixel.gives",
 	trailingSlash: "never",
 	integrations: [sitemap(), react()],
 	build: {
