@@ -4,10 +4,8 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "astro dev",
-		"start": "astro dev",
 		"build": "astro check && astro build",
 		"preview": "astro preview",
-		"astro": "astro",
 		"format": "prettier --write './**/*.{md,css,scss,astro,json,js,jsx,cjs,mjs,ts,tsx,yaml,yml,html}'",
 		"lint": "eslint \"./**/*.{astro,js,jsx,cjs,mjs,ts,tsx}\"",
 		"lint:fix": "bun lint -- --fix && bun format"

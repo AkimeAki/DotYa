@@ -14,4 +14,5 @@ export interface DotIllust {
 export interface CMSPage {
 	title: string;
 	content: string;
+	tags: (DotIllustTag & MicroCMSListContent)[];
 }

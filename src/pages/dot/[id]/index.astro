@@ -11,17 +11,31 @@ interface pathType {
 	};
 	props: {
 		dot: DotIllust & MicroCMSContentId & MicroCMSDate;
+		sameTagDots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
 	};
 }
 
 export const getStaticPaths = async (): Promise<pathType[]> => {
-	const response = await getListAllContents<DotIllust>("dot", { fields: ["id", "title", "dot32", "dot16"] });
+	const response = await getListAllContents<DotIllust>("dot", { fields: ["id", "title", "dot32", "dot16", "tags"] });
 	return response.map((content) => ({
 		params: {
 			id: content.id
 		},
 		props: {
-			dot: content
+			dot: content,
+			sameTagDots: response.filter((item) => {
+				if (item.id === content.id) {
+					return false;
+				}
+
+				for (const tag of item.tags) {
+					for (const thisTag of content.tags) {
+						return tag.id === thisTag.id;
+					}
+				}
+
+				return false;
+			})
 		}
 	}));
 };
@@ -31,7 +45,7 @@ if (id === undefined) {
 	return;
 }
 
-const { dot } = Astro.props;
+const { dot, sameTagDots } = Astro.props;
 
 const illust = dot.dot32 ?? dot.dot16;
 if (illust === undefined) {
@@ -46,5 +60,5 @@ const px = dot.dot32 !== undefined ? 16 : dot.dot16 !== undefined ? 32 : 16;
 	ogImage={`${illust.url}?w=512&q=100&px=${px}`}
 	description={`${dot.title}のドット絵です。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
 >
-	<Page client:load dot={dot} />
+	<Page client:only="react" dot={dot} sameTagDots={sameTagDots} />
 </Base>

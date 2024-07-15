@@ -7,12 +7,15 @@ import Button from "@/components/atoms/Button";
 import { downloadImage } from "@/libs/download-image";
 import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
+import PixelButton from "@/components/atoms/PixelButton";
+import List from "@/components/templates/List";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
+	sameTagDots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
 }
 
-export default function ({ dot }: Props): JSX.Element {
+export default function ({ dot, sameTagDots }: Props): JSX.Element {
 	return (
 		<div
 			css={css`
@@ -41,7 +44,7 @@ export default function ({ dot }: Props): JSX.Element {
 								gap: 20px;
 							`}
 						>
-							{[128, 64, 32].map((pixel) => {
+							{[256, 128, 64, 32].map((pixel) => {
 								return (
 									<PictureFrame key={pixel} size={pixel} src={dot.dot32?.url ?? ""} alt={dot.title} />
 								);
@@ -76,7 +79,7 @@ export default function ({ dot }: Props): JSX.Element {
 								gap: 20px;
 							`}
 						>
-							{[128, 64, 32].map((pixel) => {
+							{[256, 128, 64, 32].map((pixel) => {
 								return (
 									<PictureFrame key={pixel} size={pixel} src={dot.dot16?.url ?? ""} alt={dot.title} />
 								);
@@ -100,6 +103,25 @@ export default function ({ dot }: Props): JSX.Element {
 					</div>
 				)}
 			</div>
+
+			<div
+				css={css`
+					display: flex;
+					gap: 5px;
+					flex-wrap: wrap;
+				`}
+			>
+				タグ:
+				{dot.tags.map((tag) => {
+					return (
+						<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
+							{tag.name}
+						</PixelButton>
+					);
+				})}
+			</div>
+
+			<List dots={sameTagDots} title="同じタグのドット絵" />
 		</div>
 	);
 }
