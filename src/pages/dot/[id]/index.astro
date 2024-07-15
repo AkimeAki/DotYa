@@ -30,7 +30,9 @@ export const getStaticPaths = async (): Promise<pathType[]> => {
 
 				for (const tag of item.tags) {
 					for (const thisTag of content.tags) {
-						return tag.id === thisTag.id;
+						if (tag.id === thisTag.id) {
+							return true;
+						}
 					}
 				}
 
