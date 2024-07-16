@@ -1,21 +1,28 @@
 /** @jsxImportSource @emotion/react */
+import Title from "@/components/atoms/Title";
+import { css } from "@emotion/react";
 
 export default function (): JSX.Element {
 	return (
-		<>
-			<p>お問い合わせページは作成中のため、作者のX（旧Twitter）からお問い合わせお願いします。</p>
-			<p>
-				acharom：
-				<a href="https://twitter.com/acharom032" target="_blank">
-					X（旧Twitter）
-				</a>
-			</p>
-			<p>
-				彩季：
-				<a href="https://twitter.com/Akime_Aki" target="_blank">
-					X（旧Twitter）
-				</a>
-			</p>
-		</>
+		<div
+			css={css`
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
+			`}
+		>
+			<Title>お問い合わせ</Title>
+			<div>
+				<iframe
+					css={css`
+						width: 100%;
+						height: 1000px;
+					`}
+					src="https://docs.google.com/forms/d/e/1FAIpQLSfLI8zc_8L5piTSaO0inQwAsKCDikgfaUKcF8a9eA6WhSZSCA/viewform?embedded=true"
+				>
+					読み込んでいます…
+				</iframe>
+			</div>
+		</div>
 	);
 }
