@@ -84,7 +84,7 @@ const schema = {
 				style="display:none;visibility:hidden"></iframe>
 		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
-		<Body tags={tags} client:only="react">
+		<Body tags={tags} client:load>
 			<slot />
 		</Body>
 	</body>
