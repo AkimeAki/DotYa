@@ -84,7 +84,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
-								loading={check}
+								loading={!check}
 								onClick={() => {
 									if ((window as any).turnstileCheck === true) {
 										// @ts-ignore
@@ -133,7 +133,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
-								loading={check}
+								loading={!check}
 								onClick={() => {
 									if ((window as any).turnstileCheck === true) {
 										// @ts-ignore
