@@ -155,6 +155,25 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						</div>
 					);
 				})}
+				<div
+					css={css`
+						display: none;
+					`}
+				>
+					{dot.id}
+				</div>
+				{dot.tags.map((tag) => {
+					return (
+						<div
+							key={tag.id}
+							css={css`
+								display: none;
+							`}
+						>
+							{tag.id}
+						</div>
+					);
+				})}
 			</div>
 
 			<div data-pagefind-ignore>
