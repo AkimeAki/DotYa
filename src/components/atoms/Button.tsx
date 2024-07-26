@@ -5,10 +5,10 @@ import { css } from "@emotion/react";
 interface Props {
 	children: React.ReactNode;
 	onClick?: () => void;
-	loading: boolean;
+	loading?: boolean;
 }
 
-export default function ({ loading, children, onClick }: Props) {
+export default function ({ loading = false, children, onClick }: Props) {
 	return (
 		<button
 			onClick={() => {
