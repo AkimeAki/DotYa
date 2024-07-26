@@ -2,7 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import Page from "./_page";
 import type { CMSPage } from "@/types";
-import { getListAllContents } from "@/libs/microcms";
+import { getCachedContents } from "@/libs/microcms";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 interface pathType {
@@ -15,7 +15,7 @@ interface pathType {
 }
 
 export const getStaticPaths = async (): Promise<pathType[]> => {
-	const response = await getListAllContents<CMSPage>("page", { fields: ["id", "title", "content"] });
+	const response = await getCachedContents<CMSPage>("page");
 
 	return response.map((content) => ({
 		params: {

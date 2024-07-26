@@ -9,6 +9,10 @@ export interface DotIllust {
 	dot32?: MicroCMSImage;
 	dot16?: MicroCMSImage;
 	tags: (DotIllustTag & MicroCMSListContent)[];
+	keywords?: {
+		fieldId: string;
+		word: string;
+	}[];
 }
 
 export interface CMSPage {

@@ -44,6 +44,14 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								gap: 20px;
 							`}
 						>
+							<img
+								css={css`
+									display: none;
+								`}
+								src={dot.dot32?.url ?? ""}
+								alt={dot.title}
+								data-pagefind-meta="image[src], image_alt[alt]"
+							/>
 							{[256, 128, 64, 32].map((pixel) => {
 								return (
 									<PictureFrame key={pixel} size={pixel} src={dot.dot32?.url ?? ""} alt={dot.title} />
@@ -79,6 +87,14 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								gap: 20px;
 							`}
 						>
+							<img
+								css={css`
+									display: none;
+								`}
+								src={dot.dot32?.url ?? ""}
+								alt={dot.title}
+								data-pagefind-meta="image[src], image_alt[alt]"
+							/>
 							{[256, 128, 64, 32].map((pixel) => {
 								return (
 									<PictureFrame key={pixel} size={pixel} src={dot.dot16?.url ?? ""} alt={dot.title} />
@@ -119,9 +135,31 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						</PixelButton>
 					);
 				})}
+				<div
+					data-pagefind-meta="タグ"
+					css={css`
+						display: none;
+					`}
+				>
+					{dot.tags.map((tag) => tag.name).join(", ")}
+				</div>
+				{dot.keywords?.map((keyword, index) => {
+					return (
+						<div
+							key={index}
+							css={css`
+								display: none;
+							`}
+						>
+							{keyword.word}
+						</div>
+					);
+				})}
 			</div>
 
-			<List dots={sameTagDots} title="同じタグのドット絵" />
+			<div data-pagefind-ignore>
+				<List dots={sameTagDots} title="同じタグのドット絵" />
+			</div>
 		</div>
 	);
 }

@@ -2,9 +2,13 @@
 import Base from "@/layouts/Base.astro";
 import List from "@/components/templates/List";
 import type { DotIllust } from "@/types";
-import { getListAllContents } from "@/libs/microcms";
+import { getCachedContents } from "@/libs/microcms";
 
-const dots = await getListAllContents<DotIllust>("dot", { fields: ["id", "title", "dot32", "dot16", "tags"] });
+const dots = await getCachedContents<DotIllust>("dot");
 ---
 
-<Base><List title="ドット絵一覧" dots={dots} client:load /></Base>
+<Base>
+	<div data-pagefind-ignore>
+		<List title="ドット絵一覧" dots={dots} client:load />
+	</div>
+</Base>

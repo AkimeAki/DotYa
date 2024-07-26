@@ -4,6 +4,11 @@ import { css } from "@emotion/react";
 import Sidebar from "@/components/organisms/Sidebar";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import type { DotIllustTag } from "@/types";
+import "@pagefind/default-ui/css/ui.css";
+
+//@ts-ignore
+import { PagefindUI } from "@pagefind/default-ui";
+import { useEffect } from "react";
 
 interface Props {
 	children: React.ReactNode;
@@ -11,6 +16,13 @@ interface Props {
 }
 
 export default function ({ children, tags }: Props): JSX.Element {
+	useEffect(() => {
+		new PagefindUI({
+			element: ".search",
+			debounceTimeoutMs: 0
+		});
+	}, []);
+
 	return (
 		<div
 			css={css`
@@ -142,17 +154,60 @@ export default function ({ children, tags }: Props): JSX.Element {
 							}
 						`}
 					>
-						<Sidebar tags={tags} />
+						<div data-pagefind-ignore>
+							<Sidebar tags={tags} />
+						</div>
 						<div
 							css={css`
 								flex: 1;
 							`}
 						>
-							{children}
+							<div
+								css={css`
+									position: relative;
+								`}
+							>
+								<div
+									css={css`
+										position: absolute;
+										top: 0;
+										left: 0;
+										width: 100%;
+										z-index: 500;
+
+										.pagefind-ui__results-area {
+											background-color: white;
+											padding: 0 20px 20px;
+											border-radius: 6px;
+										}
+
+										.pagefind-ui__result-image {
+											image-rendering: pixelated !important;
+											object-fit: contain !important;
+											width: 100% !important;
+											aspect-ratio: 1 / 1 !important;
+										}
+
+										* {
+											font-family: "DotGothic16", sans-serif !important;
+										}
+									`}
+								>
+									<div className="search"></div>
+								</div>
+								<div
+									css={css`
+										padding-top: 70px;
+									`}
+								>
+									{children}
+								</div>
+							</div>
 						</div>
 					</main>
 				</div>
 				<footer
+					data-pagefind-ignore
 					css={css`
 						background-color: #6d6d6d;
 						border-top: 2px solid #535353;

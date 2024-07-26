@@ -4,7 +4,7 @@ module.exports = {
 	printWidth: 120,
 	semi: true,
 	trailingComma: "none",
-	plugins: ["prettier-plugin-astro"],
+	plugins: ["prettier-plugin-astro", "prettier-plugin-sh"],
 	overrides: [
 		{
 			files: "*.astro",

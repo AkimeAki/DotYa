@@ -1,2 +1,8 @@
 /node_modules/
-package-lock.json
+bun.lockb
+*.ico
+*.txt
+*.png
+*.ttf
+.editorconfig
+Makefile

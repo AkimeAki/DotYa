@@ -4,10 +4,10 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro check && astro build",
+		"build": "astro check && astro build && pagefind --site dist",
 		"preview": "astro preview",
-		"format": "prettier --write './**/*.{md,css,scss,astro,json,js,jsx,cjs,mjs,ts,tsx,yaml,yml,html}'",
-		"lint": "eslint \"./**/*.{astro,js,jsx,cjs,mjs,ts,tsx}\"",
+		"format": "prettier --write './**/*'",
+		"lint": "eslint \"./**/*\"",
 		"lint:fix": "bun lint -- --fix && bun format"
 	},
 	"dependencies": {
@@ -15,10 +15,12 @@
 		"@astrojs/react": "^3.3.2",
 		"@astrojs/sitemap": "^3.1.4",
 		"@emotion/react": "^11.11.4",
+		"@pagefind/default-ui": "^1.1.0",
 		"@types/react": "^18.3.1",
 		"@types/react-dom": "^18.3.0",
 		"astro": "^4.7.0",
 		"microcms-js-sdk": "^3.1.1",
+		"pagefind": "^1.1.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"sass": "^1.76.0",
@@ -27,9 +29,9 @@
 	"devDependencies": {
 		"eslint": "9.1.1",
 		"eslint-config-prettier": "9.1.0",
-		"eslint-config-standard-with-typescript": "43.0.1",
 		"eslint-plugin-astro": "1.1.1",
 		"prettier": "3.2.5",
-		"prettier-plugin-astro": "0.13.0"
+		"prettier-plugin-astro": "0.13.0",
+		"prettier-plugin-sh": "^0.14.0"
 	}
 }
