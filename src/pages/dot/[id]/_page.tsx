@@ -59,6 +59,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							})}
 						</div>
 						<div
+							data-pagefind-ignore
 							css={css`
 								margin-top: 30px;
 							`}
@@ -87,14 +88,16 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								gap: 20px;
 							`}
 						>
-							<img
-								css={css`
-									display: none;
-								`}
-								src={dot.dot16?.url ?? ""}
-								alt={dot.title}
-								data-pagefind-meta="image[src], image_alt[alt]"
-							/>
+							{dot.dot32 === undefined && (
+								<img
+									css={css`
+										display: none;
+									`}
+									src={dot.dot16?.url ?? ""}
+									alt={dot.title}
+									data-pagefind-meta="image[src], image_alt[alt]"
+								/>
+							)}
 							{[256, 128, 64, 32].map((pixel) => {
 								return (
 									<PictureFrame key={pixel} size={pixel} src={dot.dot16?.url ?? ""} alt={dot.title} />
@@ -102,6 +105,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							})}
 						</div>
 						<div
+							data-pagefind-ignore
 							css={css`
 								margin-top: 30px;
 							`}
