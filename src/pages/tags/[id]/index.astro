@@ -46,4 +46,7 @@ const dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
 	<div data-pagefind-ignore>
 		<List title={`${tag.name}タグが付いたドット絵一覧`} dots={dots} client:load />
 	</div>
+	<div style="display: none;">
+		{tag.id}
+	</div>
 </Base>

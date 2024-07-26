@@ -10,6 +10,7 @@ interface Props {
 	ogType?: string;
 	ogImage?: string;
 	notFound?: boolean;
+	ignoreSearch?: boolean;
 }
 
 const {
@@ -17,7 +18,8 @@ const {
 	description = "ドット絵のフリーイラスト素材屋さんです。",
 	ogType = "article",
 	ogImage = `${Astro.site}default-ogp.png`,
-	notFound = false
+	notFound = false,
+	ignoreSearch = false
 } = Astro.props;
 
 const serviceTitle = "どっとや";
@@ -70,7 +72,7 @@ const schema = {
 		<title>{pageTitle}</title>
 		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={`${Astro.site}${path}`} />}
 	</head>
-	<body>
+	<body data-pagefind-ignore={ignoreSearch}>
 		<!-- Google Tag Manager (noscript) -->
 		<noscript>
 			<iframe

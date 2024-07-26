@@ -38,6 +38,7 @@ const { detail } = Astro.props;
 <Base
 	title={detail.title}
 	description={`${detail.title}ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
+	ignoreSearch
 >
 	<Page title={detail.title} content={detail.content} />
 </Base>
