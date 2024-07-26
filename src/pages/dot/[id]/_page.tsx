@@ -9,7 +9,6 @@ import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import List from "@/components/templates/List";
-import { useEffect } from "react";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -17,12 +16,6 @@ interface Props {
 }
 
 export default function ({ dot, sameTagDots }: Props): JSX.Element {
-	useEffect(() => {
-		(window as any).turnstileCallback = () => {
-			console.log("aasdasdasd");
-		};
-	}, []);
-
 	return (
 		<div
 			css={css`

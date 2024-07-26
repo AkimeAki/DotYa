@@ -1,5 +1,11 @@
 <div class="turnstile">
-	<div class="cf-turnstile" data-sitekey="0x4AAAAAAAf4PWyOE5H1Y8EE" data-callback="turnstileCallback"></div>
+	<div
+		class="cf-turnstile"
+		data-sitekey="0x4AAAAAAAf4PWyOE5H1Y8EE"
+		data-callback="turnstileCallback"
+		data-error-callback="turnstileErrorCallback"
+	>
+	</div>
 </div>
 
 <style>
@@ -46,5 +52,9 @@
 				element.style.animationName = "fadeout";
 			}, 2000);
 		}
+	};
+
+	window.turnstileErrorCallback = () => {
+		location.href = "/error";
 	};
 </script>
