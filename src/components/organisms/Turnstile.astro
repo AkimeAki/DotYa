@@ -1,5 +1,10 @@
 <div class="turnstile">
-	<div class="cf-turnstile" data-sitekey="0x4AAAAAAAf4PWyOE5H1Y8EE" data-error-callback="turnstileErrorCallback">
+	<div
+		class="cf-turnstile"
+		data-sitekey="0x4AAAAAAAf4PWyOE5H1Y8EE"
+		data-error-callback="turnstileErrorCallback"
+		data-callback="turnstileCallback"
+	>
 	</div>
 </div>
 
@@ -9,6 +14,22 @@
 		bottom: 0;
 		right: 0;
 		z-index: 900;
+		transform: translateX(-100%);
+		animation-name: fadein;
+		animation-duration: 500ms;
+		animation-delay: 500ms;
+		animation-timing-function: ease-out;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes fadein {
+		0% {
+			transform: translateX(100%);
+		}
+
+		100% {
+			transform: translateX(0);
+		}
 	}
 </style>
 
