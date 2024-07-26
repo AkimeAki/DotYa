@@ -90,7 +90,7 @@ const schema = {
 		<div data-pagefind-meta="title" style="display: none;">
 			{title ?? serviceTitle}
 		</div>
-		{turnstile && <Turnstile />}
+		{turnstile && import.meta.env.NODE_ENV === "production" && <Turnstile />}
 		<Body tags={tags} client:load>
 			<slot />
 		</Body>

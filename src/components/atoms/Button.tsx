@@ -5,9 +5,10 @@ import { css } from "@emotion/react";
 interface Props {
 	children: React.ReactNode;
 	onClick?: () => void;
+	loading: boolean;
 }
 
-export default function ({ children, onClick }: Props) {
+export default function ({ loading, children, onClick }: Props) {
 	return (
 		<button
 			onClick={() => {
@@ -35,7 +36,7 @@ export default function ({ children, onClick }: Props) {
 				}
 			`}
 		>
-			{children}
+			{loading ? "読み込み中..." : children}
 		</button>
 	);
 }

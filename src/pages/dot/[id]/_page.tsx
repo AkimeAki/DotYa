@@ -65,10 +65,13 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
+								loading
 								onClick={() => {
-									// @ts-ignore
-									dataLayer.push({ event: "download-32" });
-									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
+									if ((window as any).turnstileCheck === true) {
+										// @ts-ignore
+										dataLayer.push({ event: "download-32" });
+										void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
+									}
 								}}
 							>
 								32px版をダウンロード
@@ -111,10 +114,13 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
+								loading
 								onClick={() => {
-									// @ts-ignore
-									dataLayer.push({ event: "download-16" });
-									void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
+									if ((window as any).turnstileCheck === true) {
+										// @ts-ignore
+										dataLayer.push({ event: "download-16" });
+										void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
+									}
 								}}
 							>
 								16px版をダウンロード
