@@ -14,16 +14,20 @@ export default function ({ dot }: Props) {
 		new Set([
 			...dot.tags.map((tag) => kanaToHira(tag.name)),
 			...dot.tags.map((tag) => hiraToKana(tag.name)),
+			...dot.tags.map((tag) => fullToHalf(tag.name)),
+			...dot.tags.map((tag) => halfToFull(tag.name)),
 			...(dot.keywords?.map((keyword) => kanaToHira(keyword.word)) ?? []),
 			...(dot.keywords?.map((keyword) => hiraToKana(keyword.word)) ?? []),
+			...(dot.keywords?.map((keyword) => fullToHalf(keyword.word)) ?? []),
+			...(dot.keywords?.map((keyword) => halfToFull(keyword.word)) ?? []),
 			kanaToHira(dot.title),
 			hiraToKana(dot.title),
 			fullToHalf(dot.title),
 			halfToFull(dot.title),
-			...dot.id.split(/[-_]/).map((name) => fullToHalf(name)),
-			...dot.id.split(/[-_]/).map((name) => halfToFull(name)),
-			...dot.tags.flatMap((tag) => tag.id.split(/[-_]/)).map((name) => fullToHalf(name)),
-			...dot.tags.flatMap((tag) => tag.id.split(/[-_]/)).map((name) => halfToFull(name))
+			...dot.id.split(/[-_]/).map((dotId) => fullToHalf(dotId)),
+			...dot.id.split(/[-_]/).map((dotId) => halfToFull(dotId)),
+			...dot.tags.flatMap((tag) => tag.id.split(/[-_]/)).map((tagId) => fullToHalf(tagId)),
+			...dot.tags.flatMap((tag) => tag.id.split(/[-_]/)).map((tagId) => halfToFull(tagId))
 		])
 	);
 
