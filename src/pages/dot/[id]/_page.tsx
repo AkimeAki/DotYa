@@ -91,7 +91,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								css={css`
 									display: none;
 								`}
-								src={dot.dot32?.url ?? ""}
+								src={dot.dot16?.url ?? ""}
 								alt={dot.title}
 								data-pagefind-meta="image[src], image_alt[alt]"
 							/>
