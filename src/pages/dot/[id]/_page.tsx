@@ -148,6 +148,30 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				>
 					{dot.tags.map((tag) => tag.name).join(", ")}
 				</div>
+				{dot.tags.map((tag, index) => {
+					return (
+						<div
+							key={index}
+							css={css`
+								display: none;
+							`}
+						>
+							{kanaToHira(tag.name)}
+						</div>
+					);
+				})}
+				{dot.tags.map((tag, index) => {
+					return (
+						<div
+							key={index}
+							css={css`
+								display: none;
+							`}
+						>
+							{hiraToKana(tag.name)}
+						</div>
+					);
+				})}
 				{dot.keywords?.map((keyword, index) => {
 					return (
 						<div
