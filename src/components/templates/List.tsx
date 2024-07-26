@@ -7,6 +7,7 @@ import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
 import { useState } from "react";
 import Title from "@/components/atoms/Title";
+import Pagination from "@/components/molecules/Pagination";
 
 interface SelectPixel {
 	[key: string]: {
@@ -18,9 +19,12 @@ interface SelectPixel {
 interface Props {
 	dots: Array<DotIllust & MicroCMSContentId & MicroCMSDate>;
 	title: string;
+	currentPage?: number;
+	lastPage?: number;
+	baseURl?: string;
 }
 
-export default function ({ dots, title }: Props): JSX.Element {
+export default function ({ dots, title, currentPage, lastPage, baseURl }: Props): JSX.Element {
 	let initSelectPixel: SelectPixel = {};
 
 	dots.forEach((dot) => {
@@ -69,6 +73,9 @@ export default function ({ dots, title }: Props): JSX.Element {
 			`}
 		>
 			<Title>{title}</Title>
+			{currentPage !== undefined && lastPage !== undefined && baseURl !== undefined && (
+				<Pagination current={currentPage} last={lastPage} baseUrl={baseURl} />
+			)}
 			<div
 				css={css`
 					display: grid;
@@ -280,6 +287,9 @@ export default function ({ dots, title }: Props): JSX.Element {
 					);
 				})}
 			</div>
+			{currentPage !== undefined && lastPage !== undefined && baseURl !== undefined && (
+				<Pagination current={currentPage} last={lastPage} baseUrl={baseURl} />
+			)}
 		</div>
 	);
 }
