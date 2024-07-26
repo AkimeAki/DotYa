@@ -1,0 +1,23 @@
+<div class="turnstile">
+	<div class="cf-turnstile" data-sitekey="0x4AAAAAAAf4PWyOE5H1Y8EE" data-error-callback="turnstileErrorCallback">
+	</div>
+</div>
+
+<style>
+	.turnstile {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		z-index: 900;
+	}
+</style>
+
+<script is:inline>
+	window.turnstileCallback = (token) => {
+		console.log(token);
+	};
+
+	window.turnstileErrorCallback = (e) => {
+		console.log(e);
+	};
+</script>

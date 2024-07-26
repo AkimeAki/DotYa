@@ -1,4 +1,5 @@
 ---
+import Turnstile from "@/components/organisms/Turnstile.astro";
 import Body from "@/components/templates/Body";
 import "@/global.scss";
 import { getCachedContents } from "@/libs/microcms";
@@ -11,6 +12,7 @@ interface Props {
 	ogImage?: string;
 	notFound?: boolean;
 	ignoreSearch?: boolean;
+	turnstile?: boolean;
 }
 
 const {
@@ -19,7 +21,8 @@ const {
 	ogType = "article",
 	ogImage = `${Astro.site}default-ogp.png`,
 	notFound = false,
-	ignoreSearch = false
+	ignoreSearch = false,
+	turnstile = false
 } = Astro.props;
 
 const serviceTitle = "どっとや";
@@ -71,6 +74,7 @@ const schema = {
 		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 		<title>{pageTitle}</title>
 		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={`${Astro.site}${path}`} />}
+		{turnstile && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" />}
 	</head>
 	<body data-pagefind-ignore={ignoreSearch}>
 		<!-- Google Tag Manager (noscript) -->
@@ -86,6 +90,7 @@ const schema = {
 		<div data-pagefind-meta="title" style="display: none;">
 			{title ?? serviceTitle}
 		</div>
+		{turnstile && <Turnstile />}
 		<Body tags={tags} client:load>
 			<slot />
 		</Body>
