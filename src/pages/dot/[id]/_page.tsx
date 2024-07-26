@@ -155,25 +155,32 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						</div>
 					);
 				})}
-				<div
-					css={css`
-						display: none;
-					`}
-				>
-					{dot.id}
-				</div>
-				{dot.tags.map((tag) => {
+				{dot.id.split(/[-_]/).map((name, index) => {
 					return (
 						<div
-							key={tag.id}
+							key={index}
 							css={css`
 								display: none;
 							`}
 						>
-							{tag.id}
+							{name}
 						</div>
 					);
 				})}
+				{dot.tags
+					.flatMap((tag) => tag.id.split(/[-_]/))
+					.map((name, index) => {
+						return (
+							<div
+								key={index}
+								css={css`
+									display: none;
+								`}
+							>
+								{name}
+							</div>
+						);
+					})}
 			</div>
 
 			<div data-pagefind-ignore>
