@@ -9,6 +9,7 @@ import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import List from "@/components/templates/List";
+import { hiraToKana, kanaToHira } from "@/libs/kana-trans";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -155,7 +156,19 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								display: none;
 							`}
 						>
-							{keyword.word}
+							{kanaToHira(keyword.word)}
+						</div>
+					);
+				})}
+				{dot.keywords?.map((keyword, index) => {
+					return (
+						<div
+							key={index}
+							css={css`
+								display: none;
+							`}
+						>
+							{hiraToKana(keyword.word)}
 						</div>
 					);
 				})}
