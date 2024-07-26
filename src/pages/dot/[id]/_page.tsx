@@ -9,7 +9,7 @@ import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import List from "@/components/templates/List";
-import { hiraToKana, kanaToHira } from "@/libs/kana-trans";
+import Keywords from "@/components/organisms/Keywords";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -148,94 +148,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				>
 					{dot.tags.map((tag) => tag.name).join(", ")}
 				</div>
-				{dot.tags.map((tag, index) => {
-					return (
-						<div
-							key={index}
-							css={css`
-								display: none;
-							`}
-						>
-							{kanaToHira(tag.name)}
-						</div>
-					);
-				})}
-				{dot.tags.map((tag, index) => {
-					return (
-						<div
-							key={index}
-							css={css`
-								display: none;
-							`}
-						>
-							{hiraToKana(tag.name)}
-						</div>
-					);
-				})}
-				{dot.keywords?.map((keyword, index) => {
-					return (
-						<div
-							key={index}
-							css={css`
-								display: none;
-							`}
-						>
-							{kanaToHira(keyword.word)}
-						</div>
-					);
-				})}
-				{dot.keywords?.map((keyword, index) => {
-					return (
-						<div
-							key={index}
-							css={css`
-								display: none;
-							`}
-						>
-							{hiraToKana(keyword.word)}
-						</div>
-					);
-				})}
-				<div
-					css={css`
-						display: none;
-					`}
-				>
-					{kanaToHira(dot.title)}
-				</div>
-				<div
-					css={css`
-						display: none;
-					`}
-				>
-					{hiraToKana(dot.title)}
-				</div>
-				{dot.id.split(/[-_]/).map((name, index) => {
-					return (
-						<div
-							key={index}
-							css={css`
-								display: none;
-							`}
-						>
-							{name}
-						</div>
-					);
-				})}
-				{dot.tags
-					.flatMap((tag) => tag.id.split(/[-_]/))
-					.map((name, index) => {
-						return (
-							<div
-								key={index}
-								css={css`
-									display: none;
-								`}
-							>
-								{name}
-							</div>
-						);
-					})}
+				<Keywords dot={dot} />
 			</div>
 
 			<div data-pagefind-ignore>
