@@ -9,6 +9,7 @@ import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import List from "@/components/templates/List";
+import { useEffect, useState } from "react";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -16,6 +17,24 @@ interface Props {
 }
 
 export default function ({ dot, sameTagDots }: Props): JSX.Element {
+	const [check, setCheck] = useState<boolean>(false);
+
+	useEffect(() => {
+		const checkStatus = () => {
+			if ((window as any).turnstileCheck === true) {
+				setCheck(true);
+			} else {
+				setTimeout(() => {
+					checkStatus();
+				}, 500);
+			}
+		};
+
+		setTimeout(() => {
+			checkStatus();
+		}, 2000);
+	}, []);
+
 	return (
 		<div
 			css={css`
@@ -65,7 +84,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
-								loading
+								loading={check}
 								onClick={() => {
 									if ((window as any).turnstileCheck === true) {
 										// @ts-ignore
@@ -114,7 +133,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							`}
 						>
 							<Button
-								loading
+								loading={check}
 								onClick={() => {
 									if ((window as any).turnstileCheck === true) {
 										// @ts-ignore
