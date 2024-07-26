@@ -10,7 +10,14 @@ export default defineConfig({
 	},
 	site: "https://pixel.gives",
 	trailingSlash: "never",
-	integrations: [sitemap(), react()],
+	integrations: [
+		sitemap({
+			filter: (page) => {
+				return page !== "https://pixel.gives/page/1";
+			}
+		}),
+		react()
+	],
 	build: {
 		format: "file"
 	}
