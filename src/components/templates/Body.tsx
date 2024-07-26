@@ -188,6 +188,10 @@ export default function ({ children, tags }: Props): JSX.Element {
 											aspect-ratio: 1 / 1 !important;
 										}
 
+										.pagefind-ui__result-excerpt {
+											display: none !important;
+										}
+
 										* {
 											font-family: "DotGothic16", sans-serif !important;
 										}
