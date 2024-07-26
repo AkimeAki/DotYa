@@ -172,6 +172,20 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						</div>
 					);
 				})}
+				<div
+					css={css`
+						display: none;
+					`}
+				>
+					{kanaToHira(dot.title)}
+				</div>
+				<div
+					css={css`
+						display: none;
+					`}
+				>
+					{hiraToKana(dot.title)}
+				</div>
 				{dot.id.split(/[-_]/).map((name, index) => {
 					return (
 						<div
