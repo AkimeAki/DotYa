@@ -28,8 +28,10 @@ export const getStaticPaths = async (): Promise<pathType[]> => {
 					return false;
 				}
 
+				const contentTags = content.tags.filter((tag) => tag.id !== "emoji");
+
 				for (const tag of item.tags) {
-					for (const thisTag of content.tags) {
+					for (const thisTag of contentTags) {
 						if (tag.id === thisTag.id) {
 							return true;
 						}
