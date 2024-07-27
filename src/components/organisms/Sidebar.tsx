@@ -99,6 +99,8 @@ export default function ({ tags }: Props): JSX.Element {
 			</div>
 			<aside
 				css={css`
+					position: sticky;
+					top: 30px;
 					display: flex;
 					flex-direction: column;
 					width: 300px;
