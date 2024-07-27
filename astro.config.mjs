@@ -13,7 +13,7 @@ export default defineConfig({
 	integrations: [
 		sitemap({
 			filter: (page) => {
-				return page !== "https://pixel.gives/page/1";
+				return page !== "";
 			}
 		}),
 		react()

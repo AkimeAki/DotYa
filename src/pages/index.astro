@@ -1,19 +1,15 @@
 ---
 import Base from "@/layouts/Base.astro";
-import List from "@/components/templates/List";
-import type { DotIllust } from "@/types";
+import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import Page from "./_page";
 
-const dots = JSON.parse(JSON.stringify(await getCachedContents<DotIllust>("dot"))) as (DotIllust &
-	MicroCMSContentId &
-	MicroCMSDate)[];
-const lastPage = Math.ceil(dots.length / 30);
-dots.length = 30;
+const dots = await getCachedContents<DotIllust>("dot");
+const tags = await getCachedContents<DotIllustTag>("tags");
 ---
 
 <Base>
 	<div data-pagefind-ignore>
-		<List title="ドット絵一覧" dots={dots} client:load currentPage={1} lastPage={lastPage} baseURl="/page/" />
+		<Page dots={dots} tags={tags} client:load />
 	</div>
 </Base>

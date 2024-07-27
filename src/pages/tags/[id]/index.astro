@@ -1,9 +1,9 @@
 ---
 import Base from "@/layouts/Base.astro";
-import List from "@/components/templates/List";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import Page from "./_page";
 
 interface pathType {
 	params: {
@@ -49,10 +49,5 @@ const dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
 		alt="ロゴ"
 		data-pagefind-meta="image[src], image_alt[alt]"
 	/>
-	<div data-pagefind-ignore>
-		<List title={`${tag.name}タグが付いたドット絵一覧`} dots={dots} client:load />
-	</div>
-	<div style="display: none;">
-		{tag.id}
-	</div>
+	<Page dots={dots} tag={tag} client:load />
 </Base>

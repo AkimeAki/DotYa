@@ -6,3 +6,4 @@ bun.lockb
 *.ttf
 .editorconfig
 Makefile
+_redirects

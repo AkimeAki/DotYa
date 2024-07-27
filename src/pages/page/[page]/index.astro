@@ -1,9 +1,9 @@
 ---
 import Base from "@/layouts/Base.astro";
-import List from "@/components/templates/List";
 import type { DotIllust } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
+import Page from "./_page";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const response = await getCachedContents<DotIllust>("dot");
@@ -14,15 +14,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Base notFound={page.currentPage === 1}>
+<Base>
 	<div data-pagefind-ignore>
-		<List
-			title="ドット絵一覧"
-			dots={page.data}
-			currentPage={page.currentPage}
-			lastPage={page.lastPage}
-			baseURl="/page/"
-			client:load
-		/>
+		<Page page={page} client:load />
 	</div>
 </Base>

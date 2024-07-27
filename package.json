@@ -7,7 +7,7 @@
 		"build": "astro check && astro build && pagefind --site dist",
 		"preview": "astro preview",
 		"format": "prettier --write './**/*'",
-		"lint": "eslint \"./**/*\"",
+		"lint": "eslint './**/*'",
 		"lint:fix": "bun lint -- --fix && bun format"
 	},
 	"dependencies": {

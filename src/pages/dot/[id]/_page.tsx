@@ -8,7 +8,7 @@ import { downloadImage } from "@/libs/download-image";
 import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
-import List from "@/components/templates/List";
+import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
 
 interface Props {
@@ -151,8 +151,16 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				<Keywords dot={dot} />
 			</div>
 
-			<div data-pagefind-ignore>
-				<List dots={sameTagDots} title="同じタグのドット絵" />
+			<div
+				data-pagefind-ignore
+				css={css`
+					display: flex;
+					flex-direction: column;
+					gap: 40px;
+				`}
+			>
+				<Title>同じタグのドット絵</Title>
+				<DotList dots={sameTagDots} />
 			</div>
 		</div>
 	);

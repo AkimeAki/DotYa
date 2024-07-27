@@ -37,7 +37,9 @@ export default function ({ dot }: Props) {
 				display: none;
 			`}
 		>
-			{keywords.join(" ")}
+			{keywords.map((word) => {
+				return <div>"{word}"</div>;
+			})}
 		</div>
 	);
 }

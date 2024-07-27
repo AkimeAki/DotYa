@@ -13,6 +13,7 @@ export interface DotIllust {
 		fieldId: string;
 		word: string;
 	}[];
+	loading?: boolean;
 }
 
 export interface CMSPage {
