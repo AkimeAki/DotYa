@@ -156,7 +156,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				sameTagDots[0] !== undefined &&
 				(() => {
 					const dots = copy<(typeof sameTagDots)[0]>(sameTagDots[0]);
-					dots.length = 20;
+					dots.length = 15;
 
 					return (
 						<div
@@ -169,7 +169,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						>
 							<Title>他にも{dot.tags[0].name}のドット絵あるよ！</Title>
 							<DotList dots={dots} />
-							{sameTagDots[0].length > 20 && (
+							{sameTagDots[0].length > 15 && (
 								<Button href={`/tags/${dot.tags[0].id}`}>
 									もっと{dot.tags[0].name}のドット絵を見る
 								</Button>
@@ -182,6 +182,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				sameTagDots[1] !== undefined &&
 				(() => {
 					const dots1 = copy<(typeof sameTagDots)[0]>(sameTagDots[0] ?? []);
+					dots1.length = 15;
 
 					const dots2 = copy<(typeof sameTagDots)[1]>(sameTagDots[1]).filter((dot) => {
 						const dot1Ids = dots1.map((dot) => dot.id);
@@ -190,7 +191,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					});
 
 					const dots = [...dots2, ...dots1];
-					dots.length = 20;
+					dots.length = 15;
 
 					return (
 						<div
@@ -203,7 +204,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						>
 							<Title>{dot.tags[1].name}のドット絵もこちら！</Title>
 							<DotList dots={dots} />
-							{sameTagDots[1].length > 20 && (
+							{sameTagDots[1].length > 15 && (
 								<Button href={`/tags/${dot.tags[1].id}`}>
 									もっと{dot.tags[1].name}のドット絵を見る
 								</Button>
