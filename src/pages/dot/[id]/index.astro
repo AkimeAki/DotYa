@@ -14,7 +14,7 @@ export const getStaticPaths = (async () => {
 		},
 		props: {
 			dot: content,
-			sameTagDots: response.filter((item) => {
+			sameTag1Dots: response.filter((item) => {
 				if (item.id === content.id) {
 					return false;
 				}
@@ -28,12 +28,27 @@ export const getStaticPaths = (async () => {
 				}
 
 				return false;
+			}),
+			sameTag2Dots: response.filter((item) => {
+				if (item.id === content.id) {
+					return false;
+				}
+
+				if (content.tags[1] !== undefined) {
+					for (const tag of item.tags) {
+						if (tag.id === content.tags[1].id) {
+							return true;
+						}
+					}
+				}
+
+				return false;
 			})
 		}
 	}));
 }) satisfies GetStaticPaths;
 
-const { dot, sameTagDots } = Astro.props;
+const { dot, sameTag1Dots, sameTag2Dots } = Astro.props;
 
 const illust = dot.dot32 ?? dot.dot16;
 if (illust === undefined) {
@@ -48,5 +63,5 @@ const px = dot.dot32 !== undefined ? 16 : dot.dot16 !== undefined ? 32 : 16;
 	ogImage={`${illust.url}?w=512&q=100&px=${px}`}
 	description={`${dot.title}のドット絵です。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
 >
-	<Page client:load dot={dot} sameTagDots={sameTagDots} />
+	<Page client:load dot={dot} sameTagDots={[sameTag1Dots, sameTag2Dots]} />
 </Base>

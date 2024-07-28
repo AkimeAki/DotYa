@@ -14,7 +14,7 @@ import { copy } from "@/libs/copy-object";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
-	sameTagDots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
+	sameTagDots: (DotIllust & MicroCMSContentId & MicroCMSDate)[][];
 }
 
 export default function ({ dot, sameTagDots }: Props): JSX.Element {
@@ -153,8 +153,9 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 			</div>
 
 			{dot.tags[0] !== undefined &&
+				sameTagDots[0] !== undefined &&
 				(() => {
-					const dots = copy<typeof sameTagDots>(sameTagDots);
+					const dots = copy<(typeof sameTagDots)[0]>(sameTagDots[0]);
 					dots.length = 20;
 
 					return (
@@ -171,6 +172,32 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							{sameTagDots.length > 20 && (
 								<Button href={`/tags/${dot.tags[0].id}`}>
 									もっと{dot.tags[0].name}のドット絵を見る
+								</Button>
+							)}
+						</div>
+					);
+				})()}
+
+			{dot.tags[1] !== undefined &&
+				sameTagDots[1] !== undefined &&
+				(() => {
+					const dots = copy<(typeof sameTagDots)[1]>(sameTagDots[1]);
+					dots.length = 20;
+
+					return (
+						<div
+							data-pagefind-ignore
+							css={css`
+								display: flex;
+								flex-direction: column;
+								gap: 40px;
+							`}
+						>
+							<Title>他にも{dot.tags[1].name}のドット絵あるよ！</Title>
+							<DotList dots={dots} />
+							{sameTagDots.length > 20 && (
+								<Button href={`/tags/${dot.tags[1].id}`}>
+									もっと{dot.tags[1].name}のドット絵を見る
 								</Button>
 							)}
 						</div>
