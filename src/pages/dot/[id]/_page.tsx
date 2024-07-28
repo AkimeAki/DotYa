@@ -10,6 +10,7 @@ import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
+import { copy } from "@/libs/copy-object";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -151,17 +152,30 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				<Keywords dot={dot} />
 			</div>
 
-			<div
-				data-pagefind-ignore
-				css={css`
-					display: flex;
-					flex-direction: column;
-					gap: 40px;
-				`}
-			>
-				<Title>同じタグのドット絵</Title>
-				<DotList dots={sameTagDots} />
-			</div>
+			{dot.tags[0] !== undefined &&
+				(() => {
+					const dots = copy<typeof sameTagDots>(sameTagDots);
+					dots.length = 20;
+
+					return (
+						<div
+							data-pagefind-ignore
+							css={css`
+								display: flex;
+								flex-direction: column;
+								gap: 40px;
+							`}
+						>
+							<Title>{dot.tags[0].name}のドット絵</Title>
+							<DotList dots={dots} />
+							{sameTagDots.length > 20 && (
+								<Button href={`/tags/${dot.tags[0].id}`}>
+									もっと{dot.tags[0].name}のドット絵を見る
+								</Button>
+							)}
+						</div>
+					);
+				})()}
 		</div>
 	);
 }

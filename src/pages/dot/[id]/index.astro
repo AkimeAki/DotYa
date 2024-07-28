@@ -7,6 +7,7 @@ import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
 	const response = await getCachedContents<DotIllust>("dot");
+
 	return response.map((content) => ({
 		params: {
 			id: content.id
@@ -18,11 +19,9 @@ export const getStaticPaths = (async () => {
 					return false;
 				}
 
-				const contentTags = content.tags.filter((tag) => tag.id !== "emoji");
-
-				for (const tag of item.tags) {
-					for (const thisTag of contentTags) {
-						if (tag.id === thisTag.id) {
+				if (content.tags[0] !== undefined) {
+					for (const tag of item.tags) {
+						if (tag.id === content.tags[0].id) {
 							return true;
 						}
 					}

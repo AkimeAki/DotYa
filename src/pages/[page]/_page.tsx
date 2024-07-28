@@ -26,7 +26,7 @@ export default function ({ title, content }: Props): JSX.Element {
 						margin-top: 30px;
 						margin-bottom: 20px;
 
-						&:first-child {
+						&:first-of-type {
 							margin-top: 0;
 						}
 					}
