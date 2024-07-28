@@ -2,19 +2,10 @@
 import Base from "@/layouts/Base.astro";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Page from "./_page";
+import type { GetStaticPaths } from "astro";
 
-interface pathType {
-	params: {
-		id: string;
-	};
-	props: {
-		tag: DotIllustTag & MicroCMSContentId & MicroCMSDate;
-	};
-}
-
-export const getStaticPaths = async (): Promise<pathType[]> => {
+export const getStaticPaths = (async () => {
 	const response = await getCachedContents<DotIllustTag>("tags");
 
 	return response.map((content) => ({
@@ -25,7 +16,7 @@ export const getStaticPaths = async (): Promise<pathType[]> => {
 			tag: content
 		}
 	}));
-};
+}) satisfies GetStaticPaths;
 
 const { id } = Astro.params;
 if (id === undefined) {
@@ -37,6 +28,9 @@ const dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
 	const tagIds = dot.tags.map((dotTag) => dotTag.id);
 	return tagIds.includes(tag.id);
 });
+
+const lastPage = Math.ceil(dots.length / 30);
+dots.length = 30;
 ---
 
 <Base
@@ -49,5 +43,5 @@ const dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
 		alt="ロゴ"
 		data-pagefind-meta="image[src], image_alt[alt]"
 	/>
-	<Page dots={dots} tag={tag} client:load />
+	<Page dots={dots} tag={tag} lastPage={lastPage} client:load />
 </Base>

@@ -1,0 +1,37 @@
+---
+import Base from "@/layouts/Base.astro";
+import type { DotIllust, DotIllustTag } from "@/types";
+import { getCachedContents } from "@/libs/microcms";
+import type { GetStaticPaths } from "astro";
+import ThisPage from "./_page";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const tags = await getCachedContents<DotIllustTag>("tags");
+	const allDots = await getCachedContents<DotIllust>("dot");
+
+	return tags.flatMap((tag) => {
+		const dots = allDots.filter((dot) => {
+			const tagIds = dot.tags.map((dotTag) => dotTag.id);
+			return tagIds.includes(tag.id);
+		});
+
+		return paginate(dots, { params: { id: tag.id }, pageSize: 30 });
+	});
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { id } = Astro.params;
+const tag = (await getCachedContents<DotIllustTag>("tags")).filter((tag) => {
+	return tag.id === id;
+})[0];
+
+if (tag === undefined) {
+	return;
+}
+---
+
+<Base>
+	<div data-pagefind-ignore>
+		<ThisPage page={page} tag={tag} client:load />
+	</div>
+</Base>

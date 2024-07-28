@@ -5,15 +5,15 @@ import DotList from "@/components/templates/DotList";
 import type { DotIllust, DotIllustTag } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Title from "@/components/atoms/Title";
+import type { Page } from "astro";
 import Pagination from "@/components/molecules/Pagination";
 
 interface Props {
-	dots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
+	page: Page<DotIllust & MicroCMSContentId & MicroCMSDate>;
 	tag: DotIllustTag & MicroCMSContentId & MicroCMSDate;
-	lastPage: number;
 }
 
-export default function ({ dots, tag, lastPage }: Props) {
+export default function ({ page, tag }: Props) {
 	return (
 		<div
 			css={css`
@@ -30,10 +30,10 @@ export default function ({ dots, tag, lastPage }: Props) {
 				`}
 			>
 				<Title>{tag.name}タグが付いたドット絵 1ページ目です。</Title>
-				<Pagination current={1} last={lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+				<Pagination current={page.currentPage} last={page.lastPage} baseUrl={`/tags/${tag.id}/page/`} />
 			</div>
-			<DotList dots={dots} />
-			<Pagination current={1} last={lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+			<DotList dots={page.data} />
+			<Pagination current={page.currentPage} last={page.lastPage} baseUrl={`/tags/${tag.id}/page/`} />
 		</div>
 	);
 }

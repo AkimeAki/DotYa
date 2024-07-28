@@ -3,18 +3,9 @@ import Base from "@/layouts/Base.astro";
 import Page from "./_page";
 import type { CMSPage } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import type { GetStaticPaths } from "astro";
 
-interface pathType {
-	params: {
-		page: string;
-	};
-	props: {
-		detail: CMSPage & MicroCMSContentId & MicroCMSDate;
-	};
-}
-
-export const getStaticPaths = async (): Promise<pathType[]> => {
+export const getStaticPaths = (async () => {
 	const response = await getCachedContents<CMSPage>("page");
 
 	return response.map((content) => ({
@@ -25,7 +16,7 @@ export const getStaticPaths = async (): Promise<pathType[]> => {
 			detail: content
 		}
 	}));
-};
+}) satisfies GetStaticPaths;
 
 const { page } = Astro.params;
 if (page === undefined) {
