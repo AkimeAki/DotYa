@@ -1,0 +1,10 @@
+---
+import Base from "@/layouts/Base.astro";
+import Page from "./_page";
+import { getCachedContents } from "@/libs/microcms";
+import type { DotIllust } from "@/types";
+
+const dots = await getCachedContents<DotIllust>("dot");
+---
+
+<Base title="カスタマイズ" ignoreSearch><Page dots={dots} client:load /></Base>
