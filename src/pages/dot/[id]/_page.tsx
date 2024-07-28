@@ -169,7 +169,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						>
 							<Title>他にも{dot.tags[0].name}のドット絵あるよ！</Title>
 							<DotList dots={dots} />
-							{sameTagDots.length > 20 && (
+							{sameTagDots[0].length > 20 && (
 								<Button href={`/tags/${dot.tags[0].id}`}>
 									もっと{dot.tags[0].name}のドット絵を見る
 								</Button>
@@ -195,7 +195,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						>
 							<Title>{dot.tags[1].name}のドット絵もこちら！</Title>
 							<DotList dots={dots} />
-							{sameTagDots.length > 20 && (
+							{sameTagDots[1].length > 20 && (
 								<Button href={`/tags/${dot.tags[1].id}`}>
 									もっと{dot.tags[1].name}のドット絵を見る
 								</Button>
