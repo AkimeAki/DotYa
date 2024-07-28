@@ -188,7 +188,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					size={20}
 					icon="/icons/hatena.png"
 					target="_blank"
-					href={`https://b.hatena.ne.jp/entry/s/${encodeURIComponent(`pixel.gives/dot/${dot.id}`)}#bbutton`}
+					href={`https://b.hatena.ne.jp/entry/s/pixel.gives/dot/${dot.id}#bbutton`}
 				>
 					で保存
 				</ShareButton>
