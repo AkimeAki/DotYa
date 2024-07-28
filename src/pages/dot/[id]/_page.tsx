@@ -11,6 +11,7 @@ import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
 import { copy } from "@/libs/copy-object";
+import ShareButton from "@/components/atoms/ShareButton";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -150,6 +151,47 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					{dot.tags.map((tag) => tag.name).join(", ")}
 				</div>
 				<Keywords dot={dot} />
+			</div>
+
+			<div
+				css={css`
+					display: flex;
+					gap: 5px;
+					flex-wrap: wrap;
+				`}
+			>
+				<ShareButton
+					target="_blank"
+					icon="/icons/x.png"
+					size={18}
+					href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(dot.title)}&url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}&hashtags=${encodeURIComponent("どっとや,pixelgives")}`}
+				>
+					でシェア
+				</ShareButton>
+				<ShareButton
+					size={22}
+					icon="/icons/bluesky.png"
+					target="_blank"
+					href={`https://bsky.app/intent/compose?text=${encodeURIComponent(dot.title)} ${encodeURIComponent("#どっとや #dotya #pixelgives")} ${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				>
+					でシェア
+				</ShareButton>
+				<ShareButton
+					size={22}
+					icon="/icons/pocket.png"
+					target="_blank"
+					href={`https://getpocket.com/save?url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				>
+					で保存
+				</ShareButton>
+				<ShareButton
+					size={20}
+					icon="/icons/hatena.png"
+					target="_blank"
+					href={`https://b.hatena.ne.jp/entry/s/${encodeURIComponent(`pixel.gives/dot/${dot.id}`)}#bbutton`}
+				>
+					で保存
+				</ShareButton>
 			</div>
 
 			{dot.tags[0] !== undefined &&

@@ -10,6 +10,7 @@ interface Props {
 	href?: string | undefined;
 	deleted?: boolean;
 	noSelect?: boolean;
+	target?: string;
 }
 
 export default function ({
@@ -19,11 +20,13 @@ export default function ({
 	selected = false,
 	href,
 	deleted = false,
-	noSelect = false
+	noSelect = false,
+	target = "_self"
 }: Props) {
 	const style = css`
 		padding: 15px 20px 17px;
-		display: block;
+		display: flex;
+		align-items: center;
 		text-decoration: none;
 		background-color: #4d3d36;
 		color: #faf5b1;
@@ -91,6 +94,7 @@ export default function ({
 				}
 			}}
 			css={style}
+			target={target}
 		>
 			{loading ? "読み込み中..." : children}
 		</a>
