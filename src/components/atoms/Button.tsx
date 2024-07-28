@@ -11,6 +11,8 @@ interface Props {
 	deleted?: boolean;
 	noSelect?: boolean;
 	target?: string;
+	size?: "slim" | "normal";
+	center?: boolean;
 }
 
 export default function ({
@@ -21,7 +23,9 @@ export default function ({
 	href,
 	deleted = false,
 	noSelect = false,
-	target = "_self"
+	target = "_self",
+	size = "normal",
+	center = true
 }: Props) {
 	const style = css`
 		padding: 15px 20px 17px;
@@ -34,8 +38,20 @@ export default function ({
 		border-bottom: 2px solid #111516;
 		border-top: 2px solid #6e6358;
 		user-select: none;
-		text-align: center;
 		cursor: pointer;
+
+		${center &&
+		css`
+			text-align: center;
+			justify-content: center;
+		`}
+
+		${size === "slim" &&
+		css`
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 15px;
+		`}
 
 		${selected &&
 		css`
