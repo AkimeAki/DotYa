@@ -164,6 +164,10 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					target="_blank"
 					icon="/icons/x.png"
 					size={18}
+					onClick={() => {
+						// @ts-ignore
+						dataLayer.push({ event: "click-share", service: "X" });
+					}}
 					href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(dot.title)}&url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}&hashtags=${encodeURIComponent("どっとや,pixelgives")}`}
 				>
 					でシェア
@@ -172,6 +176,10 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					size={22}
 					icon="/icons/bluesky.png"
 					target="_blank"
+					onClick={() => {
+						// @ts-ignore
+						dataLayer.push({ event: "click-share", service: "Bluesky" });
+					}}
 					href={`https://bsky.app/intent/compose?text=${encodeURIComponent(dot.title)} ${encodeURIComponent("#どっとや #dotya #pixelgives")} ${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
 				>
 					でシェア
@@ -180,6 +188,10 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					size={22}
 					icon="/icons/pocket.png"
 					target="_blank"
+					onClick={() => {
+						// @ts-ignore
+						dataLayer.push({ event: "click-share", service: "Pocket" });
+					}}
 					href={`https://getpocket.com/save?url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
 				>
 					で保存
@@ -188,6 +200,10 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					size={20}
 					icon="/icons/hatena.png"
 					target="_blank"
+					onClick={() => {
+						// @ts-ignore
+						dataLayer.push({ event: "click-share", service: "はてなブックマーク" });
+					}}
 					href={`https://b.hatena.ne.jp/entry/s/pixel.gives/dot/${dot.id}#bbutton`}
 				>
 					で保存

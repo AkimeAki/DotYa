@@ -9,9 +9,10 @@ interface Props {
 	target?: string;
 	icon: string;
 	size: number;
+	onClick?: () => void;
 }
 
-export default function ({ href, target = "_self", icon, children, size }: Props) {
+export default function ({ href, target = "_self", icon, children, size, onClick }: Props) {
 	return (
 		<div
 			css={css`
@@ -22,7 +23,7 @@ export default function ({ href, target = "_self", icon, children, size }: Props
 				}
 			`}
 		>
-			<Button target={target} href={href}>
+			<Button target={target} href={href} onClick={onClick}>
 				<div
 					css={css`
 						color: inherit;

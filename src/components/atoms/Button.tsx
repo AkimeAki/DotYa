@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 interface Props {
 	children: React.ReactNode;
-	onClick?: () => void;
+	onClick?: (() => void) | undefined;
 	loading?: boolean;
 	selected?: boolean;
 	href?: string | undefined;
