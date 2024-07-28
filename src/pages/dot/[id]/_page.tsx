@@ -11,6 +11,7 @@ import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
 import { copy } from "@/libs/copy-object";
+import { decodedTextSpanIntersectsWith } from "typescript";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -181,7 +182,15 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 			{dot.tags[1] !== undefined &&
 				sameTagDots[1] !== undefined &&
 				(() => {
-					const dots = copy<(typeof sameTagDots)[1]>(sameTagDots[1]);
+					const dots1 = copy<(typeof sameTagDots)[0]>(sameTagDots[0] ?? []);
+
+					const dots2 = copy<(typeof sameTagDots)[1]>(sameTagDots[1]).filter((dot) => {
+						const dot1Ids = dots1.map((dot) => dot.id);
+
+						return !dot1Ids.includes(dot.id);
+					});
+
+					const dots = [...dots2, ...dots1];
 					dots.length = 20;
 
 					return (
