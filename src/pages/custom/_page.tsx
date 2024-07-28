@@ -13,6 +13,8 @@ interface Props {
 }
 
 export default function ({ dots }: Props): JSX.Element {
+	const [image1, setImage1] = useState<(DotIllust & MicroCMSContentId & MicroCMSDate) | null>(null);
+	const [image2, setImage2] = useState<(DotIllust & MicroCMSContentId & MicroCMSDate) | null>(null);
 	const [image1Path, setImage1Path] = useState<string>("/transparent.png");
 	const [image2Path, setImage2Path] = useState<string>("/transparent.png");
 	const [selectImage, setSelectImage] = useState<1 | 2>(1);
@@ -267,22 +269,32 @@ export default function ({ dots }: Props): JSX.Element {
 				<Button
 					onClick={() => {
 						const download = async () => {
-							const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
-							if (canvas === null) {
-								return;
+							if (image1 !== null && image2 !== null) {
+								const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
+								if (canvas === null) {
+									return;
+								}
+
+								const dataURL = canvas.toDataURL("image/png");
+								const blob = await (await fetch(dataURL)).blob();
+								const link = document.createElement("a");
+								const blobUrl = URL.createObjectURL(blob);
+
+								link.href = blobUrl;
+								link.download = `image.png`;
+								link.click();
+
+								// @ts-ignore
+								dataLayer.push({
+									event: "download-custom",
+									custom: {
+										dots: [
+											{ id: image1.id, name: image1.title },
+											{ id: image2.id, name: image2.title }
+										]
+									}
+								});
 							}
-
-							const dataURL = canvas.toDataURL("image/png");
-							const blob = await (await fetch(dataURL)).blob();
-							const link = document.createElement("a");
-							const blobUrl = URL.createObjectURL(blob);
-
-							link.href = blobUrl;
-							link.download = `image.png`;
-							link.click();
-
-							// @ts-ignore
-							dataLayer.push({ event: "download-custom" });
 						};
 
 						void download();
@@ -310,6 +322,7 @@ export default function ({ dots }: Props): JSX.Element {
 										cursor: pointer;
 									`}
 									onClick={() => {
+										setImage1(dot);
 										setImage1Path(dot.dot32?.url ?? "");
 										setIsOpenImage1(false);
 									}}
@@ -342,6 +355,7 @@ export default function ({ dots }: Props): JSX.Element {
 										cursor: pointer;
 									`}
 									onClick={() => {
+										setImage2(dot);
 										setImage2Path(dot.dot32?.url ?? "");
 										setIsOpenImage2(false);
 									}}
