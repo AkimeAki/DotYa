@@ -24,13 +24,14 @@ if (id === undefined) {
 }
 
 const { tag } = Astro.props;
-const dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
+let dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
 	const tagIds = dot.tags.map((dotTag) => dotTag.id);
 	return tagIds.includes(tag.id);
 });
 
 const lastPage = Math.ceil(dots.length / 30);
 dots.length = 30;
+dots = dots.filter(Boolean);
 ---
 
 <Base

@@ -24,30 +24,34 @@ export default function ({ dots, tags }: Props) {
 
 	useEffect(() => {
 		const deletedNewDots = copy<typeof dots>(dots).slice(-1 * (dots.length - 10));
-		const shuffleDots = arrayShuffle<typeof dots>(deletedNewDots);
+		let shuffleDots = arrayShuffle<typeof dots>(deletedNewDots);
 		shuffleDots.length = 10;
+		shuffleDots = shuffleDots.filter(Boolean);
 		setRandomDots(shuffleDots);
 
 		const shuffleTags = arrayShuffle<typeof tags>(copy<typeof tags>(tags));
 		const shuffleTag = shuffleTags[0];
 		if (shuffleTag !== undefined) {
 			setRandomTag(shuffleTag);
-			const shuffleTagDots = copy<typeof dots>(dots).filter((dot) => {
+			let shuffleTagDots = copy<typeof dots>(dots).filter((dot) => {
 				const tagIds = dot.tags.map((tag) => tag.id);
 
 				return tagIds.includes(shuffleTag.id);
 			});
 			setRandomTagDotsLength(shuffleTagDots.length);
 			shuffleTagDots.length = 10;
+			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
 		}
 	}, []);
 
-	const newDots = copy<typeof dots>(dots);
+	let newDots = copy<typeof dots>(dots);
 	newDots.length = 10;
+	newDots = newDots.filter(Boolean);
 
-	const popularityDots = copy<typeof dots>(dots);
+	let popularityDots = copy<typeof dots>(dots);
 	popularityDots.length = 10;
+	popularityDots = popularityDots.filter(Boolean);
 
 	return (
 		<div
