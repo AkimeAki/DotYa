@@ -287,10 +287,10 @@ export default function ({ dots }: Props): JSX.Element {
 								// @ts-ignore
 								dataLayer.push({
 									event: "download-custom",
-									dots: [
-										{ id: image1.id, name: image1.title },
-										{ id: image2.id, name: image2.title }
-									]
+									custom_dot_id1: image1.id,
+									custom_dot_name1: image1.title,
+									custom_dot_id2: image2.id,
+									custom_dot_name2: image2.title
 								});
 							}
 						};

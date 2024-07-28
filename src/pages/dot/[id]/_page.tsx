@@ -70,7 +70,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								onClick={() => {
 									// @ts-ignore
-									dataLayer.push({ event: "download-32", dot: { id: dot.id, name: dot.name } });
+									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
 									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
 								}}
 							>
@@ -116,7 +116,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								onClick={() => {
 									// @ts-ignore
-									dataLayer.push({ event: "download-16", dot: { id: dot.id, name: dot.name } });
+									dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
 									void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
 								}}
 							>
