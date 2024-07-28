@@ -11,7 +11,6 @@ import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
 import { copy } from "@/libs/copy-object";
-import { decodedTextSpanIntersectsWith } from "typescript";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
