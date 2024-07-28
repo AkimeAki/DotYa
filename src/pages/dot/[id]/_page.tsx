@@ -166,7 +166,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								gap: 40px;
 							`}
 						>
-							<Title>{dot.tags[0].name}のドット絵</Title>
+							<Title>他にも{dot.tags[0].name}のドット絵もあるよ！</Title>
 							<DotList dots={dots} />
 							{sameTagDots.length > 20 && (
 								<Button href={`/tags/${dot.tags[0].id}`}>
