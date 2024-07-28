@@ -151,11 +151,17 @@ export default function ({ dots }: Props): JSX.Element {
 					ここでは2つのドット絵をくっつけることができます！
 					<br />
 					お好みのカスタマイズをしてみてね！
+					<br />
+					※現在PCのみ対応しています。
 				</p>
 				<div
 					css={css`
 						display: flex;
 						gap: 20px;
+
+						@media (max-width: 720px) {
+							flex-direction: column;
+						}
 					`}
 				>
 					<div
@@ -163,6 +169,10 @@ export default function ({ dots }: Props): JSX.Element {
 							display: flex;
 							flex-direction: column;
 							gap: 30px;
+
+							@media (max-width: 720px) {
+								flex-direction: row;
+							}
 						`}
 					>
 						<div
