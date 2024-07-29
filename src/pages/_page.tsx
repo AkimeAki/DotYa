@@ -22,6 +22,10 @@ export default function ({ dots, tags }: Props) {
 	const [randomTagDots, setRandomTagDots] = useState<typeof dots>([]);
 	const [randomTagDotsLength, setRandomTagDotsLength] = useState<number>(0);
 
+	let newDots = copy<typeof dots>(dots);
+	newDots.length = 10;
+	newDots = newDots.filter(Boolean);
+
 	useEffect(() => {
 		const deletedNewDots = copy<typeof dots>(dots).slice(-1 * (dots.length - 10));
 		let shuffleDots = arrayShuffle<typeof dots>(deletedNewDots);
@@ -39,15 +43,20 @@ export default function ({ dots, tags }: Props) {
 				return tagIds.includes(shuffleTag.id);
 			});
 			setRandomTagDotsLength(shuffleTagDots.length);
+			const shuffleTagsNewDots = copy<typeof newDots>(newDots).filter((dot) => {
+				const tagIds = dot.tags.map((tag) => tag.id);
+				return tagIds.includes(shuffleTag.id);
+			});
+			const deleteNewDots = shuffleTagDots.filter((dot) => {
+				const newDotIds = shuffleTagsNewDots.map((dot) => dot.id);
+				return !newDotIds.includes(dot.id);
+			});
+			shuffleTagDots = [...deleteNewDots, ...shuffleTagsNewDots];
 			shuffleTagDots.length = 10;
 			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
 		}
 	}, []);
-
-	let newDots = copy<typeof dots>(dots);
-	newDots.length = 10;
-	newDots = newDots.filter(Boolean);
 
 	let popularityDots = copy<typeof dots>(dots);
 	popularityDots.length = 10;
