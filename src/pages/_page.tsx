@@ -43,15 +43,23 @@ export default function ({ dots, tags }: Props) {
 				return tagIds.includes(shuffleTag.id);
 			});
 			setRandomTagDotsLength(shuffleTagDots.length);
-			const shuffleTagsNewDots = copy<typeof newDots>(newDots).filter((dot) => {
-				const tagIds = dot.tags.map((tag) => tag.id);
-				return tagIds.includes(shuffleTag.id);
-			});
-			const deleteNewDots = shuffleTagDots.filter((dot) => {
-				const newDotIds = shuffleTagsNewDots.map((dot) => dot.id);
+
+			// ランダムに抽出するタグのドット絵のうち、既に表示されていないドット絵を取得
+			const displayedDots = [...copy<typeof newDots>(newDots), ...copy<typeof shuffleDots>(shuffleDots)].filter(
+				(dot) => {
+					const tagIds = dot.tags.map((tag) => tag.id);
+					return tagIds.includes(shuffleTag.id);
+				}
+			);
+
+			// ランダムに抽出するタグのドット絵のうち、既に表示されているドット絵を取得
+			const filterdDisplayedDots = shuffleTagDots.filter((dot) => {
+				const newDotIds = displayedDots.map((dot) => dot.id);
 				return !newDotIds.includes(dot.id);
 			});
-			shuffleTagDots = [...deleteNewDots, ...shuffleTagsNewDots];
+
+			// 既に表示されているドット絵を後ろに持ってくる
+			shuffleTagDots = [...filterdDisplayedDots, ...displayedDots];
 			shuffleTagDots.length = 10;
 			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
