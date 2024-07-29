@@ -7,4 +7,10 @@ import type { DotIllust } from "@/types";
 const dots = await getCachedContents<DotIllust>("dot");
 ---
 
-<Base title="カスタマイズ" ignoreSearch><Page dots={dots} client:load /></Base>
+<Base
+	title="カスタマイズ"
+	description="2つのドット絵をくっつけることができます！お好みのカスタマイズをしてみてね！「どっとや」はドット絵のフリーイラスト素材屋さんです。"
+	ignoreSearch
+>
+	<Page dots={dots} client:load />
+</Base>

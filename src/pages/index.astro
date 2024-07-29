@@ -8,8 +8,6 @@ const dots = await getCachedContents<DotIllust>("dot");
 const tags = await getCachedContents<DotIllustTag>("tags");
 ---
 
-<Base>
-	<div data-pagefind-ignore>
-		<Page dots={dots} tags={tags} client:load />
-	</div>
+<Base ignoreSearch>
+	<Page dots={dots} tags={tags} client:load />
 </Base>

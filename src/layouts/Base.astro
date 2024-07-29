@@ -11,7 +11,10 @@ interface Props {
 	ogImage?: string;
 	notFound?: boolean;
 	ignoreSearch?: boolean;
+	canonical?: string;
 }
+
+const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 
 const {
 	title,
@@ -19,12 +22,12 @@ const {
 	ogType = "article",
 	ogImage = `${Astro.site}default-ogp.png`,
 	notFound = false,
-	ignoreSearch = false
+	ignoreSearch = false,
+	canonical = `${Astro.site}${path}`
 } = Astro.props;
 
 const serviceTitle = "どっとや";
 const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitle}`;
-const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 
 const tags = await getCachedContents<DotIllustTag>("tags");
 
@@ -56,6 +59,7 @@ const schema = {
 		<meta name="twitter:title" content={title ?? serviceTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+		{notFound && <meta name="robots" content="noindex" />}
 		<!-- Google Tag Manager -->
 		<script is:inline>
 			// prettier-ignore
@@ -70,7 +74,7 @@ const schema = {
 		<link rel="sitemap" href={`${Astro.site}sitemap-index.xml`} />
 		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 		<title>{pageTitle}</title>
-		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={`${Astro.site}${path}`} />}
+		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={canonical} />}
 	</head>
 	<body data-pagefind-ignore={ignoreSearch}>
 		<!-- Google Tag Manager (noscript) -->

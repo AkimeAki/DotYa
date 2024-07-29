@@ -14,8 +14,11 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Base>
-	<div data-pagefind-ignore>
-		<Page page={page} client:load />
-	</div>
+<Base
+	title="新着ドット絵一覧"
+	description={`新着ドット絵一覧ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
+	canonical={`${Astro.site}page/1`}
+	ignoreSearch
+>
+	<Page page={page} client:load />
 </Base>
