@@ -44,7 +44,7 @@ export default function ({ dots, tags }: Props) {
 			});
 			setRandomTagDotsLength(shuffleTagDots.length);
 
-			// ランダムに抽出するタグのドット絵のうち、既に表示されていないドット絵を取得
+			// ランダムに抽出するタグのドット絵のうち、既に表示されているドット絵を取得
 			const displayedDots = [...copy<typeof newDots>(newDots), ...copy<typeof shuffleDots>(shuffleDots)].filter(
 				(dot) => {
 					const tagIds = dot.tags.map((tag) => tag.id);
@@ -52,14 +52,14 @@ export default function ({ dots, tags }: Props) {
 				}
 			);
 
-			// ランダムに抽出するタグのドット絵のうち、既に表示されているドット絵を取得
+			// ランダムに抽出するタグのドット絵のうち、既に表示されていないドット絵を取得
 			const filterdDisplayedDots = shuffleTagDots.filter((dot) => {
 				const newDotIds = displayedDots.map((dot) => dot.id);
 				return !newDotIds.includes(dot.id);
 			});
 
 			// 既に表示されているドット絵を後ろに持ってくる
-			shuffleTagDots = [...filterdDisplayedDots, ...displayedDots];
+			shuffleTagDots = [...arrayShuffle<typeof filterdDisplayedDots>(filterdDisplayedDots), ...displayedDots];
 			shuffleTagDots.length = 10;
 			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
