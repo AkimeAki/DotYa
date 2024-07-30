@@ -39,7 +39,26 @@ const schema = [
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		name: serviceTitle,
-		url: String(Astro.site)
+		alternateName: serviceTitle,
+		description: "ドット絵のフリーイラスト素材屋さんです。",
+		url: String(Astro.site),
+		publisher: {
+			"@type": "Organization",
+			name: serviceTitle,
+			url: String(Astro.site),
+			logo: {
+				"@type": "ImageObject",
+				url: `${Astro.site}default-ogp.png`,
+				width: 512,
+				height: 512
+			}
+		},
+		image: {
+			"@type": "ImageObject",
+			url: `${Astro.site}default-ogp.png`,
+			width: 512,
+			height: 512
+		}
 	},
 	...jsonld
 ];
