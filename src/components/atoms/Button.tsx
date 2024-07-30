@@ -8,7 +8,7 @@ interface Props {
 	loading?: boolean;
 	selected?: boolean;
 	href?: string | undefined;
-	deleted?: boolean;
+	disabled?: boolean;
 	noSelect?: boolean;
 	target?: string;
 	size?: "slim" | "normal";
@@ -21,7 +21,7 @@ export default function ({
 	onClick,
 	selected = false,
 	href,
-	deleted = false,
+	disabled = false,
 	noSelect = false,
 	target = "_self",
 	size = "normal",
@@ -61,7 +61,7 @@ export default function ({
 			cursor: default;
 		`}
 
-		${deleted &&
+		${disabled &&
 		css`
 			background-color: #b8b4ac;
 			border-bottom-color: #8a8781;
@@ -76,7 +76,7 @@ export default function ({
 
 		@media (hover: hover) {
 			&:hover {
-				${!deleted &&
+				${!disabled &&
 				!selected &&
 				!noSelect &&
 				css`

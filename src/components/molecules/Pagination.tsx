@@ -20,7 +20,7 @@ export default function ({ current, last, baseUrl }: Props) {
 				justify-content: center;
 			`}
 		>
-			<Button href={current < 2 ? undefined : `${baseUrl}${current - 1}`} deleted={current < 2}>
+			<Button href={current < 2 ? undefined : `${baseUrl}${current - 1}`} disabled={current < 2}>
 				{"<"}
 			</Button>
 			{viewTenTenTen && last > 7 && (
@@ -67,7 +67,7 @@ export default function ({ current, last, baseUrl }: Props) {
 					{current < last - 3 && <Button href={`${baseUrl}${last}`}>{last}</Button>}
 				</>
 			)}
-			<Button href={current > last - 1 ? undefined : `${baseUrl}${current + 1}`} deleted={current > last - 1}>
+			<Button href={current > last - 1 ? undefined : `${baseUrl}${current + 1}`} disabled={current > last - 1}>
 				{">"}
 			</Button>
 		</div>

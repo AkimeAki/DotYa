@@ -12,6 +12,8 @@ import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
 import { copy } from "@/libs/copy-object";
 import ShareButton from "@/components/atoms/ShareButton";
+import { useState } from "react";
+import Checkbox from "@/components/atoms/Checkbox";
 
 interface Props {
 	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
@@ -19,6 +21,8 @@ interface Props {
 }
 
 export default function ({ dot, sameTagDots }: Props): JSX.Element {
+	const [termsAgree, setTermsAgree] = useState<boolean>(false);
+
 	return (
 		<div
 			css={css`
@@ -61,22 +65,6 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								);
 							})}
 						</div>
-						<div
-							data-pagefind-ignore
-							css={css`
-								margin-top: 30px;
-							`}
-						>
-							<Button
-								onClick={() => {
-									// @ts-ignore
-									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
-									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
-								}}
-							>
-								32px版をダウンロード
-							</Button>
-						</div>
 					</div>
 				)}
 				{dot.dot16 !== undefined && (
@@ -107,13 +95,44 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								);
 							})}
 						</div>
-						<div
-							data-pagefind-ignore
-							css={css`
-								margin-top: 30px;
-							`}
-						>
+					</div>
+				)}
+				<div
+					data-pagefind-ignore
+					css={css`
+						display: flex;
+						flex-direction: column;
+						gap: 10px;
+						align-items: flex-start;
+					`}
+				>
+					<Checkbox isChecked={termsAgree} setIsChecked={setTermsAgree}>
+						<a href="/terms" target="_blank">
+							利用規約
+						</a>
+						を読んで同意しました
+					</Checkbox>
+					<div
+						css={css`
+							display: flex;
+							gap: 10px;
+						`}
+					>
+						{dot.dot32 !== undefined && (
 							<Button
+								disabled={!termsAgree}
+								onClick={() => {
+									// @ts-ignore
+									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
+									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
+								}}
+							>
+								32px版をダウンロード
+							</Button>
+						)}
+						{dot.dot16 !== undefined && (
+							<Button
+								disabled={!termsAgree}
 								onClick={() => {
 									// @ts-ignore
 									dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
@@ -122,9 +141,9 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							>
 								16px版をダウンロード
 							</Button>
-						</div>
+						)}
 					</div>
-				)}
+				</div>
 			</div>
 
 			<div
@@ -154,6 +173,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 			</div>
 
 			<div
+				data-pagefind-ignore
 				css={css`
 					display: flex;
 					gap: 5px;
