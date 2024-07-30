@@ -12,6 +12,8 @@ interface Props {
 	notFound?: boolean;
 	ignoreSearch?: boolean;
 	canonical?: string;
+	publishedAt?: string | undefined;
+	jsonld?: any[];
 }
 
 const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
@@ -23,7 +25,8 @@ const {
 	ogImage = `${Astro.site}default-ogp.png`,
 	notFound = false,
 	ignoreSearch = false,
-	canonical = `${Astro.site}${path}`
+	canonical = `${Astro.site}${path}`,
+	jsonld = []
 } = Astro.props;
 
 const serviceTitle = "どっとや";
@@ -31,12 +34,15 @@ const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitl
 
 const tags = await getCachedContents<DotIllustTag>("tags");
 
-const schema = {
-	"@context": "https://schema.org",
-	"@type": "WebSite",
-	name: serviceTitle,
-	url: Astro.site
-};
+const schema = [
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: serviceTitle,
+		url: String(Astro.site)
+	},
+	...jsonld
+];
 ---
 
 <html lang="ja">
@@ -72,7 +78,11 @@ const schema = {
 		<!-- End Google Tag Manager -->
 		<link rel="icon" href={`${Astro.site}favicon.ico`} />
 		<link rel="sitemap" href={`${Astro.site}sitemap-index.xml`} />
-		<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+		{
+			schema.map((item) => {
+				return <script type="application/ld+json" is:inline set:html={JSON.stringify(item)} />;
+			})
+		}
 		<title>{pageTitle}</title>
 		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={canonical} />}
 	</head>
