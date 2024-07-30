@@ -6,6 +6,7 @@ import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
 import { useState } from "react";
+import Title from "@/components/atoms/Title";
 
 interface SelectPixel {
 	[key: string]: {
@@ -246,21 +247,9 @@ export default function ({ dots }: Props): JSX.Element {
 										</PixelButton>
 									)}
 								</div>
-								<h3
-									css={css`
-										flex: 1;
-										padding: 5px 10px 8px;
-										text-decoration: none;
-										background-color: #36364d;
-										color: #faf5b1;
-										border-radius: 4px;
-										border-bottom: 2px solid #111116;
-										border-top: 2px solid #58586e;
-										font-size: 14px;
-									`}
-								>
+								<Title size="small" h={3}>
 									{illust.title}
-								</h3>
+								</Title>
 								<a
 									css={css`
 										position: absolute;

@@ -40,7 +40,17 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				`}
 			>
 				{dot.dot32 !== undefined && (
-					<div>
+					<div
+						css={css`
+							display: flex;
+							flex-direction: column;
+							gap: 10px;
+							align-items: flex-start;
+						`}
+					>
+						<Title size="small" h={3}>
+							32px
+						</Title>
 						<div
 							css={css`
 								display: flex;
@@ -68,7 +78,17 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					</div>
 				)}
 				{dot.dot16 !== undefined && (
-					<div>
+					<div
+						css={css`
+							display: flex;
+							flex-direction: column;
+							gap: 10px;
+							align-items: flex-start;
+						`}
+					>
+						<Title size="small" h={3}>
+							16px
+						</Title>
 						<div
 							css={css`
 								display: flex;
