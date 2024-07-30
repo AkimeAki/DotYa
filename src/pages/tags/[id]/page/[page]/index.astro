@@ -4,10 +4,11 @@ import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
 import ThisPage from "./_page";
+import { formatDotList } from "@/libs/format-dotlist";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const tags = await getCachedContents<DotIllustTag>("tags");
-	const allDots = await getCachedContents<DotIllust>("dot");
+	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 
 	return tags.flatMap((tag) => {
 		const dots = allDots.filter((dot) => {

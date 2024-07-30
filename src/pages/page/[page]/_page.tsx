@@ -2,14 +2,13 @@
 
 import { css } from "@emotion/react";
 import DotList from "@/components/templates/DotList";
-import type { DotIllust } from "@/types";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Title from "@/components/atoms/Title";
 import type { Page } from "astro";
 import Pagination from "@/components/molecules/Pagination";
+import type { DotData } from "@/libs/format-dotlist";
 
 interface Props {
-	page: Page<DotIllust & MicroCMSContentId & MicroCMSDate>;
+	page: Page<DotData>;
 }
 
 export default function ({ page }: Props) {

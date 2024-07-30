@@ -3,18 +3,17 @@ import Button from "@/components/atoms/Button";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import Title from "@/components/atoms/Title";
 import Modal from "@/components/molecules/Modal";
-import type { DotIllust } from "@/types";
+import type { DotData } from "@/libs/format-dotlist";
 import { css } from "@emotion/react";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { Fragment, useEffect, useState } from "react";
 
 interface Props {
-	dots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
+	dots: DotData[];
 }
 
 export default function ({ dots }: Props): JSX.Element {
-	const [image1, setImage1] = useState<(DotIllust & MicroCMSContentId & MicroCMSDate) | null>(null);
-	const [image2, setImage2] = useState<(DotIllust & MicroCMSContentId & MicroCMSDate) | null>(null);
+	const [image1, setImage1] = useState<DotData | null>(null);
+	const [image2, setImage2] = useState<DotData | null>(null);
 	const [image1Path, setImage1Path] = useState<string>("/transparent.png");
 	const [image2Path, setImage2Path] = useState<string>("/transparent.png");
 	const [selectImage, setSelectImage] = useState<1 | 2>(1);
@@ -284,7 +283,8 @@ export default function ({ dots }: Props): JSX.Element {
 								link.download = `image.png`;
 								link.click();
 
-								// @ts-ignore
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+								// @ts-expect-error
 								dataLayer.push({
 									event: "download-custom",
 									custom_dot_id1: image1.id,

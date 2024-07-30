@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import type { DotIllust } from "@/types";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Button from "@/components/atoms/Button";
 import { downloadImage } from "@/libs/download-image";
 import Title from "@/components/atoms/Title";
@@ -14,10 +12,12 @@ import { copy } from "@/libs/copy-object";
 import ShareButton from "@/components/atoms/ShareButton";
 import { useState } from "react";
 import Checkbox from "@/components/atoms/Checkbox";
+import type { DotData } from "@/libs/format-dotlist";
+// import PictureFrameDom from "@/components/atoms/PictureFrameDom";
 
 interface Props {
-	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
-	sameTagDots: (DotIllust & MicroCMSContentId & MicroCMSDate)[][];
+	dot: DotData;
+	sameTagDots: DotData[][];
 }
 
 export default function ({ dot, sameTagDots }: Props): JSX.Element {
@@ -39,7 +39,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					gap: 30px;
 				`}
 			>
-				{dot.dot32 !== undefined && (
+				{dot.dot32?.url !== undefined && (
 					<div
 						css={css`
 							display: flex;
@@ -117,6 +117,36 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						</div>
 					</div>
 				)}
+				{/* {dot.dot64 !== undefined && (
+					<div
+						css={css`
+							display: flex;
+							flex-direction: column;
+							gap: 10px;
+							align-items: flex-start;
+						`}
+					>
+						<Title size="small" h={3}>
+							64px
+						</Title>
+						<div
+							css={css`
+								display: flex;
+								flex-wrap: wrap;
+								align-items: flex-end;
+								user-select: none;
+								pointer-events: none;
+								gap: 20px;
+							`}
+						>
+							{[256, 128, 64, 32].map((pixel) => {
+								return (
+									<PictureFrameDom key={pixel} size={pixel} width={64} dom={dot.dot64?.dom ?? ""} />
+								);
+							})}
+						</div>
+					</div>
+				)} */}
 				<div
 					data-pagefind-ignore
 					css={css`
@@ -142,7 +172,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								disabled={!termsAgree}
 								onClick={() => {
-									// @ts-ignore
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
 									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
 									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
 								}}
@@ -154,7 +185,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								disabled={!termsAgree}
 								onClick={() => {
-									// @ts-ignore
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
 									dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
 									void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
 								}}
@@ -162,6 +194,19 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								16px版をダウンロード
 							</Button>
 						)}
+						{/* {dot.dot64 !== undefined && (
+							<Button
+								disabled={!termsAgree}
+								onClick={() => {
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
+									dataLayer.push({ event: "buy-64", dot_id: dot.id, dot_name: dot.title });
+									void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
+								}}
+							>
+								64px版を購入する画面に進む
+							</Button>
+						)} */}
 					</div>
 				</div>
 			</div>
@@ -205,7 +250,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					icon="/icons/x.png"
 					size={18}
 					onClick={() => {
-						// @ts-ignore
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
 						dataLayer.push({ event: "click-share", service: "X" });
 					}}
 					href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(dot.title)}&url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}&hashtags=${encodeURIComponent("どっとや,pixelgives")}`}
@@ -217,7 +263,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					icon="/icons/bluesky.png"
 					target="_blank"
 					onClick={() => {
-						// @ts-ignore
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
 						dataLayer.push({ event: "click-share", service: "Bluesky" });
 					}}
 					href={`https://bsky.app/intent/compose?text=${encodeURIComponent(dot.title)} ${encodeURIComponent("#どっとや #dotya #pixelgives")} ${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
@@ -229,7 +276,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					icon="/icons/pocket.png"
 					target="_blank"
 					onClick={() => {
-						// @ts-ignore
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
 						dataLayer.push({ event: "click-share", service: "Pocket" });
 					}}
 					href={`https://getpocket.com/save?url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
@@ -241,7 +289,8 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					icon="/icons/hatena.png"
 					target="_blank"
 					onClick={() => {
-						// @ts-ignore
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
 						dataLayer.push({ event: "click-share", service: "はてなブックマーク" });
 					}}
 					href={`https://b.hatena.ne.jp/entry/s/pixel.gives/dot/${dot.id}#bbutton`}

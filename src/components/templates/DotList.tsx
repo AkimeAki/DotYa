@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import type { DotIllust } from "@/types";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
 import { useState } from "react";
 import Title from "@/components/atoms/Title";
+import type { DotData } from "@/libs/format-dotlist";
 
 interface SelectPixel {
 	[key: string]: {
@@ -16,11 +15,11 @@ interface SelectPixel {
 }
 
 interface Props {
-	dots: Array<DotIllust & MicroCMSContentId & MicroCMSDate>;
+	dots: DotData[];
 }
 
 export default function ({ dots }: Props): JSX.Element {
-	let initSelectPixel: SelectPixel = {};
+	const initSelectPixel: SelectPixel = {};
 
 	dots.forEach((dot) => {
 		if (dot.dot32 !== undefined) {
@@ -29,6 +28,7 @@ export default function ({ dots }: Props): JSX.Element {
 					"32": true
 				};
 			} else {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(initSelectPixel[dot.id] as any)["32"] = false;
 			}
 		}
@@ -39,6 +39,7 @@ export default function ({ dots }: Props): JSX.Element {
 					"16": true
 				};
 			} else {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(initSelectPixel[dot.id] as any)["16"] = false;
 			}
 		}
@@ -49,10 +50,13 @@ export default function ({ dots }: Props): JSX.Element {
 	const changePixel = (id: string, setPixel: number) => {
 		setSelectPixel((selectPixel) => {
 			const _selectPixel: SelectPixel = JSON.parse(JSON.stringify(selectPixel));
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			Object.keys(_selectPixel[id] as any).forEach((pixel) => {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(_selectPixel[id] as any)[pixel] = false;
 			});
 
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(_selectPixel[id] as any)[String(setPixel)] = true;
 
 			return _selectPixel;
@@ -189,7 +193,7 @@ export default function ({ dots }: Props): JSX.Element {
 										}
 									`}
 								>
-									{(selectPixel[illust.id] as any)["32"] === true && (
+									{selectPixel[illust.id]?.["32"] === true && (
 										<img
 											css={css`
 												display: block;
@@ -202,7 +206,7 @@ export default function ({ dots }: Props): JSX.Element {
 											alt={illust.title}
 										/>
 									)}
-									{(selectPixel[illust.id] as any)["16"] === true && (
+									{selectPixel[illust.id]?.["16"] === true && (
 										<img
 											css={css`
 												display: block;
@@ -230,7 +234,7 @@ export default function ({ dots }: Props): JSX.Element {
 											onClick={() => {
 												changePixel(illust.id, 32);
 											}}
-											attached={(selectPixel[illust.id] as any)["32"] === true}
+											attached={selectPixel[illust.id]?.["32"] === true}
 										>
 											32px
 										</PixelButton>
@@ -241,7 +245,7 @@ export default function ({ dots }: Props): JSX.Element {
 											onClick={() => {
 												changePixel(illust.id, 16);
 											}}
-											attached={(selectPixel[illust.id] as any)["16"] === true}
+											attached={selectPixel[illust.id]?.["16"] === true}
 										>
 											16px
 										</PixelButton>

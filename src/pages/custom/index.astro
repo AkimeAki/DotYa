@@ -3,8 +3,9 @@ import Base from "@/layouts/Base.astro";
 import Page from "./_page";
 import { getCachedContents } from "@/libs/microcms";
 import type { DotIllust } from "@/types";
+import { formatDotList } from "@/libs/format-dotlist";
 
-const dots = await getCachedContents<DotIllust>("dot");
+const dots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 ---
 
 <Base

@@ -4,6 +4,7 @@ import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import Page from "./_page";
 import type { GetStaticPaths } from "astro";
+import { formatDotList } from "@/libs/format-dotlist";
 
 export const getStaticPaths = (async () => {
 	const response = await getCachedContents<DotIllustTag>("tags");
@@ -24,7 +25,7 @@ if (id === undefined) {
 }
 
 const { tag } = Astro.props;
-let dots = (await getCachedContents<DotIllust>("dot")).filter((dot) => {
+let dots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((dot) => {
 	const tagIds = dot.tags.map((dotTag) => dotTag.id);
 	return tagIds.includes(tag.id);
 });

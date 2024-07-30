@@ -3,8 +3,8 @@ import { nullToUndefined } from "@/libs/nullToUndefined";
 import type { MicroCMSContentId, MicroCMSDate, MicroCMSListResponse, MicroCMSQueries } from "microcms-js-sdk";
 
 const client = createClient({
-	serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN ?? "",
-	apiKey: process.env.MICROCMS_API_KEY ?? ""
+	serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN ?? "",
+	apiKey: import.meta.env.MICROCMS_API_KEY ?? ""
 });
 
 export const getListContents = async <T>(
@@ -37,7 +37,7 @@ export const getContentsDetail = async <T>(
 	return nullToUndefined<T & MicroCMSContentId & MicroCMSDate>(content);
 };
 
-let cacheData: { [apiName: string]: any[] } = {};
+const cacheData: { [apiName: string]: unknown[] } = {};
 
 export const getCachedContents = async <T>(apiName: string): Promise<(T & MicroCMSContentId & MicroCMSDate)[]> => {
 	if (cacheData[apiName] === undefined) {

@@ -8,5 +8,7 @@ export const downloadImage = async (url: string, title: string) => {
 		link.href = imageURL;
 		link.download = `${title}.png`;
 		link.click();
-	} catch (e) {}
+	} catch (e) {
+		console.error("download error");
+	}
 };

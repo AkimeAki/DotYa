@@ -7,8 +7,9 @@
 	],
 	"settings": {
 		"prettier.documentSelectors": ["**/*.astro"],
-		"npm.packageManager": "bun",
+		"npm.packageManager": "npm",
 		"eslint.workingDirectories": ["./"],
+		"eslint.useFlatConfig": true,
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"files.readonlyInclude": {

@@ -5,17 +5,18 @@ import type { DotIllust } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
 import { dotJsonLd } from "@/libs/jsonld";
+import { formatDotList } from "@/libs/format-dotlist";
 
 export const getStaticPaths = (async () => {
-	const response = await getCachedContents<DotIllust>("dot");
+	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 
-	return response.map((content) => ({
+	return allDots.map((content) => ({
 		params: {
 			id: content.id
 		},
 		props: {
 			dot: content,
-			sameTag1Dots: response.filter((item) => {
+			sameTag1Dots: allDots.filter((item) => {
 				if (item.id === content.id) {
 					return false;
 				}
@@ -30,7 +31,7 @@ export const getStaticPaths = (async () => {
 
 				return false;
 			}),
-			sameTag2Dots: response.filter((item) => {
+			sameTag2Dots: allDots.filter((item) => {
 				if (item.id === content.id) {
 					return false;
 				}
@@ -70,7 +71,7 @@ if (dot.dot16 !== undefined) {
 
 <Base
 	title={dot.title}
-	ogImage={`${illust.url}?w=512&q=100&px=${px}`}
+	ogImage={`${illust}?w=512&q=100&px=${px}`}
 	description={`${dot.title}のドット絵です。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
 	publishedAt={dot.publishedAt}
 	jsonld={[...schema]}

@@ -6,7 +6,8 @@ import type { MicroCMSListContent } from "microcms-js-sdk";
 import type { DotIllustTag } from "@/types";
 import "@pagefind/default-ui/css/ui.css";
 
-//@ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 import { PagefindUI } from "@pagefind/default-ui";
 import { useEffect } from "react";
 

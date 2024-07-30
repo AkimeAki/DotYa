@@ -2,11 +2,10 @@
 
 import { css } from "@emotion/react";
 import { fullToHalf, halfToFull, hiraToKana, kanaToHira } from "@/libs/trans-text";
-import type { DotIllust } from "@/types";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import type { DotData } from "@/libs/format-dotlist";
 
 interface Props {
-	dot: DotIllust & MicroCMSContentId & MicroCMSDate;
+	dot: DotData;
 }
 
 export default function ({ dot }: Props) {
@@ -16,10 +15,10 @@ export default function ({ dot }: Props) {
 			...dot.tags.map((tag) => hiraToKana(tag.name)),
 			...dot.tags.map((tag) => fullToHalf(tag.name)),
 			...dot.tags.map((tag) => halfToFull(tag.name)),
-			...(dot.keywords?.map((keyword) => kanaToHira(keyword.word)) ?? []),
-			...(dot.keywords?.map((keyword) => hiraToKana(keyword.word)) ?? []),
-			...(dot.keywords?.map((keyword) => fullToHalf(keyword.word)) ?? []),
-			...(dot.keywords?.map((keyword) => halfToFull(keyword.word)) ?? []),
+			...(dot.keywords?.map((keyword) => kanaToHira(keyword)) ?? []),
+			...(dot.keywords?.map((keyword) => hiraToKana(keyword)) ?? []),
+			...(dot.keywords?.map((keyword) => fullToHalf(keyword)) ?? []),
+			...(dot.keywords?.map((keyword) => halfToFull(keyword)) ?? []),
 			kanaToHira(dot.title),
 			hiraToKana(dot.title),
 			fullToHalf(dot.title),

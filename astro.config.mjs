@@ -31,5 +31,10 @@ export default defineConfig({
 	],
 	build: {
 		format: "file"
+	},
+	vite: {
+		define: {
+			global: "window"
+		}
 	}
 });

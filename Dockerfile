@@ -1,1 +1,1 @@
-FROM oven/bun:1.1.6-debian
+FROM node:20.15.0

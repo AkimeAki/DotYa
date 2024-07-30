@@ -2,13 +2,16 @@
 	"name": "dotya",
 	"type": "module",
 	"version": "1.0.0",
+	"engines": {
+		"node": "20.15.0"
+	},
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro check && astro build && pagefind --site dist",
+		"build": "astro check && npm run lint && astro build && pagefind --site dist",
 		"preview": "astro preview",
 		"format": "prettier --write './**/*'",
-		"lint": "eslint './**/*'",
-		"lint:fix": "bun lint -- --fix && bun format"
+		"lint": "ESLINT_USE_FLAT_CONFIG=true eslint .",
+		"lint:fix": "npm run lint -- --fix && npm run format"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.5.10",
@@ -19,6 +22,8 @@
 		"@types/react": "^18.3.1",
 		"@types/react-dom": "^18.3.0",
 		"astro": "^4.7.0",
+		"canvas": "^2.11.2",
+		"image-size": "^1.1.1",
 		"microcms-js-sdk": "^3.1.1",
 		"pagefind": "^1.1.0",
 		"react": "^18.3.1",
@@ -27,11 +32,15 @@
 		"typescript": "^5.4.5"
 	},
 	"devDependencies": {
-		"eslint": "9.1.1",
+		"@eslint/js": "^9.8.0",
+		"eslint": "^8.57.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-astro": "1.1.1",
+		"eslint-plugin-react": "^7.35.0",
+		"globals": "^15.8.0",
 		"prettier": "3.2.5",
 		"prettier-plugin-astro": "0.13.0",
-		"prettier-plugin-sh": "^0.14.0"
+		"prettier-plugin-sh": "^0.14.0",
+		"typescript-eslint": "^7.18.0"
 	}
 }

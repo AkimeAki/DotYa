@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 import DotList from "@/components/templates/DotList";
-import type { DotIllust, DotIllustTag } from "@/types";
+import type { DotIllustTag } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Title from "@/components/atoms/Title";
 import { copy } from "@/libs/copy-object";
@@ -10,9 +10,10 @@ import { arrayShuffle } from "@/libs/array-shuffle";
 import { useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
+import type { DotData } from "@/libs/format-dotlist";
 
 interface Props {
-	dots: (DotIllust & MicroCMSContentId & MicroCMSDate)[];
+	dots: DotData[];
 	tags: (DotIllustTag & MicroCMSContentId & MicroCMSDate)[];
 }
 

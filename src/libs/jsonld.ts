@@ -1,6 +1,6 @@
 import type { AstroGlobal } from "astro";
 
-export const dotJsonLd = (Astro: AstroGlobal, imageUrl: string, name: string): any => {
+export const dotJsonLd = (Astro: AstroGlobal, imageUrl: string, name: string) => {
 	return {
 		"@context": "https://schema.org/",
 		"@type": "ImageObject",
