@@ -172,10 +172,12 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								disabled={!termsAgree}
 								onClick={() => {
-									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-									// @ts-expect-error
-									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
-									void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
+									if (termsAgree) {
+										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+										// @ts-expect-error
+										dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
+										void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
+									}
 								}}
 							>
 								32px版をダウンロード
@@ -185,10 +187,12 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							<Button
 								disabled={!termsAgree}
 								onClick={() => {
-									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-									// @ts-expect-error
-									dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
-									void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
+									if (termsAgree) {
+										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+										// @ts-expect-error
+										dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
+										void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
+									}
 								}}
 							>
 								16px版をダウンロード
