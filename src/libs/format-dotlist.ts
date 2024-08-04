@@ -1,28 +1,15 @@
 import type { DotIllust } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
-import { imageToDiv } from "./div-image";
+// import { imageToDiv } from "./div-image";
 
 export interface DotData {
 	id: string;
 	title: string;
-	dot32?:
-		| {
-				url: string;
-				dom: string;
-		  }
-		| undefined;
-	dot16?:
-		| {
-				url: string;
-				dom: string;
-		  }
-		| undefined;
-	dot64?:
-		| {
-				url: string;
-				dom: string;
-		  }
-		| undefined;
+	illust: {
+		url: string;
+		dom: string;
+		size: number | undefined;
+	};
 	tags: {
 		id: string;
 		name: string;
@@ -33,30 +20,27 @@ export interface DotData {
 
 export const formatDotList = async (dots: (DotIllust & MicroCMSContentId & MicroCMSDate)[]): Promise<DotData[]> => {
 	const result = dots.map(async (data) => {
+		let size = undefined;
+		if (
+			data.illust.width !== undefined &&
+			data.illust.height !== undefined &&
+			data.illust.width === data.illust.height
+		) {
+			if (data.illust.width === 32) {
+				size = 32;
+			} else if (data.illust.width === 16) {
+				size = 16;
+			}
+		}
+
 		return {
 			id: data.id,
 			title: data.title,
-			dot32:
-				data.dot32 !== undefined
-					? {
-							url: data.dot32.url ?? "",
-							dom: ""
-						}
-					: undefined,
-			dot16:
-				data.dot16 !== undefined
-					? {
-							url: data.dot16.url ?? "",
-							dom: ""
-						}
-					: undefined,
-			dot64:
-				data.dot64 !== undefined
-					? {
-							url: "",
-							dom: await imageToDiv(data.dot64.url)
-						}
-					: undefined,
+			illust: {
+				url: data.illust.url,
+				dom: "", // await imageToDiv(data.dot64.url)
+				size: size
+			},
 			tags: data.tags.map((tag) => {
 				return {
 					id: tag.id,
@@ -70,5 +54,6 @@ export const formatDotList = async (dots: (DotIllust & MicroCMSContentId & Micro
 			publishedAt: data.publishedAt
 		};
 	});
+
 	return await Promise.all(result);
 };

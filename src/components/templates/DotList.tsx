@@ -3,66 +3,14 @@
 import { css } from "@emotion/react";
 import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
-import { useState } from "react";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
-
-interface SelectPixel {
-	[key: string]: {
-		"32"?: boolean;
-		"16"?: boolean;
-	};
-}
 
 interface Props {
 	dots: DotData[];
 }
 
 export default function ({ dots }: Props): JSX.Element {
-	const initSelectPixel: SelectPixel = {};
-
-	dots.forEach((dot) => {
-		if (dot.dot32 !== undefined) {
-			if (initSelectPixel[dot.id] === undefined) {
-				initSelectPixel[dot.id] = {
-					"32": true
-				};
-			} else {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(initSelectPixel[dot.id] as any)["32"] = false;
-			}
-		}
-
-		if (dot.dot16 !== undefined) {
-			if (initSelectPixel[dot.id] === undefined) {
-				initSelectPixel[dot.id] = {
-					"16": true
-				};
-			} else {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(initSelectPixel[dot.id] as any)["16"] = false;
-			}
-		}
-	});
-
-	const [selectPixel, setSelectPixel] = useState<SelectPixel>(initSelectPixel);
-
-	const changePixel = (id: string, setPixel: number) => {
-		setSelectPixel((selectPixel) => {
-			const _selectPixel: SelectPixel = JSON.parse(JSON.stringify(selectPixel));
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			Object.keys(_selectPixel[id] as any).forEach((pixel) => {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				(_selectPixel[id] as any)[pixel] = false;
-			});
-
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(_selectPixel[id] as any)[String(setPixel)] = true;
-
-			return _selectPixel;
-		});
-	};
-
 	return (
 		<div
 			css={css`
@@ -99,10 +47,10 @@ export default function ({ dots }: Props): JSX.Element {
 					}
 				`}
 			>
-				{dots.map((illust) => {
+				{dots.map((dot) => {
 					return (
 						<div
-							key={illust.id}
+							key={dot.id}
 							css={css`
 								display: flex;
 								flex-direction: column;
@@ -117,30 +65,16 @@ export default function ({ dots }: Props): JSX.Element {
 									pointer-events: none;
 								`}
 							>
-								{illust.dot32 !== undefined && (
-									<img
-										css={css`
-											display: block;
-											width: 32px;
-											aspect-ratio: 1/1;
-											image-rendering: pixelated;
-										`}
-										src={illust.dot32.url}
-										alt={illust.title}
-									/>
-								)}
-								{illust.dot16 !== undefined && (
-									<img
-										css={css`
-											display: block;
-											width: 32px;
-											aspect-ratio: 1/1;
-											image-rendering: pixelated;
-										`}
-										src={illust.dot16.url}
-										alt={illust.title}
-									/>
-								)}
+								<img
+									css={css`
+										display: block;
+										width: 32px;
+										aspect-ratio: 1/1;
+										image-rendering: pixelated;
+									`}
+									src={dot.illust.url}
+									alt={dot.title}
+								/>
 							</div>
 							<div
 								css={css`
@@ -193,32 +127,17 @@ export default function ({ dots }: Props): JSX.Element {
 										}
 									`}
 								>
-									{selectPixel[illust.id]?.["32"] === true && (
-										<img
-											css={css`
-												display: block;
-												width: 100%;
-												aspect-ratio: 1/1;
-												image-rendering: pixelated;
-												pointer-events: none;
-											`}
-											src={illust.dot32?.url}
-											alt={illust.title}
-										/>
-									)}
-									{selectPixel[illust.id]?.["16"] === true && (
-										<img
-											css={css`
-												display: block;
-												width: 100%;
-												aspect-ratio: 1/1;
-												image-rendering: pixelated;
-												pointer-events: none;
-											`}
-											src={illust.dot16?.url}
-											alt={illust.title}
-										/>
-									)}
+									<img
+										css={css`
+											display: block;
+											width: 100%;
+											aspect-ratio: 1/1;
+											image-rendering: pixelated;
+											pointer-events: none;
+										`}
+										src={dot.illust.url}
+										alt={dot.title}
+									/>
 								</div>
 								<div
 									css={css`
@@ -228,31 +147,19 @@ export default function ({ dots }: Props): JSX.Element {
 										gap: 5px;
 									`}
 								>
-									{illust.dot32 !== undefined && (
-										<PixelButton
-											color="#dd5a21"
-											onClick={() => {
-												changePixel(illust.id, 32);
-											}}
-											attached={selectPixel[illust.id]?.["32"] === true}
-										>
+									{dot.illust.size === 32 && (
+										<PixelButton color="#dd5a21" attached>
 											32px
 										</PixelButton>
 									)}
-									{illust.dot16 !== undefined && (
-										<PixelButton
-											color="#dd21be"
-											onClick={() => {
-												changePixel(illust.id, 16);
-											}}
-											attached={selectPixel[illust.id]?.["16"] === true}
-										>
+									{dot.illust.size === 16 && (
+										<PixelButton color="#dd21be" attached>
 											16px
 										</PixelButton>
 									)}
 								</div>
 								<Title size="small" h={3}>
-									{illust.title}
+									{dot.title}
 								</Title>
 								<a
 									css={css`
@@ -262,7 +169,7 @@ export default function ({ dots }: Props): JSX.Element {
 										width: 100%;
 										height: 100%;
 									`}
-									href={`/dot/${illust.id}`}
+									href={`/dot/${dot.id}`}
 								/>
 							</div>
 						</div>

@@ -39,84 +39,37 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					gap: 30px;
 				`}
 			>
-				{dot.dot32?.url !== undefined && (
+				<div
+					css={css`
+						display: flex;
+						flex-direction: column;
+						gap: 10px;
+						align-items: flex-start;
+					`}
+				>
 					<div
 						css={css`
 							display: flex;
-							flex-direction: column;
-							gap: 10px;
-							align-items: flex-start;
+							flex-wrap: wrap;
+							align-items: flex-end;
+							user-select: none;
+							pointer-events: none;
+							gap: 20px;
 						`}
 					>
-						<Title size="small" h={3}>
-							32px
-						</Title>
-						<div
+						<img
 							css={css`
-								display: flex;
-								flex-wrap: wrap;
-								align-items: flex-end;
-								user-select: none;
-								pointer-events: none;
-								gap: 20px;
+								display: none;
 							`}
-						>
-							<img
-								css={css`
-									display: none;
-								`}
-								src={dot.dot32?.url ?? ""}
-								alt={dot.title}
-								data-pagefind-meta="image[src], image_alt[alt]"
-							/>
-							{[256, 128, 64, 32].map((pixel) => {
-								return (
-									<PictureFrame key={pixel} size={pixel} src={dot.dot32?.url ?? ""} alt={dot.title} />
-								);
-							})}
-						</div>
+							src={dot.illust.url}
+							alt={dot.title}
+							data-pagefind-meta="image[src], image_alt[alt]"
+						/>
+						{[256, 128, 64, 32].map((pixel) => {
+							return <PictureFrame key={pixel} size={pixel} src={dot.illust.url} alt={dot.title} />;
+						})}
 					</div>
-				)}
-				{dot.dot16 !== undefined && (
-					<div
-						css={css`
-							display: flex;
-							flex-direction: column;
-							gap: 10px;
-							align-items: flex-start;
-						`}
-					>
-						<Title size="small" h={3}>
-							16px
-						</Title>
-						<div
-							css={css`
-								display: flex;
-								flex-wrap: wrap;
-								align-items: flex-end;
-								user-select: none;
-								pointer-events: none;
-								gap: 20px;
-							`}
-						>
-							{dot.dot32 === undefined && (
-								<img
-									css={css`
-										display: none;
-									`}
-									src={dot.dot16?.url ?? ""}
-									alt={dot.title}
-									data-pagefind-meta="image[src], image_alt[alt]"
-								/>
-							)}
-							{[256, 128, 64, 32].map((pixel) => {
-								return (
-									<PictureFrame key={pixel} size={pixel} src={dot.dot16?.url ?? ""} alt={dot.title} />
-								);
-							})}
-						</div>
-					</div>
-				)}
+				</div>
 				{/* {dot.dot64 !== undefined && (
 					<div
 						css={css`
@@ -168,36 +121,25 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							gap: 10px;
 						`}
 					>
-						{dot.dot32 !== undefined && (
-							<Button
-								disabled={!termsAgree}
-								onClick={() => {
-									if (termsAgree) {
+						<Button
+							disabled={!termsAgree}
+							onClick={() => {
+								if (termsAgree) {
+									if (dot.illust.size === 32) {
 										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 										// @ts-expect-error
 										dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
-										void downloadImage(`${dot.dot32?.url}?fm=png`, dot.title);
-									}
-								}}
-							>
-								32px版をダウンロード
-							</Button>
-						)}
-						{dot.dot16 !== undefined && (
-							<Button
-								disabled={!termsAgree}
-								onClick={() => {
-									if (termsAgree) {
+									} else if (dot.illust.size === 16) {
 										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 										// @ts-expect-error
 										dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
-										void downloadImage(`${dot.dot16?.url}?fm=png`, dot.title);
 									}
-								}}
-							>
-								16px版をダウンロード
-							</Button>
-						)}
+									void downloadImage(`${dot.illust.url}?fm=png`, dot.title);
+								}
+							}}
+						>
+							ダウンロード
+						</Button>
 						{/* {dot.dot64 !== undefined && (
 							<Button
 								disabled={!termsAgree}

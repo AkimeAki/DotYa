@@ -6,9 +6,7 @@ export interface DotIllustTag {
 
 export interface DotIllust {
 	title: string;
-	dot32?: MicroCMSImage;
-	dot16?: MicroCMSImage;
-	dot64?: MicroCMSImage;
+	illust: MicroCMSImage;
 	tags: (DotIllustTag & MicroCMSListContent)[];
 	keywords?: {
 		fieldId: string;

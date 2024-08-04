@@ -312,7 +312,7 @@ export default function ({ dots }: Props): JSX.Element {
 					`}
 				>
 					{dots.map((dot) => {
-						if (dot.dot32 !== undefined) {
+						if (dot.illust.size === 32) {
 							return (
 								<div
 									key={dot.id}
@@ -321,11 +321,11 @@ export default function ({ dots }: Props): JSX.Element {
 									`}
 									onClick={() => {
 										setImage1(dot);
-										setImage1Path(dot.dot32?.url ?? "");
+										setImage1Path(dot.illust.url);
 										setIsOpenImage1(false);
 									}}
 								>
-									<PictureFrame src={dot.dot32.url} size={128} alt="2つ目の画像" />
+									<PictureFrame src={dot.illust.url} size={128} alt="1つ目の画像" />
 								</div>
 							);
 						}
@@ -345,7 +345,7 @@ export default function ({ dots }: Props): JSX.Element {
 					`}
 				>
 					{dots.map((dot) => {
-						if (dot.dot32 !== undefined) {
+						if (dot.illust.size === 32) {
 							return (
 								<div
 									key={dot.id}
@@ -354,11 +354,11 @@ export default function ({ dots }: Props): JSX.Element {
 									`}
 									onClick={() => {
 										setImage2(dot);
-										setImage2Path(dot.dot32?.url ?? "");
+										setImage2Path(dot.illust.url);
 										setIsOpenImage2(false);
 									}}
 								>
-									<PictureFrame src={dot.dot32.url} size={128} alt="2つ目の画像" />
+									<PictureFrame src={dot.illust.url} size={128} alt="2つ目の画像" />
 								</div>
 							);
 						}
