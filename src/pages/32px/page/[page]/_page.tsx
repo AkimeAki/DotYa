@@ -28,10 +28,10 @@ export default function ({ page }: Props) {
 				`}
 			>
 				<Title>32pxのドット絵一覧 {page.currentPage}ページ目です。</Title>
-				<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/page/"></Pagination>
+				<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/32px/page/"></Pagination>
 			</div>
 			<DotList dots={page.data} />
-			<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/page/"></Pagination>
+			<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/32px/page/"></Pagination>
 		</div>
 	);
 }
