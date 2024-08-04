@@ -24,6 +24,14 @@ export default defineConfig({
 					return false;
 				}
 
+				if (pageArray[0] === "16px" && pageArray[1] === "page" && Number(pageArray[2]) > 1) {
+					return false;
+				}
+
+				if (pageArray[0] === "32px" && pageArray[1] === "page" && Number(pageArray[2]) > 1) {
+					return false;
+				}
+
 				return true;
 			}
 		}),

@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import { useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
+import SidebarSubLink from "@/components/molecules/SidebarSubLink";
 
 interface Props {
 	tags: (DotIllustTag & MicroCMSListContent)[];
@@ -123,7 +124,27 @@ export default function ({ tags }: Props): JSX.Element {
 				`}
 			>
 				<SidebarLink href="/">ホーム</SidebarLink>
-				<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
+				<div
+					css={css`
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-end;
+						gap: 10px;
+					`}
+				>
+					<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
+					<div
+						css={css`
+							display: flex;
+							flex-direction: column;
+							gap: 10px;
+							padding-left: 20px;
+						`}
+					>
+						<SidebarSubLink href="/16px/page/1">16pxのドット絵一覧</SidebarSubLink>
+						<SidebarSubLink href="/32px/page/1">32pxのドット絵一覧</SidebarSubLink>
+					</div>
+				</div>
 				<SidebarLink href="/custom">カスタマイズ</SidebarLink>
 				<SidebarLink href="/terms">利用規約</SidebarLink>
 				<SidebarLink href="/contact">お問い合わせ</SidebarLink>

@@ -1,0 +1,27 @@
+---
+import Base from "@/layouts/Base.astro";
+import type { DotIllust } from "@/types";
+import { getCachedContents } from "@/libs/microcms";
+import type { GetStaticPaths } from "astro";
+import Page from "./_page";
+import { formatDotList } from "@/libs/format-dotlist";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const response = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((item) => {
+		return item.illust.size === 32;
+	});
+
+	return paginate(response, { pageSize: 30 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Base
+	title="32pxの新着ドット絵一覧"
+	description={`32pxの新着ドット絵一覧ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
+	canonical={`${Astro.site}page/1`}
+	ignoreSearch
+>
+	<Page page={page} client:load />
+</Base>
