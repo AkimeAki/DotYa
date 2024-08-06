@@ -8,7 +8,7 @@ export interface DotData {
 	illust: {
 		url: string;
 		dom: string;
-		size: number | undefined;
+		size: 32 | 16;
 	};
 	tags: {
 		id: string;
@@ -20,7 +20,7 @@ export interface DotData {
 
 export const formatDotList = async (dots: (DotIllust & MicroCMSContentId & MicroCMSDate)[]): Promise<DotData[]> => {
 	const result = dots.map(async (data) => {
-		let size = undefined;
+		let size: undefined | 32 | 16 = undefined;
 		if (
 			data.illust.width !== undefined &&
 			data.illust.height !== undefined &&
@@ -31,6 +31,10 @@ export const formatDotList = async (dots: (DotIllust & MicroCMSContentId & Micro
 			} else if (data.illust.width === 16) {
 				size = 16;
 			}
+		}
+
+		if (size === undefined) {
+			return undefined;
 		}
 
 		return {
@@ -55,5 +59,9 @@ export const formatDotList = async (dots: (DotIllust & MicroCMSContentId & Micro
 		};
 	});
 
-	return await Promise.all(result);
+	const filteredData = (await Promise.all(result)).filter((item) => {
+		return item !== undefined;
+	});
+
+	return filteredData;
 };

@@ -52,10 +52,6 @@ export const getStaticPaths = (async () => {
 
 const { dot, sameTag1Dots, sameTag2Dots } = Astro.props;
 
-if (dot.illust.size === undefined) {
-	return;
-}
-
 let image: string | undefined = undefined;
 if (dot.illust.size === 32) {
 	image = `${dot.illust.url}?w=512&q=100&px=${16}`;
