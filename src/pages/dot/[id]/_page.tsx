@@ -106,41 +106,36 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 						display: flex;
 						flex-direction: column;
 						gap: 10px;
-						align-items: flex-start;
 					`}
 				>
-					<Checkbox isChecked={termsAgree} setIsChecked={setTermsAgree}>
-						<a href="/terms" target="_blank">
-							利用規約
-						</a>
-						を読んで同意しました
-					</Checkbox>
-					<div
-						css={css`
-							display: flex;
-							gap: 10px;
-						`}
-					>
-						<Button
-							disabled={!termsAgree}
-							onClick={() => {
-								if (termsAgree) {
-									if (dot.illust.size === 32) {
-										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-										// @ts-expect-error
-										dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
-									} else if (dot.illust.size === 16) {
-										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-										// @ts-expect-error
-										dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
-									}
-									void downloadImage(`${dot.illust.url}?fm=png`, dot.title);
+					<div>
+						<Checkbox isChecked={termsAgree} setIsChecked={setTermsAgree}>
+							<a href="/terms" target="_blank">
+								利用規約
+							</a>
+							を読んで同意しました
+						</Checkbox>
+					</div>
+					<Button
+						disabled={!termsAgree}
+						onClick={() => {
+							if (termsAgree) {
+								if (dot.illust.size === 32) {
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
+									dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
+								} else if (dot.illust.size === 16) {
+									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+									// @ts-expect-error
+									dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
 								}
-							}}
-						>
-							ダウンロードする
-						</Button>
-						{/* {dot.dot64 !== undefined && (
+								void downloadImage(`${dot.illust.url}?fm=png`, dot.title);
+							}
+						}}
+					>
+						ダウンロードする
+					</Button>
+					{/* {dot.dot64 !== undefined && (
 							<Button
 								disabled={!termsAgree}
 								onClick={() => {
@@ -153,7 +148,6 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								64px版を購入する画面に進む
 							</Button>
 						)} */}
-					</div>
 				</div>
 			</div>
 
