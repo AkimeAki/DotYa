@@ -143,7 +143,6 @@ export default function ({ dots }: Props): JSX.Element {
 									css={css`
 										display: flex;
 										position: relative;
-										z-index: 99;
 										gap: 5px;
 									`}
 								>
