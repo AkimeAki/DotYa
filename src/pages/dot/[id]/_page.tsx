@@ -101,6 +101,42 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					</div>
 				)} */}
 				<div
+					css={css`
+						display: flex;
+						gap: 5px;
+						flex-direction: column;
+					`}
+				>
+					<p>
+						サイズ：{dot.illust.size}px × {dot.illust.size}px
+					</p>
+					<div
+						css={css`
+							display: flex;
+							gap: 5px;
+							flex-wrap: wrap;
+						`}
+					>
+						タグ:
+						{dot.tags.map((tag) => {
+							return (
+								<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
+									{tag.name}
+								</PixelButton>
+							);
+						})}
+						<div
+							data-pagefind-meta="タグ"
+							css={css`
+								display: none;
+							`}
+						>
+							{dot.tags.map((tag) => tag.name).join(", ")}
+						</div>
+					</div>
+				</div>
+
+				<div
 					data-pagefind-ignore
 					css={css`
 						display: flex;
@@ -151,32 +187,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				</div>
 			</div>
 
-			<div
-				css={css`
-					display: flex;
-					gap: 5px;
-					flex-wrap: wrap;
-				`}
-			>
-				タグ:
-				{dot.tags.map((tag) => {
-					return (
-						<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
-							{tag.name}
-						</PixelButton>
-					);
-				})}
-				<div
-					data-pagefind-meta="タグ"
-					css={css`
-						display: none;
-					`}
-				>
-					{dot.tags.map((tag) => tag.name).join(", ")}
-				</div>
-				<Keywords dot={dot} />
-			</div>
-
+			<Keywords dot={dot} />
 			<div
 				data-pagefind-ignore
 				css={css`
