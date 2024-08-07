@@ -115,9 +115,10 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							display: flex;
 							gap: 5px;
 							flex-wrap: wrap;
+							align-items: baseline;
 						`}
 					>
-						タグ:
+						タグ：
 						{dot.tags.map((tag) => {
 							return (
 								<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
@@ -134,6 +135,12 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							{dot.tags.map((tag) => tag.name).join(", ")}
 						</div>
 					</div>
+					<p>
+						作者：
+						<a href="https://x.com/acharom032" target="_blank">
+							acharom
+						</a>
+					</p>
 				</div>
 
 				<div
