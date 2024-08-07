@@ -29,6 +29,9 @@ export default function ({ children, isChecked, setIsChecked }: Props) {
 					width: 30px;
 					height: 30px;
 					background-color: white;
+					border-color: #613e28;
+					border-width: 2px;
+					border-style: solid;
 					cursor: pointer;
 				`}
 			>

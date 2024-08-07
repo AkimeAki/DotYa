@@ -138,7 +138,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 								}
 							}}
 						>
-							ダウンロード
+							ダウンロードする
 						</Button>
 						{/* {dot.dot64 !== undefined && (
 							<Button
