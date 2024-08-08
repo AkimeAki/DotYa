@@ -23,6 +23,10 @@ export default function ({ dots, slide = "ease", reverse = false }: Props): JSX.
 		>
 			<Swiper
 				css={css`
+					.swiper-wrapper {
+						align-items: flex-start;
+					}
+
 					${slide === "linear" &&
 					css`
 						.swiper-wrapper {
@@ -34,14 +38,14 @@ export default function ({ dots, slide = "ease", reverse = false }: Props): JSX.
 					css`
 						transform: rotate(180deg);
 
+						.swiper-wrapper {
+							align-items: flex-end;
+						}
+
 						.swiper-slide {
 							transform: rotate(180deg);
 						}
 					`}
-
-					.swiper-slide {
-						align-items: flex-start;
-					}
 				`}
 				modules={[Autoplay]}
 				spaceBetween={20}
