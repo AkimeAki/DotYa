@@ -103,7 +103,7 @@ export default function ({
 
 	return (
 		<a
-			href={href}
+			href={disabled ? undefined : href}
 			onClick={() => {
 				if (onClick !== undefined) {
 					onClick();
