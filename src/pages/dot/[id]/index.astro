@@ -6,51 +6,81 @@ import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
 import { dotJsonLd } from "@/libs/jsonld";
 import { formatDotList } from "@/libs/format-dotlist";
+import { copy } from "@/libs/copy-object";
 
 export const getStaticPaths = (async () => {
 	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 
-	return allDots.map((content) => ({
-		params: {
-			id: content.id
-		},
-		props: {
-			dot: content,
-			sameTag1Dots: allDots.filter((item) => {
-				if (item.id === content.id) {
-					return false;
-				}
+	return allDots.map((content) => {
+		let sameTag1Dots = allDots.filter((item) => {
+			if (item.id === content.id) {
+				return false;
+			}
 
-				if (content.tags[0] !== undefined) {
-					for (const tag of item.tags) {
-						if (tag.id === content.tags[0].id) {
-							return true;
-						}
+			if (content.tags[0] !== undefined) {
+				for (const tag of item.tags) {
+					if (tag.id === content.tags[0].id) {
+						return true;
 					}
 				}
+			}
 
+			return false;
+		});
+		sameTag1Dots.length = 15;
+		sameTag1Dots = sameTag1Dots.filter(Boolean);
+
+		let sameTag2Dots = allDots.filter((item) => {
+			if (item.id === content.id) {
 				return false;
-			}),
-			sameTag2Dots: allDots.filter((item) => {
-				if (item.id === content.id) {
-					return false;
-				}
+			}
 
-				if (content.tags[1] !== undefined) {
-					for (const tag of item.tags) {
-						if (tag.id === content.tags[1].id) {
-							return true;
-						}
+			if (content.tags[1] !== undefined) {
+				for (const tag of item.tags) {
+					if (tag.id === content.tags[1].id) {
+						return true;
 					}
 				}
+			}
 
+			return false;
+		});
+
+		const filterdSameTag2Dots = copy<typeof sameTag2Dots>(sameTag2Dots).filter((dot) => {
+			const dot1Ids = sameTag1Dots.map((dot) => dot.id);
+
+			return !dot1Ids.includes(dot.id);
+		});
+
+		sameTag2Dots = [...filterdSameTag2Dots, ...sameTag1Dots];
+		sameTag2Dots.length = 15;
+		sameTag2Dots = sameTag2Dots.filter(Boolean);
+
+		const otherDots = allDots.filter((item) => {
+			if (item.id === content.id) {
 				return false;
-			})
-		}
-	}));
+			}
+
+			const ids = [...sameTag1Dots.map((dot) => dot.id), ...sameTag2Dots.map((dot) => dot.id)];
+
+			return !ids.includes(item.id);
+		});
+
+		return {
+			params: {
+				id: content.id
+			},
+			props: {
+				dot: content,
+				sameTag1Dots,
+				sameTag2Dots,
+				otherDots
+			}
+		};
+	});
 }) satisfies GetStaticPaths;
 
-const { dot, sameTag1Dots, sameTag2Dots } = Astro.props;
+const { dot, sameTag1Dots, sameTag2Dots, otherDots } = Astro.props;
 
 let image: string | undefined = undefined;
 if (dot.illust.size === 32) {
@@ -82,5 +112,5 @@ if (dot.illust.size === 16) {
 	publishedAt={dot.publishedAt}
 	jsonld={[...schema]}
 >
-	<Page client:load dot={dot} sameTagDots={[sameTag1Dots, sameTag2Dots]} />
+	<Page client:load dot={dot} sameTagDots={[sameTag1Dots, sameTag2Dots]} otherDots={otherDots} />
 </Base>

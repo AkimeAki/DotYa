@@ -162,6 +162,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 							<div
 								css={css`
 									flex: 1;
+									min-width: 0;
 								`}
 							>
 								<div

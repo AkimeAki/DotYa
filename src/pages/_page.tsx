@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
 import type { DotData } from "@/libs/format-dotlist";
+import DotSlider from "@/components/templates/DotSlider";
 
 interface Props {
 	dots: DotData[];
@@ -22,6 +23,8 @@ export default function ({ dots, tags }: Props) {
 	const [randomTag, setRandomTag] = useState<(DotIllustTag & MicroCMSContentId & MicroCMSDate) | null>(null);
 	const [randomTagDots, setRandomTagDots] = useState<typeof dots>([]);
 	const [randomTagDotsLength, setRandomTagDotsLength] = useState<number>(0);
+	const [slideDots1, setSlideDots1] = useState<typeof dots>([]);
+	const [slideDots2, setSlideDots2] = useState<typeof dots>([]);
 
 	let newDots = copy<typeof dots>(dots);
 	newDots.length = 10;
@@ -36,9 +39,11 @@ export default function ({ dots, tags }: Props) {
 
 		const shuffleTags = arrayShuffle<typeof tags>(copy<typeof tags>(tags));
 		const shuffleTag = shuffleTags[0];
+
+		let shuffleTagDots: typeof dots = [];
 		if (shuffleTag !== undefined) {
 			setRandomTag(shuffleTag);
-			let shuffleTagDots = copy<typeof dots>(dots).filter((dot) => {
+			shuffleTagDots = copy<typeof dots>(dots).filter((dot) => {
 				const tagIds = dot.tags.map((tag) => tag.id);
 
 				return tagIds.includes(shuffleTag.id);
@@ -65,18 +70,28 @@ export default function ({ dots, tags }: Props) {
 			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
 		}
-	}, []);
 
-	let popularityDots = copy<typeof dots>(dots);
-	popularityDots.length = 10;
-	popularityDots = popularityDots.filter(Boolean);
+		const slideDots = copy<typeof dots>(dots).filter((dot) => {
+			const ids = [
+				...shuffleDots.map((dot) => dot.id),
+				...newDots.map((dot) => dot.id),
+				...shuffleTagDots.map((dot) => dot.id)
+			];
+
+			return !ids.includes(dot.id);
+		});
+
+		const slideDotsCenterNumber = Math.round(slideDots.length / 2);
+		setSlideDots1(slideDots.slice(0, slideDotsCenterNumber));
+		setSlideDots2(slideDots.slice(slideDotsCenterNumber, slideDots.length));
+	}, []);
 
 	return (
 		<div
 			css={css`
 				display: flex;
 				flex-direction: column;
-				gap: 100px;
+				gap: 70px;
 			`}
 		>
 			<div
@@ -92,6 +107,9 @@ export default function ({ dots, tags }: Props) {
 					もっとドット絵を見る
 				</Button>
 			</div>
+			<div>
+				<DotSlider dots={slideDots1} slide="linear" />
+			</div>
 			<div
 				css={css`
 					display: flex;
@@ -104,6 +122,9 @@ export default function ({ dots, tags }: Props) {
 				<Button href="/page/1" center>
 					もっとドット絵を見る
 				</Button>
+			</div>
+			<div>
+				<DotSlider dots={slideDots2} slide="linear" reverse />
 			</div>
 			<div
 				css={css`

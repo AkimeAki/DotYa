@@ -8,20 +8,28 @@ import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import Keywords from "@/components/organisms/Keywords";
-import { copy } from "@/libs/copy-object";
 import ShareButton from "@/components/atoms/ShareButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@/components/atoms/Checkbox";
 import type { DotData } from "@/libs/format-dotlist";
+import { arrayShuffle } from "@/libs/array-shuffle";
+import DotSlider from "@/components/templates/DotSlider";
 // import PictureFrameDom from "@/components/atoms/PictureFrameDom";
 
 interface Props {
 	dot: DotData;
 	sameTagDots: DotData[][];
+	otherDots: DotData[];
 }
 
-export default function ({ dot, sameTagDots }: Props): JSX.Element {
+export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
+	const [randomDots, setRandomDots] = useState<typeof otherDots>([]);
 	const [termsAgree, setTermsAgree] = useState<boolean>(false);
+
+	useEffect(() => {
+		const shuffleDots = arrayShuffle<typeof otherDots>(otherDots);
+		setRandomDots(shuffleDots);
+	}, []);
 
 	return (
 		<div
@@ -257,77 +265,50 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				</ShareButton>
 			</div>
 
-			{dot.tags[0] !== undefined &&
-				sameTagDots[0] !== undefined &&
-				(() => {
-					let dots = copy<(typeof sameTagDots)[0]>(sameTagDots[0]);
-					dots.length = 15;
-					dots = dots.filter(Boolean);
+			{dot.tags[0] !== undefined && sameTagDots[0] !== undefined && sameTagDots[0].length !== 0 && (
+				<div
+					data-pagefind-ignore
+					css={css`
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+					`}
+				>
+					<Title>他にも{dot.tags[0].name}のドット絵あるよ！</Title>
+					<DotList dots={sameTagDots[0]} />
+					{sameTagDots[0].length > 15 && (
+						<Button href={`/tags/${dot.tags[0].id}`}>もっと{dot.tags[0].name}のドット絵を見る</Button>
+					)}
+				</div>
+			)}
 
-					if (dots.length !== 0) {
-						return (
-							<div
-								data-pagefind-ignore
-								css={css`
-									display: flex;
-									flex-direction: column;
-									gap: 40px;
-								`}
-							>
-								<Title>他にも{dot.tags[0].name}のドット絵あるよ！</Title>
-								<DotList dots={dots} />
-								{sameTagDots[0].length > 15 && (
-									<Button href={`/tags/${dot.tags[0].id}`}>
-										もっと{dot.tags[0].name}のドット絵を見る
-									</Button>
-								)}
-							</div>
-						);
-					}
-
-					return <></>;
-				})()}
-
-			{dot.tags[1] !== undefined &&
-				sameTagDots[1] !== undefined &&
-				(() => {
-					let dots1 = copy<(typeof sameTagDots)[0]>(sameTagDots[0] ?? []);
-					dots1.length = 15;
-					dots1 = dots1.filter(Boolean);
-
-					const dots2 = copy<(typeof sameTagDots)[1]>(sameTagDots[1]).filter((dot) => {
-						const dot1Ids = dots1.map((dot) => dot.id);
-
-						return !dot1Ids.includes(dot.id);
-					});
-
-					let dots = [...dots2, ...dots1];
-					dots.length = 15;
-					dots = dots.filter(Boolean);
-
-					if (dots.length !== 0) {
-						return (
-							<div
-								data-pagefind-ignore
-								css={css`
-									display: flex;
-									flex-direction: column;
-									gap: 40px;
-								`}
-							>
-								<Title>{dot.tags[1].name}のドット絵もどうぞ！</Title>
-								<DotList dots={dots} />
-								{sameTagDots[1].length > 15 && (
-									<Button href={`/tags/${dot.tags[1].id}`}>
-										もっと{dot.tags[1].name}のドット絵を見る
-									</Button>
-								)}
-							</div>
-						);
-					}
-
-					return <></>;
-				})()}
+			{dot.tags[1] !== undefined && sameTagDots[1] !== undefined && sameTagDots[1].length !== 0 && (
+				<div
+					data-pagefind-ignore
+					css={css`
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+					`}
+				>
+					<Title>{dot.tags[1].name}のドット絵もどうぞ！</Title>
+					<DotList dots={sameTagDots[1]} />
+					{sameTagDots[1].length > 15 && (
+						<Button href={`/tags/${dot.tags[1].id}`}>もっと{dot.tags[1].name}のドット絵を見る</Button>
+					)}
+				</div>
+			)}
+			<div
+				data-pagefind-ignore
+				css={css`
+					display: flex;
+					flex-direction: column;
+					gap: 40px;
+				`}
+			>
+				<Title>他にもドット絵見ていってね</Title>
+				<DotSlider dots={randomDots} />
+			</div>
 		</div>
 	);
 }
