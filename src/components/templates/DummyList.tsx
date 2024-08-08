@@ -46,6 +46,7 @@ export default function ({ length }: Props): JSX.Element {
 					return (
 						<div
 							key={index}
+							className="dot-list-item"
 							css={css`
 								display: flex;
 								flex-direction: column;

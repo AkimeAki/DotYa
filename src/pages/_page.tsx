@@ -99,6 +99,12 @@ export default function ({ dots, tags }: Props) {
 					display: flex;
 					flex-direction: column;
 					gap: 40px;
+
+					@media (max-width: 700px) {
+						.dot-list-item:last-child {
+							display: none;
+						}
+					}
 				`}
 			>
 				<Title> こんにちは。ドット絵素材屋さんです！</Title>
@@ -115,6 +121,12 @@ export default function ({ dots, tags }: Props) {
 					display: flex;
 					flex-direction: column;
 					gap: 40px;
+
+					@media (max-width: 700px) {
+						.dot-list-item:last-child {
+							display: none;
+						}
+					}
 				`}
 			>
 				<Title>新着ドット絵はこちら！</Title>
@@ -131,6 +143,15 @@ export default function ({ dots, tags }: Props) {
 					display: flex;
 					flex-direction: column;
 					gap: 40px;
+
+					${randomTagDotsLength > 10 &&
+					css`
+						@media (max-width: 700px) {
+							.dot-list-item:last-child {
+								display: none;
+							}
+						}
+					`}
 				`}
 			>
 				<Title>{randomTag !== null ? randomTag.name : ""}のドット絵もあるよ！</Title>
