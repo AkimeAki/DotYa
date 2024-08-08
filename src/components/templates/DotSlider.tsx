@@ -38,21 +38,25 @@ export default function ({ dots, slide = "ease", reverse = false }: Props): JSX.
 							transform: rotate(180deg);
 						}
 					`}
+
+					.swiper-slide {
+						align-items: flex-start;
+					}
 				`}
 				modules={[Autoplay]}
 				spaceBetween={20}
-				slidesPerView={2}
+				slidesPerView={3}
 				speed={slide === "linear" ? 3000 : 1000}
 				breakpointsBase="window"
 				autoplay={{
 					delay: slide === "linear" ? 0 : 2000,
 					disableOnInteraction: false
 				}}
+				allowTouchMove={false}
 				direction="horizontal"
 				freeMode
 				loop
 				breakpoints={{
-					501: { slidesPerView: 3 },
 					701: { slidesPerView: 4 },
 					901: { slidesPerView: 5 },
 					1001: { slidesPerView: 6 },

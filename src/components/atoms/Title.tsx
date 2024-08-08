@@ -20,15 +20,20 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 		border-top: 2px solid #58586e;
 		font-size: 30px;
 
+		@media (max-width: ${spWidth}px) {
+			font-size: 20px;
+
+			${size === "small" &&
+			css`
+				font-size: 14px;
+			`}
+		}
+
 		${size === "small" &&
 		css`
 			padding: 5px 10px 8px;
 			font-size: 14px;
 		`}
-
-		@media (max-width: ${spWidth}px) {
-			font-size: 20px;
-		}
 	`;
 	switch (h) {
 		case 2:

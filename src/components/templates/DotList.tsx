@@ -34,10 +34,6 @@ export default function ({ dots }: Props): JSX.Element {
 				@media (max-width: 700px) {
 					grid-template-columns: repeat(3, 1fr);
 				}
-
-				@media (max-width: 500px) {
-					grid-template-columns: repeat(2, 1fr);
-				}
 			`}
 		>
 			{dots.map((dot) => {
