@@ -82,8 +82,8 @@ export default function ({ dots, tags }: Props) {
 		});
 
 		const slideDotsCenterNumber = Math.round(slideDots.length / 2);
-		setSlideDots1(slideDots.slice(0, slideDotsCenterNumber));
-		setSlideDots2(slideDots.slice(slideDotsCenterNumber, slideDots.length));
+		setSlideDots1(arrayShuffle<typeof dots>(slideDots.slice(0, slideDotsCenterNumber)));
+		setSlideDots2(arrayShuffle<typeof dots>(slideDots.slice(slideDotsCenterNumber, slideDots.length)));
 	}, []);
 
 	return (
