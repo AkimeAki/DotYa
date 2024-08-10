@@ -30,6 +30,22 @@ export const getStaticPaths = (async () => {
 		sameTag1Dots.length = 15;
 		sameTag1Dots = sameTag1Dots.filter(Boolean);
 
+		const sameTag1DotsInSameTag2Dots = sameTag1Dots.filter((item) => {
+			if (item.id === content.id) {
+				return false;
+			}
+
+			if (content.tags[1] !== undefined) {
+				for (const tag of item.tags) {
+					if (tag.id === content.tags[1].id) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		});
+
 		let sameTag2Dots = allDots.filter((item) => {
 			if (item.id === content.id) {
 				return false;
@@ -47,12 +63,12 @@ export const getStaticPaths = (async () => {
 		});
 
 		const filterdSameTag2Dots = copy<typeof sameTag2Dots>(sameTag2Dots).filter((dot) => {
-			const dot1Ids = sameTag1Dots.map((dot) => dot.id);
+			const dot1Ids = sameTag1DotsInSameTag2Dots.map((dot) => dot.id);
 
 			return !dot1Ids.includes(dot.id);
 		});
 
-		sameTag2Dots = [...filterdSameTag2Dots, ...sameTag1Dots];
+		sameTag2Dots = [...filterdSameTag2Dots, ...sameTag1DotsInSameTag2Dots];
 		sameTag2Dots.length = 15;
 		sameTag2Dots = sameTag2Dots.filter(Boolean);
 
