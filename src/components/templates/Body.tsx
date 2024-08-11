@@ -25,8 +25,10 @@ export default function ({ children, tags }: Props): JSX.Element {
 	}, []);
 
 	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+		setTimeout(() => {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+		}, 1000);
 	}, []);
 
 	return (
@@ -219,11 +221,6 @@ export default function ({ children, tags }: Props): JSX.Element {
 						</main>
 					</div>
 
-					<script
-						async
-						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6914867149724943"
-						crossOrigin="anonymous"
-					/>
 					<ins
 						className="adsbygoogle"
 						style={{ display: "block" }}

@@ -97,6 +97,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<!-- End Google Tag Manager -->
 		<link rel="icon" href={`${Astro.site}favicon.ico`} />
 		<link rel="sitemap" href={`${Astro.site}sitemap-index.xml`} />
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6914867149724943"
+			crossorigin="anonymous"
+			is:inline></script>
 		{
 			schema.map((item) => {
 				return <script type="application/ld+json" is:inline set:html={JSON.stringify(item)} />;

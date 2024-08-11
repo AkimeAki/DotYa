@@ -116,11 +116,6 @@ export default function ({ dots, tags }: Props) {
 			<div>
 				<DotSlider dots={slideDots1} slide="linear" />
 			</div>
-			<script
-				async
-				src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6914867149724943"
-				crossOrigin="anonymous"
-			/>
 			<ins
 				className="adsbygoogle"
 				style={{ display: "block" }}
@@ -129,6 +124,7 @@ export default function ({ dots, tags }: Props) {
 				data-ad-format="auto"
 				data-full-width-responsive="true"
 			/>
+
 			<div
 				css={css`
 					display: flex;
