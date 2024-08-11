@@ -212,6 +212,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 									<div
 										css={css`
 											padding-top: 70px;
+											overflow-x: hidden;
 										`}
 									>
 										{children}
