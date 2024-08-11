@@ -265,6 +265,15 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 				</ShareButton>
 			</div>
 
+			<ins
+				className="adsbygoogle"
+				style={{ display: "block" }}
+				data-ad-client="ca-pub-6914867149724943"
+				data-ad-slot="9512157076"
+				data-ad-format="auto"
+				data-full-width-responsive="true"
+			/>
+
 			{dot.tags[0] !== undefined && sameTagDots[0] !== undefined && sameTagDots[0].length !== 0 && (
 				<div
 					data-pagefind-ignore
