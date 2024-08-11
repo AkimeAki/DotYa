@@ -217,14 +217,19 @@ export default function ({ children, tags }: Props): JSX.Element {
 									>
 										{children}
 									</div>
-									<div>
+									<div
+										css={css`
+											padding-top: 70px;
+											overflow-x: hidden;
+										`}
+									>
 										<ins
 											className="adsbygoogle"
 											style={{ display: "block" }}
 											data-ad-format="autorelaxed"
 											data-ad-client="ca-pub-6914867149724943"
 											data-ad-slot="5917931965"
-										/>
+										></ins>
 									</div>
 								</div>
 							</div>
