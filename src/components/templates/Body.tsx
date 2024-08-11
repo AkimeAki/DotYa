@@ -216,19 +216,20 @@ export default function ({ children, tags }: Props): JSX.Element {
 									>
 										{children}
 									</div>
+									<div>
+										<ins
+											className="adsbygoogle"
+											style={{ display: "block" }}
+											data-ad-client="ca-pub-6914867149724943"
+											data-ad-slot="9512157076"
+											data-ad-format="auto"
+											data-full-width-responsive="true"
+										/>
+									</div>
 								</div>
 							</div>
 						</main>
 					</div>
-
-					<ins
-						className="adsbygoogle"
-						style={{ display: "block" }}
-						data-ad-client="ca-pub-6914867149724943"
-						data-ad-slot="9512157076"
-						data-ad-format="auto"
-						data-full-width-responsive="true"
-					/>
 
 					<footer
 						data-pagefind-ignore
