@@ -14,6 +14,7 @@ import Checkbox from "@/components/atoms/Checkbox";
 import type { DotData } from "@/libs/format-dotlist";
 import { arrayShuffle } from "@/libs/array-shuffle";
 import DotSlider from "@/components/templates/DotSlider";
+import GoogleAds from "@/components/atoms/GoogleAds";
 // import PictureFrameDom from "@/components/atoms/PictureFrameDom";
 
 interface Props {
@@ -265,14 +266,7 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 				</ShareButton>
 			</div>
 
-			<ins
-				className="adsbygoogle"
-				style={{ display: "block" }}
-				data-ad-client="ca-pub-6914867149724943"
-				data-ad-slot="9512157076"
-				data-ad-format="auto"
-				data-full-width-responsive="true"
-			/>
+			<GoogleAds slot="9512157076" />
 
 			{dot.tags[0] !== undefined && sameTagDots[0] !== undefined && sameTagDots[0].length !== 0 && (
 				<div
@@ -307,6 +301,9 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 					)}
 				</div>
 			)}
+
+			<GoogleAds slot="9512157076" />
+
 			<div
 				data-pagefind-ignore
 				css={css`
