@@ -5,11 +5,12 @@ import Sidebar from "@/components/organisms/Sidebar";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import type { DotIllustTag } from "@/types";
 import "@pagefind/default-ui/css/ui.css";
+import { useEffect } from "react";
+import GoogleAds from "@/components/atoms/GoogleAds";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-expect-error
 import { PagefindUI } from "@pagefind/default-ui";
-import { useEffect } from "react";
 
 interface Props {
 	children: React.ReactNode;
@@ -22,13 +23,6 @@ export default function ({ children, tags }: Props): JSX.Element {
 			element: ".search",
 			debounceTimeoutMs: 0
 		});
-	}, []);
-
-	useEffect(() => {
-		setTimeout(() => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-		}, 1000);
 	}, []);
 
 	return (
@@ -220,17 +214,10 @@ export default function ({ children, tags }: Props): JSX.Element {
 									<div
 										css={css`
 											padding-top: 70px;
-											overflow-x: hidden;
+											overflow: hidden;
 										`}
 									>
-										<ins
-											className="adsbygoogle"
-											style={{ display: "block" }}
-											data-ad-client="ca-pub-6914867149724943"
-											data-ad-slot="6502850359"
-											data-ad-format="auto"
-											data-full-width-responsive="true"
-										/>
+										<GoogleAds slot="6502850359" />
 									</div>
 								</div>
 							</div>

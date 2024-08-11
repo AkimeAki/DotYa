@@ -12,6 +12,7 @@ import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
 import type { DotData } from "@/libs/format-dotlist";
 import DotSlider from "@/components/templates/DotSlider";
+import GoogleAds from "@/components/atoms/GoogleAds";
 
 interface Props {
 	dots: DotData[];
@@ -116,14 +117,7 @@ export default function ({ dots, tags }: Props) {
 			<div>
 				<DotSlider dots={slideDots1} slide="linear" />
 			</div>
-			<ins
-				className="adsbygoogle"
-				style={{ display: "block" }}
-				data-ad-client="ca-pub-6914867149724943"
-				data-ad-slot="9512157076"
-				data-ad-format="auto"
-				data-full-width-responsive="true"
-			/>
+			<GoogleAds slot="9512157076" />
 
 			<div
 				css={css`
