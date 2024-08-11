@@ -226,10 +226,11 @@ export default function ({ children, tags }: Props): JSX.Element {
 										<ins
 											className="adsbygoogle"
 											style={{ display: "block" }}
-											data-ad-format="autorelaxed"
 											data-ad-client="ca-pub-6914867149724943"
-											data-ad-slot="5917931965"
-										></ins>
+											data-ad-slot="6502850359"
+											data-ad-format="auto"
+											data-full-width-responsive="true"
+										/>
 									</div>
 								</div>
 							</div>
