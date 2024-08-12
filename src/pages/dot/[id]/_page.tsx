@@ -146,9 +146,7 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 					</div>
 					<p>
 						作者：
-						<a href="https://x.com/acharom032" target="_blank">
-							acharom
-						</a>
+						<span>acharom</span>
 					</p>
 				</div>
 

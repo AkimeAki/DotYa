@@ -239,19 +239,26 @@ export default function ({ children, tags }: Props): JSX.Element {
 								span {
 									color: white;
 								}
-
-								a {
-									color: #7cf0ff;
-									margin: 0 10px;
-								}
 							`}
 						>
 							<span>Created by</span>
-							<a href="https://twitter.com/acharom032" target="_blank" rel="noreferrer">
+							<span
+								css={css`
+									margin: 0 10px;
+								`}
+							>
 								acharom
-							</a>
+							</span>
 							<span>&</span>
-							<a href="https://aki.wtf" target="_blank" rel="noreferrer">
+							<a
+								href="https://aki.wtf"
+								target="_blank"
+								rel="noreferrer"
+								css={css`
+									margin: 0 10px;
+									color: #7cf0ff;
+								`}
+							>
 								彩季
 							</a>
 						</p>
