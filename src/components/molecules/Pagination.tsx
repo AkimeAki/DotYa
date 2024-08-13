@@ -18,6 +18,13 @@ export default function ({ current, last, baseUrl }: Props) {
 				display: flex;
 				gap: 5px;
 				justify-content: center;
+
+				@media (max-width: 500px) {
+					a,
+					button {
+						padding: 10px 15px 12px;
+					}
+				}
 			`}
 		>
 			<Button href={current < 2 ? undefined : `${baseUrl}${current - 1}`} disabled={current < 2}>

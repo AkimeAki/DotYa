@@ -31,7 +31,9 @@ export default function ({ page, tag }: Props) {
 					gap: 20px;
 				`}
 			>
-				<Title>{tag.name}タグが付いたドット絵 1ページ目です。</Title>
+				<Title>
+					{tag.name}タグが付いたドット絵 {page.currentPage}ページ目
+				</Title>
 				<Pagination current={page.currentPage} last={page.lastPage} baseUrl={`/tags/${tag.id}/page/`} />
 			</div>
 			<DotList dots={page.data.slice(0, 15)} />

@@ -28,7 +28,7 @@ export default function ({ page }: Props) {
 					gap: 20px;
 				`}
 			>
-				<Title>16pxのドット絵一覧 {page.currentPage}ページ目です。</Title>
+				<Title>16pxのドット絵一覧 {page.currentPage}ページ目</Title>
 				<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/16px/page/"></Pagination>
 			</div>
 			<DotList dots={page.data.slice(0, 15)} />

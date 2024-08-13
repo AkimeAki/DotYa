@@ -140,7 +140,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 									color: #313131;
 								`}
 							>
-								ドット絵のフリーイラスト素材屋さんです。
+								ドット絵のフリーイラスト素材屋さんです
 							</p>
 						</header>
 						<main

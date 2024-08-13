@@ -30,7 +30,7 @@ export default function ({ dots, tag, lastPage }: Props) {
 					gap: 20px;
 				`}
 			>
-				<Title>{tag.name}タグが付いたドット絵 1ページ目です。</Title>
+				<Title>{tag.name}タグが付いたドット絵 1ページ目</Title>
 				<Pagination current={1} last={lastPage} baseUrl={`/tags/${tag.id}/page/`} />
 			</div>
 			<DotList dots={dots} />
