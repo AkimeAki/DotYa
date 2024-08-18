@@ -110,6 +110,7 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 					</div>
 				)} */}
 				<div
+					data-pagefind-ignore
 					css={css`
 						display: flex;
 						gap: 5px;
