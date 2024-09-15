@@ -247,20 +247,8 @@ export default function ({ children, tags }: Props): JSX.Element {
 									margin: 0 10px;
 								`}
 							>
-								acharom
+								篝之鼠
 							</span>
-							<span>&</span>
-							<a
-								href="https://aki.wtf"
-								target="_blank"
-								rel="noreferrer"
-								css={css`
-									margin: 0 10px;
-									color: #7cf0ff;
-								`}
-							>
-								彩季
-							</a>
 						</p>
 					</footer>
 				</div>
