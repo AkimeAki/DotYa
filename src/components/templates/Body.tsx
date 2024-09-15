@@ -242,13 +242,15 @@ export default function ({ children, tags }: Props): JSX.Element {
 							`}
 						>
 							<span>Created by</span>
-							<span
+							<a
+								href="https://kagari.aki.wtf"
+								target="_blank"
 								css={css`
 									margin: 0 10px;
 								`}
 							>
 								篝之鼠
-							</span>
+							</a>
 						</p>
 					</footer>
 				</div>
