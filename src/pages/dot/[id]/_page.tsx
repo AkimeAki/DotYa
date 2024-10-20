@@ -136,7 +136,7 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 					</div>
 					<p>
 						作者：
-						<span>acharom</span>
+						<span>ろむ</span>
 					</p>
 				</div>
 
