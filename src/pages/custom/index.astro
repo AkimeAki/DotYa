@@ -4,14 +4,14 @@ import Page from "./_page";
 import { getCachedContents } from "@/libs/microcms";
 import type { DotIllust } from "@/types";
 import { formatDotList } from "@/libs/format-dotlist";
+import { fixedDescription } from "@/define";
 
 const dots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 ---
 
 <Base
 	title="カスタマイズ"
-	description="2つのドット絵をくっつけることができます！お好みのカスタマイズをしてみてね！「どっとや」はドット絵のフリーイラスト素材屋さんです。"
-	ignoreSearch
+	description={`2つのドット絵をくっつけることができます！お好みのカスタマイズをしてみてね！${fixedDescription}`}
 >
 	<Page dots={dots} client:load />
 </Base>

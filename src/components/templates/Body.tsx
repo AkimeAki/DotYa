@@ -4,13 +4,7 @@ import { css } from "@emotion/react";
 import Sidebar from "@/components/organisms/Sidebar";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import type { DotIllustTag } from "@/types";
-import "@pagefind/default-ui/css/ui.css";
-import { useEffect } from "react";
 import GoogleAds from "@/components/atoms/GoogleAds";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
-import { PagefindUI } from "@pagefind/default-ui";
 
 interface Props {
 	children: React.ReactNode;
@@ -18,13 +12,6 @@ interface Props {
 }
 
 export default function ({ children, tags }: Props): JSX.Element {
-	useEffect(() => {
-		new PagefindUI({
-			element: ".search",
-			debounceTimeoutMs: 0
-		});
-	}, []);
-
 	return (
 		<>
 			<div
@@ -157,7 +144,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 								}
 							`}
 						>
-							<div data-pagefind-ignore>
+							<div>
 								<Sidebar tags={tags} />
 							</div>
 							<div
@@ -173,39 +160,6 @@ export default function ({ children, tags }: Props): JSX.Element {
 								>
 									<div
 										css={css`
-											position: absolute;
-											top: 0;
-											left: 0;
-											width: 100%;
-											z-index: 500;
-
-											.pagefind-ui__results-area {
-												background-color: white;
-												padding: 0 20px 20px;
-												border-radius: 6px;
-											}
-
-											.pagefind-ui__result-image {
-												image-rendering: pixelated !important;
-												object-fit: contain !important;
-												width: 100% !important;
-												aspect-ratio: 1 / 1 !important;
-											}
-
-											.pagefind-ui__result-excerpt {
-												display: none !important;
-											}
-
-											* {
-												font-family: "DotGothic16", sans-serif !important;
-											}
-										`}
-									>
-										<div className="search"></div>
-									</div>
-									<div
-										css={css`
-											padding-top: 70px;
 											overflow-x: hidden;
 										`}
 									>
@@ -225,7 +179,6 @@ export default function ({ children, tags }: Props): JSX.Element {
 					</div>
 
 					<footer
-						data-pagefind-ignore
 						css={css`
 							display: flex;
 							justify-content: center;

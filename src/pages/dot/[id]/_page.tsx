@@ -7,7 +7,6 @@ import Title from "@/components/atoms/Title";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
-import Keywords from "@/components/organisms/Keywords";
 import ShareButton from "@/components/atoms/ShareButton";
 import { useEffect, useState } from "react";
 import Checkbox from "@/components/atoms/Checkbox";
@@ -72,7 +71,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 							`}
 							src={dot.illust.url}
 							alt={dot.title}
-							data-pagefind-meta="image[src], image_alt[alt]"
 						/>
 						{[256, 128, 64, 32].map((pixel) => {
 							return <PictureFrame key={pixel} size={pixel} src={dot.illust.url} alt={dot.title} />;
@@ -110,7 +108,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 					</div>
 				)} */}
 				<div
-					data-pagefind-ignore
 					css={css`
 						display: flex;
 						gap: 5px;
@@ -136,14 +133,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 								</PixelButton>
 							);
 						})}
-						<div
-							data-pagefind-meta="タグ"
-							css={css`
-								display: none;
-							`}
-						>
-							{dot.tags.map((tag) => tag.name).join(", ")}
-						</div>
 					</div>
 					<p>
 						作者：
@@ -152,7 +141,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 				</div>
 
 				<div
-					data-pagefind-ignore
 					css={css`
 						display: flex;
 						flex-direction: column;
@@ -202,9 +190,7 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 				</div>
 			</div>
 
-			<Keywords dot={dot} />
 			<div
-				data-pagefind-ignore
 				css={css`
 					display: flex;
 					gap: 5px;
@@ -269,7 +255,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 
 			{dot.tags[0] !== undefined && sameTagDots[0] !== undefined && sameTagDots[0].length !== 0 && (
 				<div
-					data-pagefind-ignore
 					css={css`
 						display: flex;
 						flex-direction: column;
@@ -286,7 +271,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 
 			{dot.tags[1] !== undefined && sameTagDots[1] !== undefined && sameTagDots[1].length !== 0 && (
 				<div
-					data-pagefind-ignore
 					css={css`
 						display: flex;
 						flex-direction: column;
@@ -304,7 +288,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 			<GoogleAds slot="9512157076" />
 
 			<div
-				data-pagefind-ignore
 				css={css`
 					display: flex;
 					flex-direction: column;

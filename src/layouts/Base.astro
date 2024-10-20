@@ -1,5 +1,6 @@
 ---
 import Body from "@/components/templates/Body";
+import { fixedDescription } from "@/define";
 import "@/global.scss";
 import { getCachedContents } from "@/libs/microcms";
 import type { DotIllustTag } from "@/types";
@@ -10,7 +11,6 @@ interface Props {
 	ogType?: string;
 	ogImage?: string;
 	notFound?: boolean;
-	ignoreSearch?: boolean;
 	canonical?: string;
 	publishedAt?: string | undefined;
 	jsonld?: unknown[];
@@ -20,11 +20,10 @@ const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 
 const {
 	title,
-	description = "ドット絵のフリーイラスト素材屋さんです。",
+	description = `${fixedDescription}素材は規約の範囲内であれば、クレジット表記の必要なしで個人、 法人、商用、非商用問わず無料でご利用頂けます。`,
 	ogType = "article",
 	ogImage = `${Astro.site}default-ogp.png`,
 	notFound = false,
-	ignoreSearch = false,
 	canonical = `${Astro.site}${path}`,
 	jsonld = []
 } = Astro.props;
@@ -40,7 +39,7 @@ const schema = [
 		"@type": "WebSite",
 		name: serviceTitle,
 		alternateName: serviceTitle,
-		description: "ドット絵のフリーイラスト素材屋さんです。",
+		description,
 		url: String(Astro.site),
 		publisher: {
 			"@type": "Organization",
@@ -108,9 +107,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			})
 		}
 		<title>{pageTitle}</title>
-		{!notFound && <link data-pagefind-meta="url[href]" rel="canonical" href={canonical} />}
+		{!notFound && <link rel="canonical" href={canonical} />}
 	</head>
-	<body data-pagefind-ignore={ignoreSearch}>
+	<body>
 		<!-- Google Tag Manager (noscript) -->
 		<noscript>
 			<iframe
@@ -121,9 +120,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</noscript>
 		<!-- End Google Tag Manager (noscript) -->
 
-		<div data-pagefind-meta="title" style="display: none;">
-			{title ?? serviceTitle}
-		</div>
 		<Body tags={tags} client:load>
 			<slot />
 		</Body>

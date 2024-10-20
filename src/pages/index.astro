@@ -9,6 +9,6 @@ const dots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 const tags = await getCachedContents<DotIllustTag>("tags");
 ---
 
-<Base ignoreSearch>
+<Base>
 	<Page dots={dots} tags={tags} client:load />
 </Base>

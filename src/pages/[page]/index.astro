@@ -4,6 +4,7 @@ import Page from "./_page";
 import type { CMSPage } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
+import { fixedDescription } from "@/define";
 
 export const getStaticPaths = (async () => {
 	const response = await getCachedContents<CMSPage>("page");
@@ -26,10 +27,6 @@ if (page === undefined) {
 const { detail } = Astro.props;
 ---
 
-<Base
-	title={detail.title}
-	description={`${detail.title}ページです。「どっとや」はドット絵のフリーイラスト素材屋さんです。`}
-	ignoreSearch
->
+<Base title={detail.title} description={`${detail.title}ページです。${fixedDescription}`}>
 	<Page title={detail.title} content={detail.content} />
 </Base>
