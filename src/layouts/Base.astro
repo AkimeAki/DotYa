@@ -29,7 +29,7 @@ const {
 } = Astro.props;
 
 const serviceTitle = "どっとや";
-const pageTitle = title === undefined ? serviceTitle : `${title}｜${serviceTitle}`;
+const pageTitle = title === undefined ? serviceTitle : `${title} - ${serviceTitle}`;
 
 const tags = await getCachedContents<DotIllustTag>("tags");
 
