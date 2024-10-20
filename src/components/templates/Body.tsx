@@ -227,31 +227,59 @@ export default function ({ children, tags }: Props): JSX.Element {
 					<footer
 						data-pagefind-ignore
 						css={css`
-							background-color: #6d6d6d;
-							border-top: 2px solid #535353;
-							padding: 50px 0;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							background-color: #5b4942;
+							height: 130px;
+							font-family: "BestTenCRT";
+							color: white;
+							user-select: none;
+
+							* {
+								font-family: "BestTenCRT";
+								color: white;
+							}
 						`}
 					>
-						<p
+						<div
 							css={css`
-								text-align: center;
-
-								span {
-									color: white;
-								}
+								display: flex;
+								align-items: center;
+								gap: 20px;
 							`}
 						>
-							<span>Created by</span>
+							<div>Created by</div>
 							<a
 								href="https://kagari.aki.wtf"
 								target="_blank"
 								css={css`
-									margin: 0 10px;
+									display: flex;
+									align-items: center;
+									gap: 10px;
+									text-decoration: none;
+
+									&:hover {
+										color: #9deb83;
+
+										* {
+											color: #9deb83;
+										}
+									}
 								`}
 							>
-								篝之鼠
+								<div>篝之鼠</div>
+								<img
+									css={css`
+										height: 20px;
+										gap: 20px;
+										display: block;
+									`}
+									src="https://r2.aki.wtf/kagari-rat.png"
+								/>
+								<div>かがりのす</div>
 							</a>
-						</p>
+						</div>
 					</footer>
 				</div>
 			</div>
