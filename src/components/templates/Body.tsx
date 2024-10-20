@@ -25,7 +25,6 @@ export default function ({ children, tags }: Props): JSX.Element {
 					css={css`
 						display: flex;
 						flex-direction: column;
-						height: 100%;
 					`}
 				>
 					<div
