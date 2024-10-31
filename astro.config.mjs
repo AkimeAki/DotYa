@@ -48,7 +48,11 @@ export default defineConfig({
 
 	vite: {
 		define: {
-			global: "window"
+			global: "window",
+			// eslint-disable-next-line no-undef
+			"process.env.MICROCMS_SERVICE_DOMAIN": JSON.stringify(process.env.MICROCMS_SERVICE_DOMAIN),
+			// eslint-disable-next-line no-undef
+			"process.env.MICROCMS_API_KEY": JSON.stringify(process.env.MICROCMS_API_KEY)
 		}
 	},
 	output: "hybrid",

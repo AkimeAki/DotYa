@@ -5,23 +5,15 @@ import { fixedDescription } from "@/define";
 import type { DotIllust } from "@/types";
 import { getListAllContents } from "@/libs/microcms";
 import { formatDotList, type DotData } from "@/libs/format-dotlist";
-import type { Runtime } from "@astrojs/cloudflare";
 
 export const prerender = false;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const runtime: Runtime = Astro.locals.runtime;
 const searchText = Astro.url.searchParams.get("q");
 let dots: null | DotData[] = null;
 if (searchText !== null && searchText !== "") {
 	dots = await formatDotList(
-		await getListAllContents<DotIllust>(
-			"dot",
-			{
-				q: searchText
-			},
-			runtime
-		)
+		await getListAllContents<DotIllust>("dot", {
+			q: searchText
+		})
 	);
 }
 ---

@@ -1,7 +1,6 @@
 import { createClient } from "microcms-js-sdk";
 import { nullToUndefined } from "@/libs/nullToUndefined";
 import type { MicroCMSContentId, MicroCMSDate, MicroCMSListResponse, MicroCMSQueries } from "microcms-js-sdk";
-import type { Runtime } from "@astrojs/cloudflare";
 
 const client = createClient({
 	serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN ?? "",
@@ -18,23 +17,9 @@ export const getListContents = async <T>(
 
 export const getListAllContents = async <T>(
 	apiName: string,
-	queries: MicroCMSQueries = {},
-	runtime?: Runtime
+	queries: MicroCMSQueries = {}
 ): Promise<Array<T & MicroCMSContentId & MicroCMSDate>> => {
-	let microCmsClient = client;
-	if (runtime !== undefined) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
-		const { MICROCMS_SERVICE_DOMAIN, MICROCMS_API_KEY } = runtime.env;
-		console.log(runtime);
-
-		microCmsClient = createClient({
-			serviceDomain: MICROCMS_SERVICE_DOMAIN ?? "",
-			apiKey: MICROCMS_API_KEY ?? ""
-		});
-	}
-
-	const response = await microCmsClient.getAllContents<T>({ endpoint: apiName, queries });
+	const response = await client.getAllContents<T>({ endpoint: apiName, queries });
 	return nullToUndefined<Array<T & MicroCMSContentId & MicroCMSDate>>(response);
 };
 
