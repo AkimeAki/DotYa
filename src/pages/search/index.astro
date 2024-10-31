@@ -1,0 +1,24 @@
+---
+import Base from "@/layouts/Base.astro";
+import ThisPage from "./_page";
+import { fixedDescription } from "@/define";
+import type { DotIllust } from "@/types";
+import { getListAllContents } from "@/libs/microcms";
+import { formatDotList, type DotData } from "@/libs/format-dotlist";
+
+export const prerender = false;
+
+const searchText = Astro.url.searchParams.get("q");
+let dots: null | DotData[] = null;
+if (searchText !== null && searchText !== "") {
+	dots = await formatDotList(
+		await getListAllContents<DotIllust>("dot", {
+			q: searchText
+		})
+	);
+}
+---
+
+<Base title={`検索`} description={`検索ページです。${fixedDescription}`} canonical={`${Astro.site}search`}>
+	<ThisPage dots={dots} q={searchText ?? ""} client:load />
+</Base>

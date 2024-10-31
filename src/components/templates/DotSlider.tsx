@@ -92,6 +92,7 @@ export default function ({ dots, slide = "ease", reverse = false }: Props): JSX.
 											aspect-ratio: 1/1;
 											image-rendering: pixelated;
 										`}
+										loading="lazy"
 										src={dot.illust.url}
 										alt={dot.title}
 									/>
@@ -155,6 +156,7 @@ export default function ({ dots, slide = "ease", reverse = false }: Props): JSX.
 												image-rendering: pixelated;
 												pointer-events: none;
 											`}
+											loading="lazy"
 											src={dot.illust.url}
 											alt={dot.title}
 										/>

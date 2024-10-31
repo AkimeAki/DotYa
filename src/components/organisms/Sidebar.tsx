@@ -15,6 +15,7 @@ interface Props {
 
 export default function ({ tags }: Props): JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [keywords, setKeywords] = useState<string>("");
 
 	return (
 		<>
@@ -123,6 +124,57 @@ export default function ({ tags }: Props): JSX.Element {
 					}
 				`}
 			>
+				<div
+					css={css`
+						display: flex;
+						gap: 5px;
+					`}
+				>
+					<input
+						placeholder="検索ワードを入力"
+						enterKeyHint="search"
+						value={keywords}
+						onChange={(e) => {
+							setKeywords(e.target.value);
+						}}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" && keywords !== "") {
+								location.href = `/search?q=${keywords}`;
+							}
+						}}
+						css={css`
+							padding: 10px 20px;
+							flex: 1;
+							border: 2px solid #4d3d36;
+							border-radius: 4px;
+							width: 100%;
+						`}
+					/>
+					<a
+						href={`/search?q=${keywords}`}
+						css={css`
+							padding: 15px 10px 17px;
+							display: block;
+							text-decoration: none;
+							background-color: #4d3d36;
+							color: #faf5b1;
+							border-radius: 4px;
+							border-bottom: 2px solid #111516;
+							border-top: 2px solid #6e6358;
+							user-select: none;
+							cursor: pointer;
+							white-space: nowrap;
+
+							@media (hover: hover) {
+								&:hover {
+									background-color: #554a46;
+								}
+							}
+						`}
+					>
+						検索
+					</a>
+				</div>
 				<SidebarLink href="/">ホーム</SidebarLink>
 				<div
 					css={css`

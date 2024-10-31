@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 
+import cloudflare from "@astrojs/cloudflare";
+
 const site = "https://pixel.gives";
 
 // https://astro.build/config
@@ -10,8 +12,10 @@ export default defineConfig({
 		port: 9001,
 		host: "0.0.0.0"
 	},
+
 	site,
 	trailingSlash: "never",
+
 	integrations: [
 		sitemap({
 			filter: (page) => {
@@ -37,12 +41,16 @@ export default defineConfig({
 		}),
 		react()
 	],
+
 	build: {
 		format: "file"
 	},
+
 	vite: {
 		define: {
 			global: "window"
 		}
-	}
+	},
+	output: "hybrid",
+	adapter: cloudflare()
 });
