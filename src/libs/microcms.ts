@@ -26,6 +26,7 @@ export const getListAllContents = async <T>(
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
 		const { MICROCMS_SERVICE_DOMAIN, MICROCMS_API_KEY } = runtime.env;
+		console.log(runtime);
 
 		microCmsClient = createClient({
 			serviceDomain: MICROCMS_SERVICE_DOMAIN ?? "",
