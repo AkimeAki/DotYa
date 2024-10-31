@@ -11,7 +11,7 @@ export default [
 	...tseslint.configs.recommended,
 	...pluginAstro.configs["flat/recommended"],
 	{
-		ignores: ["src/env.d.ts", "dist/**/*"]
+		ignores: ["src/env.d.ts", "dist/**/*", ".astro/**/*"]
 	},
 	{
 		files: ["**/*.tsx"],
@@ -21,9 +21,6 @@ export default [
 			"react/react-in-jsx-scope": "off",
 			"react/no-unknown-property": ["error", { ignore: ["css"] }]
 		}
-	},
-	{
-		files: ["**/*.astro"]
 	},
 	configPrettier
 ];

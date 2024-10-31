@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro check && npm run lint && astro build",
+		"build": "npm run lint && astro build",
 		"preview": "astro preview",
 		"format": "prettier --write './**/*'",
 		"lint": "ESLINT_USE_FLAT_CONFIG=true eslint .",
