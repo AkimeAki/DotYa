@@ -45,7 +45,7 @@ export default function ({ dots, q }: Props) {
 						setKeywords(e.target.value);
 					}}
 					onKeyDown={(e) => {
-						if (e.key === "Enter" && keywords !== "") {
+						if (!e.nativeEvent.isComposing && e.key === "Enter" && keywords !== "") {
 							location.href = `/search?q=${keywords}`;
 						}
 					}}
