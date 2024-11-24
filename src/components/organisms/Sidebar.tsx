@@ -151,6 +151,7 @@ export default function ({ tags }: Props): JSX.Element {
 						`}
 					/>
 					<a
+						aria-label="検索"
 						href={`/search?q=${keywords}`}
 						css={css`
 							padding: 15px 10px 17px;

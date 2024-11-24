@@ -12,6 +12,7 @@ interface Props {
 export default function ({ href, children, target }: Props): JSX.Element {
 	return (
 		<a
+			aria-label={String(children)}
 			css={css`
 				padding: 6px 20px 8px;
 				display: block;

@@ -57,6 +57,7 @@ export default function ({ dots, q }: Props) {
 					`}
 				/>
 				<a
+					aria-label="検索"
 					href={`/search?q=${keywords}`}
 					css={css`
 						padding: 15px 20px 17px;

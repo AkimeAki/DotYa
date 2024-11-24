@@ -1,11 +1,13 @@
 @font-face {
 	font-family: "DotGothic16";
 	src: url(/DotGothic16-Regular.ttf);
+	font-display: swap;
 }
 
 @font-face {
 	font-family: "BestTenCRT";
 	src: url("https://r2.aki.wtf/BestTen-CRT.otf");
+	font-display: swap;
 }
 
 * {

@@ -133,7 +133,7 @@ export default function ({ length }: Props): JSX.Element {
 								<Title size="small" h={3}>
 									ㅤㅤ
 								</Title>
-								<a
+								<span
 									css={css`
 										position: absolute;
 										top: 0;

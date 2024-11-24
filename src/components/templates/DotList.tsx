@@ -151,6 +151,7 @@ export default function ({ dots }: Props): JSX.Element {
 								{dot.title}
 							</Title>
 							<a
+								aria-label={dot.title}
 								css={css`
 									position: absolute;
 									top: 0;

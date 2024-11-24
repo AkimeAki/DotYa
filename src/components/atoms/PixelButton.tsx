@@ -64,7 +64,7 @@ export default function ({ children, onClick, disabled = false, attached = true,
 					{children}
 				</button>
 			) : (
-				<a href={href} onClick={click} css={style}>
+				<a aria-label={String(children)} href={href} onClick={click} css={style}>
 					{children}
 				</a>
 			)}

@@ -103,6 +103,7 @@ export default function ({
 
 	return (
 		<a
+			aria-label={String(children)}
 			href={disabled ? undefined : href}
 			onClick={() => {
 				if (onClick !== undefined) {

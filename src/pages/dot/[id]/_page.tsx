@@ -139,7 +139,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				>
 					<div>
 						<Checkbox isChecked={termsAgree} setIsChecked={setTermsAgree}>
-							<a href="/terms" target="_blank">
+							<a aria-label="利用規約" href="/terms" target="_blank">
 								利用規約
 							</a>
 							を読んで同意しました

@@ -95,6 +95,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 								`}
 							/>
 							<a
+								aria-label="トップページ"
 								css={css`
 									text-decoration: none;
 								`}
@@ -197,6 +198,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 						>
 							<div>Created by</div>
 							<a
+								aria-label="篝之鼠"
 								href="https://kagari.aki.wtf"
 								target="_blank"
 								css={css`
@@ -216,11 +218,14 @@ export default function ({ children, tags }: Props): JSX.Element {
 							>
 								<div>篝之鼠</div>
 								<img
+									width={51}
+									height={20}
 									css={css`
 										height: 20px;
 										gap: 20px;
 										display: block;
 									`}
+									alt="篝之鼠ロゴ"
 									src="https://r2.aki.wtf/kagari-rat.png"
 								/>
 								<div>かがりのす</div>
