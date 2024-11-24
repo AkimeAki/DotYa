@@ -191,6 +191,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 					target="_blank"
 					icon="/icons/x.png"
 					size={18}
+					alt="Xでシェア"
 					onClick={() => {
 						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 						// @ts-expect-error
@@ -203,6 +204,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				<ShareButton
 					size={22}
 					icon="/icons/bluesky.png"
+					alt="Blueskyでシェア"
 					target="_blank"
 					onClick={() => {
 						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -216,6 +218,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				<ShareButton
 					size={22}
 					icon="/icons/pocket.png"
+					alt="Pocketで保存"
 					target="_blank"
 					onClick={() => {
 						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -229,6 +232,7 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 				<ShareButton
 					size={20}
 					icon="/icons/hatena.png"
+					alt="はてなブックマークで保存"
 					target="_blank"
 					onClick={() => {
 						// eslint-disable-next-line @typescript-eslint/ban-ts-comment

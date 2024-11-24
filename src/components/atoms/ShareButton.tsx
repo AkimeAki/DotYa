@@ -10,9 +10,10 @@ interface Props {
 	icon: string;
 	size: number;
 	onClick?: () => void;
+	alt: string;
 }
 
-export default function ({ href, target = "_self", icon, children, size, onClick }: Props) {
+export default function ({ href, target = "_self", icon, children, size, onClick, alt }: Props) {
 	return (
 		<div
 			css={css`
@@ -33,6 +34,7 @@ export default function ({ href, target = "_self", icon, children, size, onClick
 					`}
 				>
 					<img
+						alt={alt}
 						css={css`
 							height: ${size}px;
 							aspect-ratio: 1/1;
