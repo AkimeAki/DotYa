@@ -124,10 +124,6 @@ export default function ({ dot, sameTagDots }: Props): JSX.Element {
 							);
 						})}
 					</div>
-					<p>
-						作者：
-						<span>acharom</span>
-					</p>
 				</div>
 
 				<div

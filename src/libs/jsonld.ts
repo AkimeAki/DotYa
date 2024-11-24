@@ -11,10 +11,10 @@ export const dotJsonLd = (Astro: AstroGlobal, imageUrl: string, name: string) =>
 		caption: `${name}のドット絵`,
 		creator: {
 			"@type": "Person",
-			name: "acharom"
+			name: "篝之鼠"
 		},
-		copyrightNotice: "acharom",
-		creditText: "acharom",
+		copyrightNotice: "篝之鼠",
+		creditText: "篝之鼠",
 		isAccessibleForFree: true,
 		isFamilyFriendly: true,
 		representativeOfPage: true
