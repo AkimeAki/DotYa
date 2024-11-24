@@ -34,34 +34,36 @@ const pageTitle = title === undefined ? serviceTitle : `${title} - ${serviceTitl
 
 const tags = await getCachedContents<DotIllustTag>("tags");
 
-const schema = [
-	{
-		"@context": "https://schema.org",
-		"@type": "WebSite",
-		name: serviceTitle,
-		alternateName: serviceTitle,
-		description,
-		url: String(Astro.site),
-		publisher: {
-			"@type": "Organization",
-			name: serviceTitle,
-			url: String(Astro.site),
-			logo: {
-				"@type": "ImageObject",
-				url: `${Astro.site}default-ogp.png`,
-				width: 512,
-				height: 512
-			}
-		},
-		image: {
-			"@type": "ImageObject",
-			url: `${Astro.site}default-ogp.png`,
-			width: 512,
-			height: 512
-		}
-	},
-	...jsonld
-];
+const schema =
+	jsonld.length === 0
+		? [
+				{
+					"@context": "https://schema.org",
+					"@type": "WebSite",
+					name: serviceTitle,
+					alternateName: serviceTitle,
+					description,
+					url: String(Astro.site),
+					publisher: {
+						"@type": "Organization",
+						name: serviceTitle,
+						url: String(Astro.site),
+						logo: {
+							"@type": "ImageObject",
+							url: `${Astro.site}default-ogp.png`,
+							width: 512,
+							height: 512
+						}
+					},
+					image: {
+						"@type": "ImageObject",
+						url: `${Astro.site}default-ogp.png`,
+						width: 512,
+						height: 512
+					}
+				}
+			]
+		: jsonld;
 ---
 
 <html lang="ja">
