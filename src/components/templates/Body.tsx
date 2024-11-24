@@ -227,6 +227,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 									`}
 									alt="篝之鼠ロゴ"
 									src="https://r2.aki.wtf/kagari-rat.png"
+									loading="lazy"
 								/>
 								<div>かがりのす</div>
 							</a>
