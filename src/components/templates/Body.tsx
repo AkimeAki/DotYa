@@ -157,13 +157,7 @@ export default function ({ children, tags }: Props): JSX.Element {
 										position: relative;
 									`}
 								>
-									<div
-										css={css`
-											overflow-x: hidden;
-										`}
-									>
-										{children}
-									</div>
+									<div>{children}</div>
 									<div
 										css={css`
 											padding-top: 70px;

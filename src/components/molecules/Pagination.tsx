@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import Button from "@/components/atoms/Button";
+import { Fragment } from "react";
 
 interface Props {
 	current: number;
@@ -39,23 +40,23 @@ export default function ({ current, last, baseUrl }: Props) {
 			{[...Array(last)].map((_, i) => {
 				if (viewTenTenTen && last > 7) {
 					if (current > 2 && i + 1 === 1) {
-						return <></>;
+						return <Fragment key={i} />;
 					}
 
 					if (current < 5 && i + 1 > 4) {
-						return <></>;
+						return <Fragment key={i} />;
 					}
 
 					if (current > 4 && i + 1 > current && current < last - 3) {
-						return <></>;
+						return <Fragment key={i} />;
 					}
 
 					if (current > 4 && i + 1 < current - 1 && i + 1 < last - 3) {
-						return <></>;
+						return <Fragment key={i} />;
 					}
 
 					if (current > 4 && i + 1 < 4) {
-						return <></>;
+						return <Fragment key={i} />;
 					}
 				}
 

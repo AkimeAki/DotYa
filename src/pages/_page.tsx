@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
 import type { DotData } from "@/libs/format-dotlist";
-import DotSlider from "@/components/templates/DotSlider";
 import GoogleAds from "@/components/atoms/GoogleAds";
 
 interface Props {
@@ -24,8 +23,6 @@ export default function ({ dots, tags }: Props) {
 	const [randomTag, setRandomTag] = useState<(DotIllustTag & MicroCMSContentId & MicroCMSDate) | null>(null);
 	const [randomTagDots, setRandomTagDots] = useState<typeof dots>([]);
 	const [randomTagDotsLength, setRandomTagDotsLength] = useState<number>(0);
-	const [slideDots1, setSlideDots1] = useState<typeof dots>([]);
-	const [slideDots2, setSlideDots2] = useState<typeof dots>([]);
 
 	let newDots = copy<typeof dots>(dots);
 	newDots.length = 10;
@@ -71,20 +68,6 @@ export default function ({ dots, tags }: Props) {
 			shuffleTagDots = shuffleTagDots.filter(Boolean);
 			setRandomTagDots(shuffleTagDots);
 		}
-
-		const slideDots = copy<typeof dots>(dots).filter((dot) => {
-			const ids = [
-				...shuffleDots.map((dot) => dot.id),
-				...newDots.map((dot) => dot.id),
-				...shuffleTagDots.map((dot) => dot.id)
-			];
-
-			return !ids.includes(dot.id);
-		});
-
-		const slideDotsCenterNumber = Math.round(slideDots.length / 2);
-		setSlideDots1(arrayShuffle<typeof dots>(slideDots.slice(0, slideDotsCenterNumber)));
-		setSlideDots2(arrayShuffle<typeof dots>(slideDots.slice(slideDotsCenterNumber, slideDots.length)));
 	}, []);
 
 	return (
@@ -114,9 +97,6 @@ export default function ({ dots, tags }: Props) {
 					もっとドット絵を見る
 				</Button>
 			</div>
-			<div>
-				<DotSlider dots={slideDots1} slide="linear" />
-			</div>
 			<GoogleAds slot="9512157076" />
 
 			<div
@@ -137,9 +117,6 @@ export default function ({ dots, tags }: Props) {
 				<Button href="/page/1" center>
 					もっとドット絵を見る
 				</Button>
-			</div>
-			<div>
-				<DotSlider dots={slideDots2} slide="linear" reverse />
 			</div>
 			<div
 				css={css`

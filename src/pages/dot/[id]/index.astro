@@ -73,16 +73,6 @@ export const getStaticPaths = (async () => {
 		sameTag2Dots.length = 15;
 		sameTag2Dots = sameTag2Dots.filter(Boolean);
 
-		const otherDots = allDots.filter((item) => {
-			if (item.id === content.id) {
-				return false;
-			}
-
-			const ids = [...sameTag1Dots.map((dot) => dot.id), ...sameTag2Dots.map((dot) => dot.id)];
-
-			return !ids.includes(item.id);
-		});
-
 		return {
 			params: {
 				id: content.id
@@ -90,14 +80,13 @@ export const getStaticPaths = (async () => {
 			props: {
 				dot: content,
 				sameTag1Dots,
-				sameTag2Dots,
-				otherDots
+				sameTag2Dots
 			}
 		};
 	});
 }) satisfies GetStaticPaths;
 
-const { dot, sameTag1Dots, sameTag2Dots, otherDots } = Astro.props;
+const { dot, sameTag1Dots, sameTag2Dots } = Astro.props;
 
 let image: string | undefined = undefined;
 if (dot.illust.size === 32) {
@@ -129,5 +118,5 @@ if (dot.illust.size === 16) {
 	publishedAt={dot.publishedAt}
 	jsonld={[...schema]}
 >
-	<Page client:load dot={dot} sameTagDots={[sameTag1Dots, sameTag2Dots]} otherDots={otherDots} />
+	<Page client:load dot={dot} sameTagDots={[sameTag1Dots, sameTag2Dots]} />
 </Base>

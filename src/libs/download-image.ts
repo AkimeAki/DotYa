@@ -8,6 +8,7 @@ export const downloadImage = async (url: string, title: string) => {
 		link.href = imageURL;
 		link.download = `${title}.png`;
 		link.click();
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
 		console.error("download error");
 	}

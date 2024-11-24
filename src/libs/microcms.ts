@@ -1,5 +1,5 @@
+import nullToUndefined from "@akimeaki/null-to-undefined";
 import { createClient } from "microcms-js-sdk";
-import { nullToUndefined } from "@/libs/nullToUndefined";
 import type { MicroCMSContentId, MicroCMSDate, MicroCMSListResponse, MicroCMSQueries } from "microcms-js-sdk";
 
 const client = createClient({

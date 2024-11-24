@@ -7,3 +7,4 @@ bun.lockb
 .editorconfig
 Makefile
 _redirects
+.npmrc

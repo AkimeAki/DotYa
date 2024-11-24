@@ -8,28 +8,18 @@ import PictureFrame from "@/components/atoms/PictureFrame";
 import PixelButton from "@/components/atoms/PixelButton";
 import DotList from "@/components/templates/DotList";
 import ShareButton from "@/components/atoms/ShareButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Checkbox from "@/components/atoms/Checkbox";
 import type { DotData } from "@/libs/format-dotlist";
-import { arrayShuffle } from "@/libs/array-shuffle";
-import DotSlider from "@/components/templates/DotSlider";
 import GoogleAds from "@/components/atoms/GoogleAds";
-// import PictureFrameDom from "@/components/atoms/PictureFrameDom";
 
 interface Props {
 	dot: DotData;
 	sameTagDots: DotData[][];
-	otherDots: DotData[];
 }
 
-export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
-	const [randomDots, setRandomDots] = useState<typeof otherDots>([]);
+export default function ({ dot, sameTagDots }: Props): JSX.Element {
 	const [termsAgree, setTermsAgree] = useState<boolean>(false);
-
-	useEffect(() => {
-		const shuffleDots = arrayShuffle<typeof otherDots>(otherDots);
-		setRandomDots(shuffleDots);
-	}, []);
 
 	return (
 		<div
@@ -286,17 +276,6 @@ export default function ({ dot, sameTagDots, otherDots }: Props): JSX.Element {
 			)}
 
 			<GoogleAds slot="9512157076" />
-
-			<div
-				css={css`
-					display: flex;
-					flex-direction: column;
-					gap: 40px;
-				`}
-			>
-				<Title>他にもドット絵見ていってね</Title>
-				<DotSlider dots={randomDots} />
-			</div>
 		</div>
 	);
 }
