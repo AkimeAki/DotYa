@@ -24,6 +24,7 @@ export default function ({ current, last, baseUrl }: Props) {
 					a,
 					button {
 						padding: 10px 15px 12px;
+						font-size: 12px;
 					}
 				}
 			`}
