@@ -121,14 +121,14 @@ export default function ({ children, tags }: Props): JSX.Element {
 									どっとや
 								</h1>
 							</a>
-							<p
+							<h2
 								css={css`
 									text-align: center;
 									color: #313131;
 								`}
 							>
 								ドット絵のフリーイラスト素材屋さんです
-							</p>
+							</h2>
 						</header>
 						<main
 							css={css`
