@@ -1,6 +1,6 @@
 ---
 import Body from "@/components/templates/Body";
-import { fixedDescription } from "@/define";
+import { fixedDescription, serviceTitle } from "@/define";
 import "@akimeaki/reset-css";
 import "@/global.scss";
 import { getCachedContents } from "@/libs/microcms";
@@ -29,7 +29,6 @@ const {
 	jsonld = []
 } = Astro.props;
 
-const serviceTitle = "どっとや";
 const pageTitle = title === undefined ? serviceTitle : `${title} - ${serviceTitle}`;
 
 const tags = await getCachedContents<DotIllustTag>("tags");

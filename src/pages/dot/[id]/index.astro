@@ -7,7 +7,7 @@ import type { GetStaticPaths } from "astro";
 import { dotJsonLd } from "@/libs/jsonld";
 import { formatDotList } from "@/libs/format-dotlist";
 import { copy } from "@/libs/copy-object";
-import { fixedDescription } from "@/define";
+import { fixedDescription, serviceTitle } from "@/define";
 
 export const getStaticPaths = (async () => {
 	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
@@ -109,6 +109,38 @@ if (dot.illust.size === 32) {
 if (dot.illust.size === 16) {
 	schema.push(dotJsonLd(Astro, image, dot.title));
 }
+
+schema.push({
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	name: "パンくずリスト",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			item: {
+				"@id": Astro.site,
+				name: serviceTitle
+			}
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			item: {
+				"@id": `${Astro.site}dot`,
+				name: "ドット絵"
+			}
+		},
+		{
+			"@type": "ListItem",
+			position: 3,
+			item: {
+				"@id": `${Astro.site}dot/${dot.id}`,
+				name: dot.title
+			}
+		}
+	]
+});
 ---
 
 <Base
