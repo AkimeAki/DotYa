@@ -34,6 +34,15 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 			padding: 5px 10px 8px;
 			font-size: 14px;
 		`}
+
+		@media (max-width: 700px) {
+			font-size: 16px;
+
+			${size === "small" &&
+			css`
+				font-size: 12px;
+			`}
+		}
 	`;
 	switch (h) {
 		case 2:
