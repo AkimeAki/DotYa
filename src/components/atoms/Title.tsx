@@ -25,21 +25,18 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 
 			${size === "small" &&
 			css`
+				padding: 5px 10px 8px;
 				font-size: 14px;
 			`}
 		}
 
-		${size === "small" &&
-		css`
-			padding: 5px 10px 8px;
-			font-size: 14px;
-		`}
-
 		@media (max-width: 700px) {
 			font-size: 16px;
+			padding: 11px 20px 14px;
 
 			${size === "small" &&
 			css`
+				padding: 5px 10px 8px;
 				font-size: 12px;
 			`}
 		}
