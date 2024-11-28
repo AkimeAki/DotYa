@@ -24,7 +24,7 @@ export default function ({ current, last, baseUrl, fisrtPagePath }: Props) {
 				@media (max-width: 500px) {
 					a,
 					button {
-						padding: 10px 15px 12px;
+						padding: 10px 12px 12px;
 						font-size: 12px;
 					}
 				}
