@@ -34,7 +34,12 @@ export default function ({ page, tag }: Props) {
 				<Title>
 					{tag.name}タグが付いたドット絵 {page.currentPage}ページ目
 				</Title>
-				<Pagination current={page.currentPage} last={page.lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+				<Pagination
+					current={page.currentPage}
+					last={page.lastPage}
+					baseUrl={`/tags/${tag.id}/page/`}
+					fisrtPagePath={`/tags/${tag.id}`}
+				/>
 			</div>
 			<DotList dots={page.data.slice(0, 15)} />
 			{page.data.length > 15 && (
@@ -43,7 +48,12 @@ export default function ({ page, tag }: Props) {
 					<DotList dots={page.data.slice(15)} />
 				</>
 			)}
-			<Pagination current={page.currentPage} last={page.lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+			<Pagination
+				current={page.currentPage}
+				last={page.lastPage}
+				baseUrl={`/tags/${tag.id}/page/`}
+				fisrtPagePath={`/tags/${tag.id}`}
+			/>
 		</div>
 	);
 }

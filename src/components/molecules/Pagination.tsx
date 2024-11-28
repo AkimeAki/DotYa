@@ -8,9 +8,10 @@ interface Props {
 	current: number;
 	last: number;
 	baseUrl: string;
+	fisrtPagePath?: string;
 }
 
-export default function ({ current, last, baseUrl }: Props) {
+export default function ({ current, last, baseUrl, fisrtPagePath }: Props) {
 	const viewTenTenTen = last > 5;
 
 	return (
@@ -29,12 +30,23 @@ export default function ({ current, last, baseUrl }: Props) {
 				}
 			`}
 		>
-			<Button href={current < 2 ? undefined : `${baseUrl}${current - 1}`} disabled={current < 2}>
+			<Button
+				href={
+					current < 2
+						? undefined
+						: current - 1 === 1 && fisrtPagePath !== undefined
+							? fisrtPagePath
+							: `${baseUrl}${current - 1}`
+				}
+				disabled={current < 2}
+			>
 				{"<"}
 			</Button>
 			{viewTenTenTen && last > 7 && (
 				<>
-					{current > 2 && <Button href={`${baseUrl}${1}`}>{1}</Button>}
+					{current > 2 && (
+						<Button href={fisrtPagePath !== undefined ? fisrtPagePath : `${baseUrl}${1}`}>1</Button>
+					)}
 					{current > 4 && <Button noSelect>...</Button>}
 				</>
 			)}
@@ -62,7 +74,17 @@ export default function ({ current, last, baseUrl }: Props) {
 				}
 
 				return (
-					<Button key={i} selected={i + 1 === current} href={`${baseUrl}${i + 1}`}>
+					<Button
+						key={i}
+						selected={i + 1 === current}
+						href={
+							i + 1 === current
+								? undefined
+								: i + 1 === 1 && fisrtPagePath !== undefined
+									? fisrtPagePath
+									: `${baseUrl}${i + 1}`
+						}
+					>
 						{i + 1}
 					</Button>
 				);
