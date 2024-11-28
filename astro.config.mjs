@@ -53,6 +53,13 @@ export default defineConfig({
 			"process.env.MICROCMS_SERVICE_DOMAIN": JSON.stringify(process.env.MICROCMS_SERVICE_DOMAIN),
 			// eslint-disable-next-line no-undef
 			"process.env.MICROCMS_API_KEY": JSON.stringify(process.env.MICROCMS_API_KEY)
+		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: "modern-compiler"
+				}
+			}
 		}
 	},
 	output: "hybrid",

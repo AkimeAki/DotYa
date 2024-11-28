@@ -2,9 +2,10 @@
 import Base from "@/layouts/Base.astro";
 import ThisPage from "./_page";
 import { fixedDescription } from "@/define";
-import type { DotIllust } from "@/types";
+import type { DotIllust, DotIllustTag } from "@/types";
 import { getListAllContents } from "@/libs/microcms";
 import { formatDotList, type DotData } from "@/libs/format-dotlist";
+import { C } from "dist/_worker.js/chunks/astro/env-setup_DUaZ-hTo.mjs";
 
 export const prerender = false;
 const searchText = Astro.url.searchParams.get("q");
@@ -15,6 +16,39 @@ if (searchText !== null && searchText !== "") {
 			q: searchText
 		})
 	);
+
+	const tags = await getListAllContents<DotIllustTag>("tags", {
+		q: searchText,
+		fields: ["id"]
+	});
+
+	if (tags.length !== 0) {
+		let tagFilter = "";
+		for (const tag of tags) {
+			tagFilter += `tags[contains]${tag.id}`;
+			tagFilter += "[or]";
+		}
+
+		tagFilter = tagFilter.replace(/\[or\]$/, "");
+
+		const tagSearchDots = await formatDotList(
+			await getListAllContents<DotIllust>("dot", {
+				filters: tagFilter
+			})
+		);
+
+		if (dots.length !== 0) {
+			for (const dot of dots) {
+				for (const tagSearchDot of tagSearchDots) {
+					if (dot.id !== tagSearchDot.id) {
+						dots.push(tagSearchDot);
+					}
+				}
+			}
+		} else {
+			dots = [...tagSearchDots];
+		}
+	}
 }
 ---
 

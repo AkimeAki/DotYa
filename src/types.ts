@@ -2,6 +2,10 @@ import type { MicroCMSImage, MicroCMSListContent } from "microcms-js-sdk";
 
 export interface DotIllustTag {
 	name: string;
+	keyword?: {
+		fieldId: "keyword";
+		text: string;
+	}[];
 }
 
 export interface DotIllust {
