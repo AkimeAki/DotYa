@@ -103,11 +103,11 @@ if (image === undefined) {
 
 const schema = [];
 if (dot.illust.size === 32) {
-	schema.push(dotJsonLd(Astro, image, dot.title));
+	schema.push(dotJsonLd(image, dot.title));
 }
 
 if (dot.illust.size === 16) {
-	schema.push(dotJsonLd(Astro, image, dot.title));
+	schema.push(dotJsonLd(image, dot.title));
 }
 
 schema.push({

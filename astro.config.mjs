@@ -1,10 +1,9 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
+import { siteRootUrl } from "./src/define";
 
 import cloudflare from "@astrojs/cloudflare";
-
-const site = "https://pixel.gives";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,13 +12,13 @@ export default defineConfig({
 		host: "0.0.0.0"
 	},
 
-	site,
+	site: siteRootUrl,
 	trailingSlash: "never",
 
 	integrations: [
 		sitemap({
 			filter: (page) => {
-				const pageArray = page.replace(`${site}/`, "").split("/");
+				const pageArray = page.replace(`${siteRootUrl}/`, "").split("/");
 				if (pageArray[0] === "tags" && pageArray[2] === "page") {
 					return false;
 				}

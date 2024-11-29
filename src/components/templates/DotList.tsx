@@ -5,6 +5,7 @@ import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
+import { dotJsonLd } from "@/libs/jsonld";
 
 interface Props {
 	dots: DotData[];
@@ -162,6 +163,26 @@ export default function ({ dots }: Props): JSX.Element {
 								href={`/dot/${dot.id}`}
 							/>
 						</div>
+						{dot.illust.size === 32 && (
+							<script
+								type="application/ld+json"
+								dangerouslySetInnerHTML={{
+									__html: JSON.stringify(
+										dotJsonLd(`${dot.illust.url}?w=512&q=100&px=${16}`, dot.title, false)
+									)
+								}}
+							/>
+						)}
+						{dot.illust.size === 16 && (
+							<script
+								type="application/ld+json"
+								dangerouslySetInnerHTML={{
+									__html: JSON.stringify(
+										dotJsonLd(`${dot.illust.url}?w=512&q=100&px=${32}`, dot.title, false)
+									)
+								}}
+							/>
+						)}
 					</div>
 				);
 			})}

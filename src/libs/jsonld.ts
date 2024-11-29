@@ -1,12 +1,12 @@
-import type { AstroGlobal } from "astro";
+import { siteRootUrl } from "@/define";
 
-export const dotJsonLd = (Astro: AstroGlobal, imageUrl: string, name: string) => {
+export const dotJsonLd = (imageUrl: string, name: string, isMain = true) => {
 	return {
 		"@context": "https://schema.org/",
 		"@type": "ImageObject",
 		contentUrl: imageUrl,
-		license: `${Astro.site}terms`,
-		acquireLicensePage: `${Astro.site}terms`,
+		license: `${siteRootUrl}/terms`,
+		acquireLicensePage: `${siteRootUrl}/terms`,
 		name,
 		caption: `${name}のドット絵`,
 		creator: {
@@ -24,6 +24,6 @@ export const dotJsonLd = (Astro: AstroGlobal, imageUrl: string, name: string) =>
 		creditText: "篝之鼠",
 		isAccessibleForFree: true,
 		isFamilyFriendly: true,
-		representativeOfPage: true
+		representativeOfPage: isMain
 	};
 };
