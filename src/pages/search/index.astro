@@ -36,8 +36,10 @@ if (searchText !== null && searchText !== "") {
 			})
 		);
 
+		const _dots = [...dots];
+
 		if (dots.length !== 0) {
-			for (const dot of dots) {
+			for (const dot of _dots) {
 				for (const tagSearchDot of tagSearchDots) {
 					if (dot.id !== tagSearchDot.id) {
 						dots.push(tagSearchDot);
