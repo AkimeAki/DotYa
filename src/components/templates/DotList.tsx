@@ -1,11 +1,9 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
-import { spWidth } from "@/define";
 import PixelButton from "@/components/atoms/PixelButton";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
 import { dotJsonLd } from "@/libs/jsonld";
+import { cx } from "@/libs/merge-panda";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	dots: DotData[];
@@ -14,13 +12,13 @@ interface Props {
 export default function ({ dots }: Props): JSX.Element {
 	return (
 		<div
-			css={css`
+			className={css`
 				display: grid;
 				grid-template-columns: repeat(5, 1fr);
 				column-gap: 20px;
 				row-gap: 30px;
 
-				@media (max-width: ${spWidth}px) {
+				@media (max-width: 1130px) {
 					grid-template-columns: repeat(6, 1fr);
 				}
 
@@ -41,15 +39,17 @@ export default function ({ dots }: Props): JSX.Element {
 				return (
 					<div
 						key={dot.id}
-						className="dot-list-item"
-						css={css`
-							display: flex;
-							flex-direction: column;
-							gap: 2px;
-						`}
+						className={cx(
+							css`
+								display: flex;
+								flex-direction: column;
+								gap: 2px;
+							`,
+							"dot-list-item"
+						)}
 					>
 						<div
-							css={css`
+							className={css`
 								display: flex;
 								gap: 5px;
 								user-select: none;
@@ -57,7 +57,7 @@ export default function ({ dots }: Props): JSX.Element {
 							`}
 						>
 							<img
-								css={css`
+								className={css`
 									display: block;
 									width: 32px;
 									aspect-ratio: 1/1;
@@ -68,7 +68,7 @@ export default function ({ dots }: Props): JSX.Element {
 							/>
 						</div>
 						<div
-							css={css`
+							className={css`
 								position: relative;
 								width: 100%;
 								cursor: pointer;
@@ -97,29 +97,31 @@ export default function ({ dots }: Props): JSX.Element {
 							`}
 						>
 							<div
-								className="image-wrapper"
-								css={css`
-									position: relative;
-									padding: 10px;
-									background-color: white;
-									width: calc(100% - 3px);
-									height: calc(100% - 3px);
+								className={cx(
+									css`
+										position: relative;
+										padding: 10px;
+										background-color: white;
+										width: calc(100% - 3px);
+										height: calc(100% - 3px);
 
-									&:after {
-										content: "";
-										display: block;
-										position: absolute;
-										top: 3px;
-										left: 3px;
-										width: 100%;
-										height: 100%;
-										background-color: #613e28;
-										z-index: -1;
-									}
-								`}
+										&:after {
+											content: "";
+											display: block;
+											position: absolute;
+											top: 3px;
+											left: 3px;
+											width: 100%;
+											height: 100%;
+											background-color: #613e28;
+											z-index: -1;
+										}
+									`,
+									"image-wrapper"
+								)}
 							>
 								<img
-									css={css`
+									className={css`
 										display: block;
 										width: 100%;
 										aspect-ratio: 1/1;
@@ -131,7 +133,7 @@ export default function ({ dots }: Props): JSX.Element {
 								/>
 							</div>
 							<div
-								css={css`
+								className={css`
 									display: flex;
 									position: relative;
 									gap: 5px;
@@ -153,7 +155,7 @@ export default function ({ dots }: Props): JSX.Element {
 							</Title>
 							<a
 								aria-label={dot.title}
-								css={css`
+								className={css`
 									position: absolute;
 									top: 0;
 									left: 0;

@@ -10,42 +10,19 @@
 	font-display: swap;
 }
 
-* {
-	font-family: "DotGothic16", sans-serif;
-	font-size: 17px;
-	color: #363636;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	word-break: break-word;
-	border: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-html,
-body {
-	overflow: hidden;
-}
-
-body {
-	background-color: #f3eee5;
-}
-
-a {
-	color: #1976d2;
-
+@layer base {
 	* {
-		color: inherit;
+		font-family: "DotGothic16", sans-serif;
+		font-size: 17px;
+		color: #363636;
+		border: none;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		word-break: break-word;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	}
-}
 
-p {
-	line-height: 1.8;
-}
-
-li {
-	line-height: 1.8;
-}
-
-strong {
-	font-weight: bold;
+	body {
+		background-color: #f3eee5;
+	}
 }

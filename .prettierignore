@@ -8,3 +8,4 @@ bun.lockb
 Makefile
 _redirects
 .npmrc
+/src/styled-system/

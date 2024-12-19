@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	children: React.ReactNode;
@@ -11,7 +9,7 @@ interface Props {
 export default function ({ children, isChecked, setIsChecked }: Props) {
 	return (
 		<div
-			css={css`
+			className={css`
 				display: flex;
 				gap: 10px;
 				align-items: center;
@@ -24,7 +22,7 @@ export default function ({ children, isChecked, setIsChecked }: Props) {
 						return !checked;
 					});
 				}}
-				css={css`
+				className={css`
 					position: relative;
 					width: 30px;
 					height: 30px;
@@ -36,7 +34,7 @@ export default function ({ children, isChecked, setIsChecked }: Props) {
 				`}
 			>
 				<div
-					css={css`
+					className={css`
 						position: absolute;
 						top: 50%;
 						left: 50%;
@@ -47,7 +45,7 @@ export default function ({ children, isChecked, setIsChecked }: Props) {
 				</div>
 			</div>
 			<div
-				css={css`
+				className={css`
 					flex: 1;
 				`}
 			>

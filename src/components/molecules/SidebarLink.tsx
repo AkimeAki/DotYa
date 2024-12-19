@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
+import { css } from "@/styled-system/css";
 import { type HTMLAttributeAnchorTarget } from "react";
-import { css } from "@emotion/react";
 
 interface Props {
 	href: string;
@@ -13,7 +11,7 @@ export default function ({ href, children, target }: Props): JSX.Element {
 	return (
 		<a
 			aria-label={String(children)}
-			css={css`
+			className={css`
 				padding: 15px 20px 17px;
 				display: block;
 				text-decoration: none;

@@ -3,9 +3,13 @@ import Base from "@/layouts/Base.astro";
 import type { DotIllust } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
-import Page from "./_page";
 import { formatDotList } from "@/libs/format-dotlist";
 import { fixedDescription } from "@/define";
+import { css } from "@/styled-system/css";
+import Title from "@/components/atoms/Title";
+import Pagination from "@/components/molecules/Pagination.astro";
+import DotList from "@/components/templates/DotList";
+import GoogleAds from "@/components/atoms/GoogleAds";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const response = await formatDotList(await getCachedContents<DotIllust>("dot"));
@@ -21,5 +25,32 @@ const { page } = Astro.props;
 	description={`新着ドット絵一覧ページです。${fixedDescription}`}
 	canonical={`${Astro.site}page/1`}
 >
-	<Page page={page} client:load />
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+		`}
+	>
+		<div
+			class={css`
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			`}
+		>
+			<Title>ドット絵一覧 {page.currentPage}ページ目</Title>
+			<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/page/" />
+		</div>
+		<DotList dots={page.data.slice(0, 15)} />
+		{
+			page.data.length > 15 && (
+				<>
+					<GoogleAds slot="9512157076" />
+					<DotList dots={page.data.slice(15)} />
+				</>
+			)
+		}
+		<Pagination current={page.currentPage} last={page.lastPage} baseUrl="/page/" />
+	</div>
 </Base>

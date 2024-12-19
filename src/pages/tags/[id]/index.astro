@@ -2,10 +2,13 @@
 import Base from "@/layouts/Base.astro";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
-import Page from "./_page";
 import type { GetStaticPaths } from "astro";
 import { formatDotList } from "@/libs/format-dotlist";
 import { fixedDescription } from "@/define";
+import { css } from "@/styled-system/css";
+import Title from "@/components/atoms/Title";
+import Pagination from "@/components/molecules/Pagination.astro";
+import DotList from "@/components/templates/DotList";
 
 export const getStaticPaths = (async () => {
 	const response = await getCachedContents<DotIllustTag>("tags");
@@ -40,5 +43,24 @@ dots = dots.filter(Boolean);
 	title={`${tag.name}タグが付いたドット絵一覧`}
 	description={`${tag.name}タグが付いたドット絵一覧ページです。${fixedDescription}`}
 >
-	<Page dots={dots} tag={tag} lastPage={lastPage} client:load />
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+		`}
+	>
+		<div
+			class={css`
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			`}
+		>
+			<Title>{tag.name}タグが付いたドット絵 1ページ目</Title>
+			<Pagination current={1} last={lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+		</div>
+		<DotList dots={dots} />
+		<Pagination current={1} last={lastPage} baseUrl={`/tags/${tag.id}/page/`} />
+	</div>
 </Base>

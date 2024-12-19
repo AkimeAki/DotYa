@@ -1,13 +1,11 @@
-/** @jsxImportSource @emotion/react */
-
 import SidebarLink from "@/components/molecules/SidebarLink";
-import { spWidth } from "@/define";
 import type { DotIllustTag } from "@/types";
-import { css } from "@emotion/react";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import { useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
 import SidebarSubLink from "@/components/molecules/SidebarSubLink";
+import { css } from "@/styled-system/css";
+import { cx } from "@/libs/merge-panda";
 
 interface Props {
 	tags: (DotIllustTag & MicroCMSListContent)[];
@@ -25,107 +23,120 @@ export default function ({ tags }: Props): JSX.Element {
 						return !status;
 					});
 				}}
-				css={css`
-					display: none;
-					position: fixed;
-					top: 10px;
-					left: 10px;
-					width: 40px;
-					height: 40px;
-					border-top: 2px solid #6e6358;
-					border-bottom: 2px solid #111516;
-					background-color: #4d3d36;
-					border-radius: 4px;
-					cursor: pointer;
-					z-index: calc(infinity);
-
-					&:hover {
-						background-color: #554a46;
-					}
-
-					${isOpen &&
+				className={cx(
 					css`
-						background-color: #554a46;
-					`}
+						display: none;
+						position: fixed;
+						top: 10px;
+						left: 10px;
+						width: 40px;
+						height: 40px;
+						border-top: 2px solid #6e6358;
+						border-bottom: 2px solid #111516;
+						background-color: #4d3d36;
+						border-radius: 4px;
+						cursor: pointer;
+						z-index: calc(infinity);
 
-					span {
-						position: absolute;
-						left: 50%;
-						width: calc(100% - 10px);
-						height: 2px;
-						background-color: #faf5b1;
-						user-select: none;
-						pointer-events: none;
-					}
+						&:hover {
+							background-color: #554a46;
+						}
+					`,
+					isOpen &&
+						css`
+							background-color: #554a46;
+						`,
+					css`
+						span {
+							position: absolute;
+							left: 50%;
+							width: calc(100% - 10px);
+							height: 2px;
+							background-color: #faf5b1;
+							user-select: none;
+							pointer-events: none;
+						}
 
-					@media (max-width: ${spWidth}px) {
-						display: block;
-					}
-				`}
+						@media (max-width: 1130px) {
+							display: block;
+						}
+					`
+				)}
 			>
 				<span
-					css={css`
-						top: 8px;
-						transform: translateX(-50%);
-
-						${isOpen &&
+					className={cx(
+						css`
+							top: 8px;
+							transform: translateX(-50%);
+						`,
+						isOpen &&
+							css`
+								top: 50%;
+								transform: translate(-50%, -50%) rotate(-45deg);
+							`
+					)}
+				/>
+				<span
+					className={cx(
 						css`
 							top: 50%;
-							transform: translate(-50%, -50%) rotate(-45deg);
-						`}
-					`}
+							transform: translate(-50%, -50%);
+						`,
+						isOpen &&
+							css`
+								width: 0 !important;
+							`
+					)}
 				/>
 				<span
-					css={css`
-						top: 50%;
-						transform: translate(-50%, -50%);
-
-						${isOpen &&
+					className={cx(
 						css`
-							width: 0 !important;
-						`}
-					`}
-				/>
-				<span
-					css={css`
-						bottom: 8px;
-						transform: translateX(-50%);
-
-						${isOpen &&
-						css`
-							bottom: 50%;
-							transform: translate(-50%, 50%) rotate(45deg);
-						`}
-					`}
+							bottom: 8px;
+							transform: translateX(-50%);
+						`,
+						isOpen &&
+							css`
+								bottom: 50%;
+								transform: translate(-50%, 50%) rotate(45deg);
+							`
+					)}
 				/>
 			</div>
 			<aside
-				css={css`
-					position: sticky;
-					top: 30px;
-					display: flex;
-					flex-direction: column;
-					width: 300px;
-					gap: 15px;
-
-					@media (max-width: ${spWidth}px) {
-						position: fixed;
-						top: 0;
-						left: 0;
-						background-color: #383838d4;
+				className={cx(
+					css`
+						position: sticky;
+						top: 30px;
+						display: flex;
+						flex-direction: column;
 						width: 300px;
-						height: 100%;
-						padding: 60px 10px 10px;
-						overflow-y: scroll;
-						transform: translateX(${isOpen ? "0" : "-100%"});
-						transition-duration: 200ms;
-						transition-property: transform;
-						z-index: 9999999;
-					}
-				`}
+						gap: 15px;
+
+						@media (max-width: 1130px) {
+							position: fixed;
+							top: 0;
+							left: 0;
+							background-color: #383838d4;
+							width: 300px;
+							height: 100%;
+							padding: 60px 10px 10px;
+							overflow-y: scroll;
+							transform: translateX(-100%);
+							transition-duration: 200ms;
+							transition-property: transform;
+							z-index: 9999999;
+						}
+					`,
+					isOpen &&
+						css`
+							@media (max-width: 1130px) {
+								transform: translateX(0);
+							}
+						`
+				)}
 			>
 				<div
-					css={css`
+					className={css`
 						display: flex;
 						gap: 5px;
 					`}
@@ -142,7 +153,7 @@ export default function ({ tags }: Props): JSX.Element {
 								location.href = `/search?q=${keywords}`;
 							}
 						}}
-						css={css`
+						className={css`
 							padding: 10px 20px;
 							flex: 1;
 							border: 2px solid #4d3d36;
@@ -153,7 +164,7 @@ export default function ({ tags }: Props): JSX.Element {
 					<a
 						aria-label="検索"
 						href={`/search?q=${keywords}`}
-						css={css`
+						className={css`
 							padding: 15px 10px 17px;
 							display: block;
 							text-decoration: none;
@@ -178,7 +189,7 @@ export default function ({ tags }: Props): JSX.Element {
 				</div>
 				<SidebarLink href="/">ホーム</SidebarLink>
 				<div
-					css={css`
+					className={css`
 						display: flex;
 						flex-direction: column;
 						justify-content: flex-end;
@@ -187,7 +198,7 @@ export default function ({ tags }: Props): JSX.Element {
 				>
 					<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
 					<div
-						css={css`
+						className={css`
 							display: flex;
 							flex-direction: column;
 							gap: 10px;
@@ -203,7 +214,7 @@ export default function ({ tags }: Props): JSX.Element {
 				<SidebarLink href="/contact">お問い合わせ</SidebarLink>
 				<SidebarLink href="/update">更新履歴</SidebarLink>
 				<div
-					css={css`
+					className={css`
 						display: flex;
 						gap: 5px;
 						flex-wrap: wrap;

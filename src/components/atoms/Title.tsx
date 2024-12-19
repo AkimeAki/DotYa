@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
-import { spWidth } from "@/define";
-import { css } from "@emotion/react";
+import { cx } from "@/libs/merge-panda";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	children: React.ReactNode;
@@ -10,53 +8,53 @@ interface Props {
 }
 
 export default function ({ children, size = "normal", h = 2 }: Props) {
-	const style = css`
-		padding: 15px 20px 20px;
-		text-decoration: none;
-		background-color: #36364d;
-		color: #faf5b1;
-		border-radius: 4px;
-		border-bottom: 2px solid #111116;
-		border-top: 2px solid #58586e;
-		font-size: 30px;
-
-		${size === "small" &&
+	const style = cx(
 		css`
-			padding: 5px 10px 8px;
-			font-size: 14px;
-		`}
+			padding: 15px 20px 20px;
+			text-decoration: none;
+			background-color: #36364d;
+			color: #faf5b1;
+			border-radius: 4px;
+			border-bottom: 2px solid #111116;
+			border-top: 2px solid #58586e;
+			font-size: 30px;
 
-		@media (max-width: ${spWidth}px) {
-			font-size: 20px;
+			@media (max-width: 1130px) {
+				font-size: 20px;
+			}
 
-			${size === "small" &&
+			@media (max-width: 700px) {
+				font-size: 16px;
+				padding: 11px 20px 14px;
+			}
+		`,
+		size === "small" &&
 			css`
 				padding: 5px 10px 8px;
-				font-size: 14px;
-			`}
-		}
+				font-size: 15px;
 
-		@media (max-width: 700px) {
-			font-size: 16px;
-			padding: 11px 20px 14px;
+				@media (max-width: 1130px) {
+					padding: 5px 10px 8px;
+					font-size: 15px;
+				}
 
-			${size === "small" &&
-			css`
-				padding: 5px 10px 8px;
-				font-size: 12px;
-			`}
-		}
-	`;
+				@media (max-width: 700px) {
+					padding: 5px 10px 8px;
+					font-size: 12px;
+				}
+			`
+	);
+
 	switch (h) {
 		case 2:
-			return <h2 css={style}>{children}</h2>;
+			return <h2 className={style}>{children}</h2>;
 		case 3:
-			return <h3 css={style}>{children}</h3>;
+			return <h3 className={style}>{children}</h3>;
 		case 4:
-			return <h4 css={style}>{children}</h4>;
+			return <h4 className={style}>{children}</h4>;
 		case 5:
-			return <h5 css={style}>{children}</h5>;
+			return <h5 className={style}>{children}</h5>;
 		case 6:
-			return <h6 css={style}>{children}</h6>;
+			return <h6 className={style}>{children}</h6>;
 	}
 }

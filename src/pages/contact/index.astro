@@ -1,6 +1,28 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Page from "./_page";
+import Title from "@/components/atoms/Title";
+import { css } from "@/styled-system/css";
 ---
 
-<Base title="お問い合わせ"><Page /></Base>
+<Base title="お問い合わせ">
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 30px;
+		`}
+	>
+		<Title>お問い合わせ</Title>
+		<div>
+			<iframe
+				class={css`
+					width: 100%;
+					height: 1000px;
+				`}
+				src="https://docs.google.com/forms/d/e/1FAIpQLSfLI8zc_8L5piTSaO0inQwAsKCDikgfaUKcF8a9eA6WhSZSCA/viewform?embedded=true"
+			>
+				読み込んでいます…
+			</iframe>
+		</div>
+	</div>
+</Base>

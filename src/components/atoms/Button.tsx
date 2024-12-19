@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
+import { cx } from "@/libs/merge-panda";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	children: React.ReactNode;
@@ -27,64 +26,64 @@ export default function ({
 	size = "normal",
 	center = true
 }: Props) {
-	const style = css`
-		padding: 15px 20px 17px;
-		display: flex;
-		align-items: center;
-		text-decoration: none;
-		background-color: #4d3d36;
-		color: #faf5b1;
-		border-radius: 4px;
-		border-bottom: 2px solid #111516;
-		border-top: 2px solid #6e6358;
-		user-select: none;
-		cursor: pointer;
-
-		${center &&
+	const style = cx(
 		css`
-			text-align: center;
-			justify-content: center;
-		`}
+			padding: 15px 20px 17px;
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+			background-color: #4d3d36;
+			color: #faf5b1;
+			border-radius: 4px;
+			border-bottom: 2px solid #111516;
+			border-top: 2px solid #6e6358;
+			user-select: none;
+			cursor: pointer;
+		`,
+		center &&
+			css`
+				text-align: center;
+				justify-content: center;
+			`,
 
-		${size === "slim" &&
-		css`
-			padding-top: 10px;
-			padding-bottom: 10px;
-			font-size: 15px;
-		`}
+		size === "slim" &&
+			css`
+				padding-top: 10px;
+				padding-bottom: 10px;
+				font-size: 15px;
+			`,
 
-		${selected &&
-		css`
-			background-color: #36364d;
-			border-bottom-color: #111116;
-			border-top-color: #58586e;
-			cursor: default;
-		`}
+		selected &&
+			css`
+				background-color: #36364d;
+				border-bottom-color: #111116;
+				border-top-color: #58586e;
+				cursor: default;
+			`,
 
-		${disabled &&
-		css`
-			background-color: #b8b4ac;
-			border-bottom-color: #8a8781;
-			border-top-color: #ddd8ce;
-			cursor: default;
-		`}
+		disabled &&
+			css`
+				background-color: #b8b4ac;
+				border-bottom-color: #8a8781;
+				border-top-color: #ddd8ce;
+				cursor: default;
+			`,
 
-		${noSelect &&
-		css`
-			cursor: default;
-		`}
-
-		@media (hover: hover) {
-			&:hover {
-				${!disabled &&
-				!selected &&
-				!noSelect &&
-				css`
-					filter: brightness(120%);
-				`}
-			}
-		}
-	`;
+		noSelect &&
+			css`
+				cursor: default;
+			`,
+		!disabled &&
+			!selected &&
+			!noSelect &&
+			css`
+				@media (hover: hover) {
+					&:hover {
+						filter: brightness(120%);
+					}
+				}
+			`
+	);
 
 	if (href === undefined) {
 		return (
@@ -94,7 +93,7 @@ export default function ({
 						onClick();
 					}
 				}}
-				css={style}
+				className={style}
 			>
 				{loading ? "読み込み中..." : children}
 			</button>
@@ -103,14 +102,14 @@ export default function ({
 
 	return (
 		<a
-			aria-label={String(children)}
+			aria-label={String(children) !== "[object Object]" ? String(children) : undefined}
 			href={disabled ? undefined : href}
 			onClick={() => {
 				if (onClick !== undefined) {
 					onClick();
 				}
 			}}
-			css={style}
+			className={style}
 			target={target}
 		>
 			{loading ? "読み込み中..." : children}

@@ -11,7 +11,7 @@ export default [
 	...tseslint.configs.recommended,
 	...pluginAstro.configs["flat/recommended"],
 	{
-		ignores: ["src/env.d.ts", "dist/**/*", ".astro/**/*"]
+		ignores: ["src/env.d.ts", "dist/**/*", ".astro/**/*", "src/styled-system/**/*"]
 	},
 	{
 		files: ["**/*.tsx"],

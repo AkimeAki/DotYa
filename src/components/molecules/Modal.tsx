@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
+import { cx } from "@/libs/merge-panda";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	isOpen: boolean;
@@ -11,24 +10,25 @@ interface Props {
 export default function ({ isOpen, setIsOpen, children }: Props) {
 	return (
 		<div
-			css={css`
-				user-select: none;
-				pointer-events: none;
-				opacity: 0;
-
-				${isOpen &&
+			className={cx(
 				css`
-					user-select: auto;
-					pointer-events: auto;
-					opacity: 1;
-				`}
-			`}
+					user-select: none;
+					pointer-events: none;
+					opacity: 0;
+				`,
+				isOpen &&
+					css`
+						user-select: auto;
+						pointer-events: auto;
+						opacity: 1;
+					`
+			)}
 		>
 			<div
 				onClick={() => {
 					setIsOpen(false);
 				}}
-				css={css`
+				className={css`
 					position: fixed;
 					top: 120px;
 					right: 130px;
@@ -59,7 +59,7 @@ export default function ({ isOpen, setIsOpen, children }: Props) {
 				`}
 			>
 				<span
-					css={css`
+					className={css`
 						position: relative;
 						font-size: 30px;
 						font-weight: bold;
@@ -73,7 +73,7 @@ export default function ({ isOpen, setIsOpen, children }: Props) {
 				</span>
 			</div>
 			<div
-				css={css`
+				className={css`
 					position: fixed;
 					top: 50%;
 					left: 50%;
@@ -97,7 +97,7 @@ export default function ({ isOpen, setIsOpen, children }: Props) {
 				`}
 			>
 				<div
-					css={css`
+					className={css`
 						margin-top: 60px;
 					`}
 				>

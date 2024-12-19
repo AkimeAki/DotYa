@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
 import Button from "@/components/atoms/Button";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	children: React.ReactNode;
@@ -11,12 +9,13 @@ interface Props {
 	size: number;
 	onClick?: () => void;
 	alt: string;
+	serviceName: string;
 }
 
-export default function ({ href, target = "_self", icon, children, size, onClick, alt }: Props) {
+export default function ({ href, target = "_self", icon, children, size, alt, serviceName }: Props) {
 	return (
 		<div
-			css={css`
+			className={css`
 				a {
 					height: 38px;
 					padding-top: 0;
@@ -24,9 +23,17 @@ export default function ({ href, target = "_self", icon, children, size, onClick
 				}
 			`}
 		>
-			<Button target={target} href={href} onClick={onClick}>
+			<Button
+				target={target}
+				href={href}
+				onClick={() => {
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					dataLayer.push({ event: "click-share", service: serviceName });
+				}}
+			>
 				<div
-					css={css`
+					className={css`
 						color: inherit;
 						display: flex;
 						justify-content: center;
@@ -35,15 +42,15 @@ export default function ({ href, target = "_self", icon, children, size, onClick
 				>
 					<img
 						alt={alt}
-						css={css`
-							height: ${size}px;
+						className={css`
 							aspect-ratio: 1/1;
 							object-fit: contain;
 						`}
 						src={icon}
+						width={size}
 					/>
 					<span
-						css={css`
+						className={css`
 							color: inherit;
 							font-size: 15px;
 							display: flex;
