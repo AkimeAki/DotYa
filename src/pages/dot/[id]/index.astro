@@ -144,7 +144,7 @@ schema.push({
 			position: 3,
 			item: {
 				"@id": `${Astro.site}dot/${dot.id}`,
-				name: dot.title
+				name: `${dot.title}のドット絵`
 			}
 		}
 	]
@@ -154,7 +154,7 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 ---
 
 <Base
-	title={dot.title}
+	title={`${dot.title}のドット絵`}
 	ogImage={image}
 	description={`${dot.title}のドット絵です。${fixedDescription}`}
 	publishedAt={dot.publishedAt}
