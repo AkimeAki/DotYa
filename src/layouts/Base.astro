@@ -288,6 +288,8 @@ const schema =
 					class={css`
 						display: flex;
 						justify-content: center;
+						gap: 10px;
+						flex-direction: column;
 						align-items: center;
 						background-color: #5b4942;
 						height: 130px;
@@ -343,6 +345,30 @@ const schema =
 							/>
 							<div>かがりのす</div>
 						</a>
+					</div>
+					<div
+						class={css`
+							display: flex;
+							align-items: center;
+							gap: 20px;
+
+							a {
+								font-size: 14px;
+							}
+
+							a:hover {
+								color: #9deb83;
+							}
+						`}
+					>
+						<a
+							aria-label="アップデート情報"
+							href="https://blog.aki.wtf/categories/pixel-gives"
+							target="_blank"
+						>
+							アップデート情報
+						</a>
+						<a aria-label="お問い合わせ" href="/contact"> お問い合わせ </a>
 					</div>
 				</footer>
 			</div>
