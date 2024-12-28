@@ -144,11 +144,6 @@ export default function ({ dots }: Props): JSX.Element {
 										32px
 									</PixelButton>
 								)}
-								{dot.illust.size === 16 && (
-									<PixelButton color="#dd21be" attached>
-										16px
-									</PixelButton>
-								)}
 							</div>
 							<Title size="small" h={3}>
 								{dot.title}
@@ -171,16 +166,6 @@ export default function ({ dots }: Props): JSX.Element {
 								dangerouslySetInnerHTML={{
 									__html: JSON.stringify(
 										dotJsonLd(`${dot.illust.url}?w=512&q=100&px=${16}`, dot.title, false)
-									)
-								}}
-							/>
-						)}
-						{dot.illust.size === 16 && (
-							<script
-								type="application/ld+json"
-								dangerouslySetInnerHTML={{
-									__html: JSON.stringify(
-										dotJsonLd(`${dot.illust.url}?w=512&q=100&px=${32}`, dot.title, false)
 									)
 								}}
 							/>

@@ -36,10 +36,6 @@ export default function ({ dot }: Props): JSX.Element {
 							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 							// @ts-expect-error
 							dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
-						} else if (dot.illust.size === 16) {
-							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-							// @ts-expect-error
-							dataLayer.push({ event: "download-16", dot_id: dot.id, dot_name: dot.title });
 						}
 						void downloadImage(`${dot.illust.url}?fm=png`, dot.title);
 					}

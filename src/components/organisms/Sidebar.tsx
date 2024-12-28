@@ -3,7 +3,6 @@ import type { DotIllustTag } from "@/types";
 import type { MicroCMSListContent } from "microcms-js-sdk";
 import { useEffect, useRef, useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
-import SidebarSubLink from "@/components/molecules/SidebarSubLink";
 import { css } from "@/styled-system/css";
 import { cx } from "@/libs/merge-panda";
 
@@ -212,27 +211,7 @@ export default function ({ tags }: Props): JSX.Element {
 					</a>
 				</div>
 				<SidebarLink href="/">ホーム</SidebarLink>
-				<div
-					className={css`
-						display: flex;
-						flex-direction: column;
-						justify-content: flex-end;
-						gap: 10px;
-					`}
-				>
-					<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
-					<div
-						className={css`
-							display: flex;
-							flex-direction: column;
-							gap: 10px;
-							padding-left: 20px;
-						`}
-					>
-						<SidebarSubLink href="/16px/page/1">16pxのドット絵一覧</SidebarSubLink>
-						<SidebarSubLink href="/32px/page/1">32pxのドット絵一覧</SidebarSubLink>
-					</div>
-				</div>
+				<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
 				<SidebarLink href="/custom">カスタマイズ</SidebarLink>
 				<SidebarLink href="/terms">利用規約</SidebarLink>
 				<SidebarLink href="/contact">お問い合わせ</SidebarLink>
