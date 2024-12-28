@@ -71,8 +71,8 @@ export default function ({ tags }: Props): JSX.Element {
 						`,
 						isOpen &&
 							css`
-								top: 50%;
-								transform: translate(-50%, -50%) rotate(-45deg);
+								top: 50% !important;
+								transform: translate(-50%, -50%) rotate(-45deg) !important;
 							`
 					)}
 				/>
@@ -96,8 +96,8 @@ export default function ({ tags }: Props): JSX.Element {
 						`,
 						isOpen &&
 							css`
-								bottom: 50%;
-								transform: translate(-50%, 50%) rotate(45deg);
+								bottom: 50% !important;
+								transform: translate(-50%, 50%) rotate(45deg) !important;
 							`
 					)}
 				/>
