@@ -1,7 +1,7 @@
 import SidebarLink from "@/components/molecules/SidebarLink";
 import type { DotIllustTag } from "@/types";
 import type { MicroCMSListContent } from "microcms-js-sdk";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
 import SidebarSubLink from "@/components/molecules/SidebarSubLink";
 import { css } from "@/styled-system/css";
@@ -14,10 +14,33 @@ interface Props {
 export default function ({ tags }: Props): JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [keywords, setKeywords] = useState<string>("");
+	const sidebarElement = useRef<HTMLDivElement>(null);
+	const sidebarButtonElement = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const click = (e: MouseEvent) => {
+			if (
+				e.target instanceof HTMLElement &&
+				sidebarElement.current !== null &&
+				sidebarButtonElement.current !== null
+			) {
+				if (!sidebarElement.current.contains(e.target) && !sidebarButtonElement.current.contains(e.target)) {
+					setIsOpen(false);
+				}
+			}
+		};
+
+		window.addEventListener("click", click);
+
+		return () => {
+			window.removeEventListener("click", click);
+		};
+	}, [isOpen]);
 
 	return (
 		<>
 			<div
+				ref={sidebarButtonElement}
 				onClick={() => {
 					setIsOpen((status) => {
 						return !status;
@@ -103,6 +126,7 @@ export default function ({ tags }: Props): JSX.Element {
 				/>
 			</div>
 			<aside
+				ref={sidebarElement}
 				className={cx(
 					css`
 						position: sticky;
