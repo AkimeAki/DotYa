@@ -18,9 +18,3 @@ export interface DotIllust {
 	}[];
 	loading?: boolean;
 }
-
-export interface CMSPage {
-	title: string;
-	content: string;
-	tags: (DotIllustTag & MicroCMSListContent)[];
-}

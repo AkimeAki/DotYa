@@ -1,0 +1,111 @@
+---
+import Base from "@/layouts/Base.astro";
+import Title from "@/components/atoms/Title";
+import { fixedDescription } from "@/define";
+import { css } from "@/styled-system/css";
+---
+
+<Base title="利用規約" description={`利用規約ページです。${fixedDescription}`}>
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 30px;
+		`}
+	>
+		<Title>利用規約</Title>
+		<div
+			class={css`
+				h3 {
+					font-weight: bold;
+					font-size: 23px;
+					margin-top: 30px;
+					margin-bottom: 20px;
+
+					&:first-of-type {
+						margin-top: 0;
+					}
+				}
+
+				p {
+					margin-bottom: 15px;
+				}
+
+				ul {
+					margin-bottom: 15px;
+					list-style-type: square;
+				}
+
+				a {
+					color: #2c91fd;
+					* {
+						color: #2c91fd;
+					}
+				}
+
+				strong {
+					font-weight: bold;
+				}
+			`}
+		>
+			<h3>ご利用について</h3>
+			<p>
+				当サイトで配布している素材は規約の範囲内であれば、連絡、クレジット表記の必要なしで個人、
+				法人、商用、非商用問わず無料でご利用頂けます。
+			</p>
+			<p>
+				1つの商用作品内で、<strong>11種類以上の素材を利用したい</strong>場合、有償対応になるため、
+				<a href="https://dotya.aki.wtf/contact">お問い合わせ</a>
+				からご連絡ください。
+			</p>
+			<p>
+				<strong>例：</strong>
+			</p>
+			<ul>
+				<li>有料のソフトウェアで10種類の素材を利用{"　"}→{"　"}無料で利用可能</li>
+				<li>
+					有料のソフトウェアで11種類の素材を利用{"　"}→{"　"}有償対応
+				</li>
+				<li>無料のソフトウェアで11種類の素材を利用{"　"}→{"　"}無料で利用可能</li>
+				<li>
+					YouTubeの収益化が有効化されている動画で10種類の素材を利用{"　"}→{"　"}無料で利用可能
+				</li>
+				<li>YouTubeの収益化が有効化されている動画で11種類の素材を利用{"　"}→{"　"}有償対応</li>
+				<li>
+					YouTubeの収益化が無効化されている動画で11種類の素材を利用{"　"}→{"　"}無料で利用可能
+				</li>
+			</ul>
+			<p>
+				※<a href="https://pixel.gives/custom">カスタマイズページ</a
+				>でカスタマイズした場合、2種類の素材を利用していることになります。
+			</p>
+			<h3>著作権</h3>
+			<p>当サイトの素材は、著作権を放棄しておりません。</p>
+			<p>
+				全ての素材の著作権は
+				<a href="https://kagari.aki.wtf" target="_blank">
+					<strong>篝之鼠（かがりのす）</strong>
+				</a>が所有します。
+			</p>
+			<p>
+				素材は規約の範囲内であれば自由に編集や加工をすることができますが、加工の有無で著作権の譲渡や移動はありません。
+			</p>
+			<h3>禁止事項</h3><ul>
+				<li>公序良俗に反する目的での利用</li>
+				<li>反社会的勢力や違法行為に関わる利用</li>
+				<li>素材のイメージを損なうような攻撃的・差別的・性的・過激な利用</li>
+				<li>素材自体を商品とした利用</li>
+				<li>素材の商標登録</li>
+				<li>素材の再配布</li>
+				<li>AIの学習素材としての利用</li>
+				<li>その他著作者が不適切と判断した場合</li>
+			</ul>
+			<h3>その他</h3>
+			<p>素材を利用することによって発生したトラブルについては一切責任を負いかねます。</p>
+			<p>全ての規約は予告無く改変する場合があります。</p>
+			<h3 id="h1ba52a67bf">更新履歴</h3>
+			<p>2024年07月29日：カスタマイズに関する注意事項を追記</p>
+			<p>2024年05月08日：規約作成</p>
+		</div>
+	</div>
+</Base>
