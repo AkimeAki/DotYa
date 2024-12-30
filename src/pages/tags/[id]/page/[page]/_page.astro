@@ -54,7 +54,7 @@ const { translateData } = await i18n(lang);
 		{
 			page.data.length > 15 && (
 				<>
-					<GoogleAds slot="9512157076" />
+					<GoogleAds slot="9512157076" client:load />
 					<DotList dots={page.data.slice(15)} lang={lang} translateData={translateData} />
 				</>
 			)

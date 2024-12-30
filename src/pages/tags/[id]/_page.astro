@@ -58,7 +58,7 @@ dots = dots.filter(Boolean);
 		{
 			dots.length > 15 && (
 				<>
-					<GoogleAds slot="9512157076" />
+					<GoogleAds slot="9512157076" client:load />
 					<DotList dots={dots.slice(15)} lang={lang} translateData={translateData} />
 				</>
 			)
