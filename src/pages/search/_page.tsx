@@ -94,7 +94,7 @@ export default function ({ dots, q, lang, translateData }: Props) {
 			) : (
 				<>
 					<p>{addArg(getText(translateData, "search_searchResult"), String(dots.length))}</p>
-					<DotList dots={dots} lang={lang} />
+					<DotList dots={dots} lang={lang} translateData={translateData} />
 				</>
 			)}
 		</div>
