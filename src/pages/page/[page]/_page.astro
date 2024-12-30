@@ -24,7 +24,7 @@ const { translateData } = await i18n(lang);
 <Base
 	title={getText(translateData, "page_id_pageTitle")}
 	description={`${getText(translateData, "page_id_description")}${getText(translateData, "fixedDescription")}`}
-	canonical={`${Astro.site}${getLangPath("page/1", lang)}`}
+	canonical={`${Astro.site}${getLangPath("/page/1", lang).replace(/^\//, "")}`}
 	lang={lang}
 >
 	<div
