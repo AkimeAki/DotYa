@@ -14,6 +14,8 @@
 
 ### microCMS上の「👁️表示項目の編集」おすすめ
 
+![image](images/cms-display-here.png)
+
 一覧が見やすい
 
 ![image](images/cms-display.png)
