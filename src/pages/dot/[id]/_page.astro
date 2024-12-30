@@ -212,10 +212,9 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 				alt={getText(translateData, "dot_id_snsShareX")}
 				serviceName={getText(translateData, "dot_id_xServiceName")}
 				href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(dot.title[lang])}&url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}&hashtags=${encodeURIComponent(`${getText(translateData, "dot_id_snsShareHashTagDotya")},${getText(translateData, "dot_id_snsShareHashTagPixelGives")}`)}`}
+				text={getText(translateData, "dot_id_snsShareXButton")}
 				client:load
-			>
-				{getText(translateData, "dot_id_snsShareXButton")}
-			</ShareButton>
+			/>
 			<ShareButton
 				size={22}
 				icon="/icons/bluesky.png"
@@ -223,10 +222,9 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 				target="_blank"
 				serviceName="Bluesky"
 				href={`https://bsky.app/intent/compose?text=${encodeURIComponent(dot.title[lang])} ${encodeURIComponent(`#${getText(translateData, "dot_id_snsShareHashTagDotya")} #${getText(translateData, "dot_id_snsShareHashTagPixelGives")}`)} ${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				text={getText(translateData, "dot_id_snsShareBlueskyButton")}
 				client:load
-			>
-				{getText(translateData, "dot_id_snsShareBlueskyButton")}
-			</ShareButton>
+			/>
 			<ShareButton
 				size={22}
 				icon="/icons/pocket.png"
@@ -234,10 +232,9 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 				target="_blank"
 				serviceName="Pocket"
 				href={`https://getpocket.com/save?url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				text={getText(translateData, "dot_id_snsSharePocketButton")}
 				client:load
-			>
-				{getText(translateData, "dot_id_snsSharePocketButton")}
-			</ShareButton>
+			/>
 			<ShareButton
 				size={20}
 				icon="/icons/hatena.png"
@@ -245,10 +242,9 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 				target="_blank"
 				serviceName="はてなブックマーク"
 				href={`https://b.hatena.ne.jp/entry/s/pixel.gives/dot/${dot.id}#bbutton`}
+				text={getText(translateData, "dot_id_snsShareHatenaBookmarkButton")}
 				client:load
-			>
-				{getText(translateData, "dot_id_snsShareHatenaBookmarkButton")}
-			</ShareButton>
+			/>
 		</div>
 
 		<GoogleAds slot="9512157076" />

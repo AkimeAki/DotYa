@@ -1,4 +1,5 @@
 import type { TranslateData } from "@/types";
+import { Fragment } from "react";
 
 export const getText = (data: TranslateData, key: string, rich: boolean = false) => {
 	if (rich) {
@@ -16,4 +17,21 @@ export const addArg = (text: string, ...args: string[]) => {
 	});
 
 	return result;
+};
+
+export const addElement = (text: string, ...args: React.ReactElement[]) => {
+	let result = [text];
+
+	args.forEach((_, index) => {
+		result = text.split(`{{$${index + 1}}}`);
+	});
+
+	return result.map((result, index) => {
+		return (
+			<Fragment key={index}>
+				{result}
+				{args[index]}
+			</Fragment>
+		);
+	});
 };

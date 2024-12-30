@@ -1,8 +1,8 @@
 import Button from "@/components/atoms/Button";
+import { addElement } from "@/libs/getI18n";
 import { css } from "@/styled-system/css";
 
 interface Props {
-	children: React.ReactNode;
 	href: string;
 	target?: string;
 	icon: string;
@@ -10,9 +10,10 @@ interface Props {
 	onClick?: () => void;
 	alt: string;
 	serviceName: string;
+	text: string;
 }
 
-export default function ({ href, target = "_self", icon, children, size, alt, serviceName }: Props) {
+export default function ({ href, target = "_self", icon, size, alt, serviceName, text }: Props) {
 	return (
 		<div
 			className={css`
@@ -38,36 +39,24 @@ export default function ({ href, target = "_self", icon, children, size, alt, se
 						display: flex;
 						justify-content: center;
 						gap: 8px;
+						font-size: 15px;
+						align-items: center;
+						transform: translateY(-1px);
 					`}
 				>
-					<img
-						alt={alt}
-						className={css`
-							aspect-ratio: 1/1;
-							object-fit: contain;
-						`}
-						src={icon}
-						width={size}
-					/>
-					<span
-						className={css`
-							color: inherit;
-							font-size: 15px;
-							display: flex;
-							align-items: center;
-							transform: translateY(-1px);
-
-							* {
-								color: inherit;
-								font-size: 15px;
-								display: flex;
-								align-items: center;
-								transform: translateY(-1px);
-							}
-						`}
-					>
-						{children}
-					</span>
+					{addElement(
+						text,
+						<img
+							alt={alt}
+							className={css`
+								aspect-ratio: 1/1;
+								object-fit: contain;
+								transform: translateY(2px);
+							`}
+							src={icon}
+							width={size}
+						/>
+					)}
 				</div>
 			</Button>
 		</div>
