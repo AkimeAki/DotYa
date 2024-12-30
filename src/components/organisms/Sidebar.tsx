@@ -238,6 +238,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 							border-bottom: 2px solid #111516;
 							border-top: 2px solid #6e6358;
 							cursor: pointer;
+							user-select: none;
 
 							* {
 								color: #faf5b1;
@@ -264,9 +265,30 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 								}
 							`}
 						>
-							<option value="ja">日本語</option>
-							<option value="zh-cn">简体中文</option>
-							<option value="zh-tw">正體中文</option>
+							<option
+								value="ja"
+								className={css`
+									font-family: "DotGothic16";
+								`}
+							>
+								日本語
+							</option>
+							<option
+								value="zh-cn"
+								className={css`
+									font-family: "ArkPixelZHCN";
+								`}
+							>
+								简体中文
+							</option>
+							<option
+								value="zh-tw"
+								className={css`
+									font-family: "ArkPixelZHTW";
+								`}
+							>
+								正體中文
+							</option>
 						</select>
 					</div>
 				</div>

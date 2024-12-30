@@ -368,7 +368,22 @@ const schema =
 					`}
 				>
 					<span>{getText(translateData, "footerTranslator")}</span>
-					<span>ノブ</span>
+					<span
+						class={css`
+							font-family: "BestTenCRT";
+							transform: translateY(-1px);
+
+							&:lang(zh-cn) {
+								transform: translateY(-3px);
+							}
+
+							&:lang(zh-tw) {
+								transform: translateY(-3px);
+							}
+						`}
+					>
+						ノブ
+					</span>
 				</div>
 				<div
 					class={css`
