@@ -19,7 +19,7 @@ export const Size = ({ translateData, lang, tags }: SizeProps) => {
 				<>
 					{tags.map((tag) => {
 						return (
-							<PixelButton href={getLangPath(`/tags/${tag.id}`, lang)} color="#4d3d36">
+							<PixelButton href={getLangPath(`/tags/${tag.id}`, lang)} color="#4d3d36" key={tag.id}>
 								{tag.name[lang]}
 							</PixelButton>
 						);
