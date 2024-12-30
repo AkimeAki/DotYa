@@ -14,6 +14,7 @@ import type { DotData } from "@/libs/format-dotlist";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
 import { i18n } from "@/libs/i18n";
+import { Size } from "./_page";
 
 interface Props {
 	dot: DotData;
@@ -172,7 +173,7 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 				`}
 			>
 				<p>
-					サイズ：{dot.illust.size}px × {dot.illust.size}px
+					{addArg(getText(translateData, "dot_id_size"), `${dot.illust.size}px × ${dot.illust.size}px`)}
 				</p>
 				<div
 					class={css`
@@ -182,20 +183,11 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 						align-items: baseline;
 					`}
 				>
-					タグ：
-					{
-						dot.tags.map((tag) => {
-							return (
-								<PixelButton href={`/tags/${tag.id}`} color="#4d3d36">
-									{tag.name[lang]}
-								</PixelButton>
-							);
-						})
-					}
+					<Size translateData={translateData} lang={lang} tags={dot.tags} />
 				</div>
 			</div>
 
-			<DownloadButton dot={dot} lang={lang} client:load />
+			<DownloadButton dot={dot} lang={lang} translateData={translateData} client:load />
 		</div>
 
 		<div

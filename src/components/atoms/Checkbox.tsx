@@ -47,6 +47,7 @@ export default function ({ children, isChecked, setIsChecked }: Props) {
 			<div
 				className={css`
 					flex: 1;
+					transform: translateY(-1px);
 				`}
 			>
 				{children}

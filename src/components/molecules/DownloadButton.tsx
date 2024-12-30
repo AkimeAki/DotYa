@@ -5,13 +5,16 @@ import Checkbox from "@/components/atoms/Checkbox";
 import type { DotData } from "@/libs/format-dotlist";
 import { css } from "@/styled-system/css";
 import type { Lang } from "@/define";
+import type { TranslateData } from "@/types";
+import { getText } from "@/libs/getI18n";
 
 interface Props {
 	dot: DotData;
 	lang: Lang;
+	translateData: TranslateData;
 }
 
-export default function ({ dot, lang }: Props): JSX.Element {
+export default function ({ dot, lang, translateData }: Props): JSX.Element {
 	const [termsAgree, setTermsAgree] = useState<boolean>(false);
 
 	return (
@@ -22,12 +25,15 @@ export default function ({ dot, lang }: Props): JSX.Element {
 				gap: 10px;
 			`}
 		>
-			<div>
+			<div
+				className={css`
+					a {
+						color: #2c91fd;
+					}
+				`}
+			>
 				<Checkbox isChecked={termsAgree} setIsChecked={setTermsAgree}>
-					<a aria-label="利用規約" href="/terms" target="_blank">
-						利用規約
-					</a>
-					を読んで同意しました
+					<div dangerouslySetInnerHTML={{ __html: getText(translateData, "dot_id_agreeTerms", true) }}></div>
 				</Checkbox>
 			</div>
 			<Button
@@ -43,7 +49,7 @@ export default function ({ dot, lang }: Props): JSX.Element {
 					}
 				}}
 			>
-				ダウンロードする
+				{getText(translateData, "dot_id_downloadButton")}
 			</Button>
 			{/* {dot.dot64 !== undefined && (
 							<Button
