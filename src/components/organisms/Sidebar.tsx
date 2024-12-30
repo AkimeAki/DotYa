@@ -42,6 +42,32 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 		};
 	}, [isOpen]);
 
+	useEffect(() => {
+		const scroll = (e: Event) => {
+			if (
+				e.target instanceof HTMLElement &&
+				sidebarElement.current !== null &&
+				sidebarButtonElement.current !== null
+			) {
+				if (
+					!sidebarElement.current.contains(e.target) &&
+					!sidebarButtonElement.current.contains(e.target) &&
+					isOpen
+				) {
+					e.preventDefault();
+				}
+			}
+		};
+
+		window.addEventListener("touchmove", scroll, { passive: false });
+		window.addEventListener("mousewheel", scroll, { passive: false });
+
+		return () => {
+			window.removeEventListener("touchmove", scroll);
+			window.removeEventListener("mousewheel", scroll);
+		};
+	}, [isOpen]);
+
 	return (
 		<>
 			<div
@@ -154,6 +180,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 							transition-duration: 200ms;
 							transition-property: transform;
 							z-index: 9999999;
+							overscroll-behavior: contain;
 						}
 					`,
 					isOpen &&
@@ -308,6 +335,24 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 					})}
 				</div>
 			</aside>
+			{isOpen && (
+				<div
+					className={css`
+						position: fixed;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						z-index: 999999;
+						display: none;
+						background-color: rgba(194, 194, 194, 0.473);
+
+						@media (max-width: 1130px) {
+							display: block;
+						}
+					`}
+				/>
+			)}
 		</>
 	);
 }
