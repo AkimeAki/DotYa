@@ -1,0 +1,166 @@
+---
+import type { Lang } from "@/define";
+import { getText } from "@/libs/getI18n";
+import { i18n } from "@/libs/i18n";
+import { getLangPath } from "@/libs/lang-path";
+import { css, cx } from "@/styled-system/css";
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { translateData } = await i18n(lang);
+---
+
+<footer
+	id="footer"
+	class={css`
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		flex-direction: column;
+		align-items: center;
+		background-color: #5b4942;
+		height: 130px;
+		color: white;
+		user-select: none;
+
+		* {
+			color: white;
+		}
+
+		.footer-ben-ten-crt.active {
+			font-family: "BestTenCRT";
+		}
+	`}
+>
+	<div
+		class={css`
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			font-family: "BestTenCRT";
+		`}
+	>
+		<div>Created by</div>
+		<a
+			aria-label="篝之鼠"
+			href="https://kagari.aki.wtf"
+			target="_blank"
+			class={css`
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				text-decoration: none;
+
+				&:hover {
+					color: #9deb83;
+
+					* {
+						color: #9deb83;
+					}
+				}
+			`}
+		>
+			<div class="footer-ben-ten-crt">篝之鼠</div>
+			<img
+				width={51}
+				height={20}
+				class={cx(
+					css`
+						height: 20px;
+						gap: 20px;
+						display: block;
+					`,
+					"footer-ben-ten-crt"
+				)}
+				alt="篝之鼠"
+				src="https://r2.aki.wtf/kagari-rat.png"
+				loading="lazy"
+			/>
+			<div class="footer-ben-ten-crt">かがりのす</div>
+		</a>
+	</div>
+	<div
+		class={css`
+			display: flex;
+			align-items: center;
+			gap: 3px;
+
+			a {
+				font-size: 14px;
+			}
+
+			a:hover {
+				color: #9deb83;
+			}
+		`}
+	>
+		<span>{getText(translateData, "footerTranslator")}</span>
+		<span
+			class={cx(
+				css`
+					transform: translateY(-1px);
+
+					&:lang(zh-cn) {
+						transform: translateY(-3px);
+					}
+
+					&:lang(zh-tw) {
+						transform: translateY(-3px);
+					}
+				`,
+				"footer-ben-ten-crt"
+			)}
+		>
+			ノブ
+		</span>
+	</div>
+	<div
+		class={css`
+			display: flex;
+			align-items: center;
+			gap: 20px;
+
+			a {
+				font-size: 14px;
+			}
+
+			a:hover {
+				color: #9deb83;
+			}
+		`}
+	>
+		<a
+			aria-label={getText(translateData, "footerUpdate")}
+			href="https://blog.aki.wtf/categories/pixel-gives"
+			target="_blank"
+		>
+			{getText(translateData, "footerUpdate")}
+		</a>
+		<a aria-label={getText(translateData, "footerContact")} href={getLangPath("/contact", lang)}>
+			{getText(translateData, "footerContact")}
+		</a>
+	</div>
+</footer>
+
+<script>
+	const observer = new IntersectionObserver((entries) => {
+		for (const entry of entries) {
+			if (entry.isIntersecting) {
+				const footerBenTenCrt = document.querySelectorAll(".footer-ben-ten-crt");
+				footerBenTenCrt.forEach((element) => {
+					element.classList.add("active");
+				});
+
+				observer.disconnect();
+			}
+		}
+	});
+
+	const footer = document.querySelector("#footer");
+	if (footer !== null) {
+		observer.observe(footer);
+	}
+</script>
