@@ -23,7 +23,15 @@ export default defineConfig({
 					return false;
 				}
 
+				if (pageArray[1] === "tags" && pageArray[3] === "page") {
+					return false;
+				}
+
 				if (pageArray[0] === "page" && Number(pageArray[1]) > 1) {
+					return false;
+				}
+
+				if (pageArray[1] === "page" && Number(pageArray[2]) > 1) {
 					return false;
 				}
 

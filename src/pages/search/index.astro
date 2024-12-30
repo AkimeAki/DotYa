@@ -1,10 +1,20 @@
 ---
 import Base from "@/layouts/Base.astro";
 import ThisPage from "./_page";
-import { fixedDescription } from "@/define";
+import type { Lang } from "@/define";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { getListAllContents } from "@/libs/microcms";
 import { formatDotList, type DotData } from "@/libs/format-dotlist";
+import { i18n } from "@/libs/i18n";
+import { getText } from "@/libs/getI18n";
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = "ja" } = Astro.props;
+
+const { translateData } = await i18n(lang);
 
 export const prerender = false;
 const searchText = Astro.url.searchParams.get("q");
@@ -42,6 +52,11 @@ if (searchText !== null && searchText !== "") {
 }
 ---
 
-<Base title={`検索`} description={`検索ページです。${fixedDescription}`} canonical={`${Astro.site}search`}>
-	<ThisPage dots={dots} q={searchText ?? ""} client:load />
+<Base
+	title={getText(translateData, "search_pageTitle")}
+	description={`${getText(translateData, "search_description")}${getText(translateData, "fixedDescription")}`}
+	canonical={`${Astro.site}search`}
+	lang={lang}
+>
+	<ThisPage dots={dots} q={searchText ?? ""} lang={lang} translateData={translateData} client:load />
 </Base>

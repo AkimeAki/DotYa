@@ -1,84 +1,11 @@
 ---
-import Base from "@/layouts/Base.astro";
-import type { DotIllust, DotIllustTag } from "@/types";
-import { getCachedContents } from "@/libs/microcms";
 import type { GetStaticPaths } from "astro";
-import { formatDotList } from "@/libs/format-dotlist";
-import { fixedDescription } from "@/define";
-import { css } from "@/styled-system/css";
-import Title from "@/components/atoms/Title";
-import Pagination from "@/components/molecules/Pagination.astro";
-import DotList from "@/components/templates/DotList";
-import GoogleAds from "@/components/atoms/GoogleAds";
+import { paths } from "./_getStaticPaths";
+import Page from "./_page.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const tags = await getCachedContents<DotIllustTag>("tags");
-	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
-
-	return tags.flatMap((tag) => {
-		const dots = allDots.filter((dot) => {
-			const tagIds = dot.tags.map((dotTag) => dotTag.id);
-			return tagIds.includes(tag.id);
-		});
-
-		return paginate(dots, { params: { id: tag.id }, pageSize: 30 });
-	});
+	return await paths(paginate);
 }) satisfies GetStaticPaths;
-
-const { page } = Astro.props;
-const { id } = Astro.params;
-const tag = (await getCachedContents<DotIllustTag>("tags")).filter((tag) => {
-	return tag.id === id;
-})[0];
-
-if (tag === undefined) {
-	return;
-}
 ---
 
-<Base
-	title={`${tag.name}タグが付いたドット絵一覧`}
-	description={`${tag.name}タグが付いたドット絵一覧ページです。${fixedDescription}`}
-	canonical={`${Astro.site}tags/${tag.id}`}
->
-	<div
-		class={css`
-			display: flex;
-			flex-direction: column;
-			gap: 40px;
-		`}
-	>
-		<div
-			class={css`
-				display: flex;
-				flex-direction: column;
-				gap: 20px;
-			`}
-		>
-			<Title>
-				{tag.name}タグが付いたドット絵 {page.currentPage}ページ目
-			</Title>
-			<Pagination
-				current={page.currentPage}
-				last={page.lastPage}
-				baseUrl={`/tags/${tag.id}/page/`}
-				fisrtPagePath={`/tags/${tag.id}`}
-			/>
-		</div>
-		<DotList dots={page.data.slice(0, 15)} />
-		{
-			page.data.length > 15 && (
-				<>
-					<GoogleAds slot="9512157076" />
-					<DotList dots={page.data.slice(15)} />
-				</>
-			)
-		}
-		<Pagination
-			current={page.currentPage}
-			last={page.lastPage}
-			baseUrl={`/tags/${tag.id}/page/`}
-			fisrtPagePath={`/tags/${tag.id}`}
-		/>
-	</div>
-</Base>
+<Page {...Astro.props} />

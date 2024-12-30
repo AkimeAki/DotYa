@@ -1,0 +1,68 @@
+---
+import Base from "@/layouts/Base.astro";
+import type { DotIllust } from "@/types";
+import { getCachedContents } from "@/libs/microcms";
+import { formatDotList, type DotTagData } from "@/libs/format-dotlist";
+import { css } from "@/styled-system/css";
+import Title from "@/components/atoms/Title";
+import Pagination from "@/components/molecules/Pagination.astro";
+import DotList from "@/components/templates/DotList";
+import type { Lang } from "@/define";
+import { i18n } from "@/libs/i18n";
+import { addArg, getText } from "@/libs/getI18n";
+import { getLangPath } from "@/libs/lang-path";
+import GoogleAds from "@/components/atoms/GoogleAds";
+
+interface Props {
+	tag: DotTagData;
+	lang: Lang;
+}
+
+const { tag, lang } = Astro.props;
+const { translateData } = await i18n(lang);
+
+let dots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((dot) => {
+	const tagIds = dot.tags.map((dotTag) => dotTag.id);
+	return tagIds.includes(tag.id);
+});
+
+const lastPage = Math.ceil(dots.length / 30);
+dots.length = 30;
+dots = dots.filter(Boolean);
+---
+
+<Base
+	title={addArg(getText(translateData, "tags_id_pageTitle"), tag.name[lang])}
+	description={`${addArg(getText(translateData, "tags_id_description"), tag.name[lang])}${getText(translateData, "fixedDescription")}`}
+	lang={lang}
+	canonical={`${Astro.site}${getLangPath(`tags/${tag.id}`, lang)}`}
+>
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+		`}
+	>
+		<div
+			class={css`
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			`}
+		>
+			<Title>{addArg(getText(translateData, "tag_id_title"), tag.name[lang], "1")}</Title>
+			<Pagination current={1} last={lastPage} baseUrl={getLangPath(`/tags/${tag.id}/page/`, lang)} />
+		</div>
+		<DotList dots={dots.slice(0, 15)} lang={lang} translateData={translateData} />
+		{
+			dots.length > 15 && (
+				<>
+					<GoogleAds slot="9512157076" />
+					<DotList dots={dots.slice(15)} lang={lang} translateData={translateData} />
+				</>
+			)
+		}
+		<Pagination current={1} last={lastPage} baseUrl={getLangPath(`/tags/${tag.id}/page/`, lang)} />
+	</div>
+</Base>

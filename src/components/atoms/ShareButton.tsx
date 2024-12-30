@@ -56,6 +56,14 @@ export default function ({ href, target = "_self", icon, children, size, alt, se
 							display: flex;
 							align-items: center;
 							transform: translateY(-1px);
+
+							* {
+								color: inherit;
+								font-size: 15px;
+								display: flex;
+								align-items: center;
+								transform: translateY(-1px);
+							}
 						`}
 					>
 						{children}

@@ -3,15 +3,20 @@ import Button from "@/components/atoms/Button";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import Title from "@/components/atoms/Title";
 import Modal from "@/components/molecules/Modal";
+import type { Lang } from "@/define";
 import type { DotData } from "@/libs/format-dotlist";
+import { addArg, getText } from "@/libs/getI18n";
+import type { TranslateData } from "@/types";
 import { css } from "@emotion/react";
 import { Fragment, useEffect, useState } from "react";
 
 interface Props {
 	dots: DotData[];
+	lang: Lang;
+	translateData: TranslateData;
 }
 
-export default function ({ dots }: Props): JSX.Element {
+export default function ({ dots, lang, translateData }: Props): JSX.Element {
 	const [image1, setImage1] = useState<DotData | null>(null);
 	const [image2, setImage2] = useState<DotData | null>(null);
 	const [image1Path, setImage1Path] = useState<string>("/transparent.png");
@@ -147,14 +152,8 @@ export default function ({ dots }: Props): JSX.Element {
 					gap: 30px;
 				`}
 			>
-				<Title>カスタマイズ</Title>
-				<p>
-					ここでは2つのドット絵をくっつけることができます！
-					<br />
-					お好みのカスタマイズをしてみてね！
-					<br />
-					※現在PCのみ対応しています。
-				</p>
+				<Title>{getText(translateData, "custom_title")}</Title>
+				<div dangerouslySetInnerHTML={{ __html: getText(translateData, "custom_content", true) }} />
 				<div
 					css={css`
 						display: flex;
@@ -192,7 +191,11 @@ export default function ({ dots }: Props): JSX.Element {
 									setSelectImage(1);
 								}}
 							>
-								<PictureFrame src={image1Path} size={128} alt="1つ目の画像" />
+								<PictureFrame
+									src={image1Path}
+									size={128}
+									alt={addArg(getText(translateData, "custom_dotNum"), "1")}
+								/>
 							</div>
 							<Button
 								size="slim"
@@ -200,7 +203,7 @@ export default function ({ dots }: Props): JSX.Element {
 									setIsOpenImage1(true);
 								}}
 							>
-								ドット絵を変更する
+								{getText(translateData, "custom_changeDot")}
 							</Button>
 							<Button
 								size="slim"
@@ -208,7 +211,7 @@ export default function ({ dots }: Props): JSX.Element {
 									setSelectImage(1);
 								}}
 							>
-								選択する
+								{getText(translateData, "custom_selectButton")}
 							</Button>
 						</div>
 						<div
@@ -227,7 +230,11 @@ export default function ({ dots }: Props): JSX.Element {
 									setSelectImage(2);
 								}}
 							>
-								<PictureFrame src={image2Path} size={128} alt="2つ目の画像" />
+								<PictureFrame
+									src={image2Path}
+									size={128}
+									alt={addArg(getText(translateData, "custom_dotNum"), "2")}
+								/>
 							</div>
 							<Button
 								size="slim"
@@ -235,7 +242,7 @@ export default function ({ dots }: Props): JSX.Element {
 									setIsOpenImage2(true);
 								}}
 							>
-								ドット絵を変更する
+								{getText(translateData, "custom_changeDot")}
 							</Button>
 							<Button
 								size="slim"
@@ -243,7 +250,7 @@ export default function ({ dots }: Props): JSX.Element {
 									setSelectImage(2);
 								}}
 							>
-								選択する
+								{getText(translateData, "custom_selectButton")}
 							</Button>
 						</div>
 					</div>
@@ -288,9 +295,9 @@ export default function ({ dots }: Props): JSX.Element {
 								dataLayer.push({
 									event: "download-custom",
 									custom_dot_id1: image1.id,
-									custom_dot_name1: image1.title,
+									custom_dot_name1: image1.title[lang],
 									custom_dot_id2: image2.id,
-									custom_dot_name2: image2.title
+									custom_dot_name2: image2.title[lang]
 								});
 							}
 						};
@@ -298,7 +305,7 @@ export default function ({ dots }: Props): JSX.Element {
 						void download();
 					}}
 				>
-					カスタマイズしたドット絵をダウンロード
+					{getText(translateData, "custom_download")}
 				</Button>
 			</div>
 			<Modal isOpen={isOpenImage1} setIsOpen={setIsOpenImage1}>
@@ -325,7 +332,11 @@ export default function ({ dots }: Props): JSX.Element {
 										setIsOpenImage1(false);
 									}}
 								>
-									<PictureFrame src={dot.illust.url} size={128} alt="1つ目の画像" />
+									<PictureFrame
+										src={dot.illust.url}
+										size={128}
+										alt={addArg(getText(translateData, "custom_dotNum"), "1")}
+									/>
 								</div>
 							);
 						}
@@ -358,7 +369,11 @@ export default function ({ dots }: Props): JSX.Element {
 										setIsOpenImage2(false);
 									}}
 								>
-									<PictureFrame src={dot.illust.url} size={128} alt="2つ目の画像" />
+									<PictureFrame
+										src={dot.illust.url}
+										size={128}
+										alt={addArg(getText(translateData, "custom_dotNum"), "2")}
+									/>
 								</div>
 							);
 						}

@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 import DotList from "@/components/templates/DotList";
-import type { DotIllustTag } from "@/types";
+import type { DotIllustTag, TranslateData } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Title from "@/components/atoms/Title";
 import { copy } from "@/libs/copy-object";
@@ -12,13 +12,18 @@ import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
 import type { DotData } from "@/libs/format-dotlist";
 import GoogleAds from "@/components/atoms/GoogleAds";
+import type { Lang } from "@/define";
+import { addArg, getText } from "@/libs/getI18n";
+import { getLangPath } from "@/libs/lang-path";
 
 interface Props {
 	dots: DotData[];
 	tags: (DotIllustTag & MicroCMSContentId & MicroCMSDate)[];
+	lang: Lang;
+	translateData: TranslateData;
 }
 
-export default function ({ dots, tags }: Props) {
+export default function ({ dots, tags, lang, translateData }: Props) {
 	const [randomDots, setRandomDots] = useState<typeof dots>([]);
 	const [randomTag, setRandomTag] = useState<(DotIllustTag & MicroCMSContentId & MicroCMSDate) | null>(null);
 	const [randomTagDots, setRandomTagDots] = useState<typeof dots>([]);
@@ -91,10 +96,14 @@ export default function ({ dots, tags }: Props) {
 					}
 				`}
 			>
-				<Title> こんにちは。ドット絵素材屋さんです！</Title>
-				{randomDots.length === 0 ? <DummyList length={10} /> : <DotList dots={randomDots} />}
-				<Button href="/page/1" center>
-					もっとドット絵を見る
+				<Title>{getText(translateData, "_titleHello")}</Title>
+				{randomDots.length === 0 ? (
+					<DummyList length={10} />
+				) : (
+					<DotList dots={randomDots} lang={lang} translateData={translateData} />
+				)}
+				<Button href={getLangPath("/page/1", lang)} center>
+					{getText(translateData, "_moreDots")}
 				</Button>
 			</div>
 			<GoogleAds slot="9512157076" />
@@ -112,10 +121,10 @@ export default function ({ dots, tags }: Props) {
 					}
 				`}
 			>
-				<Title>新着ドット絵はこちら！</Title>
-				<DotList dots={newDots} />
-				<Button href="/page/1" center>
-					もっとドット絵を見る
+				<Title>{getText(translateData, "_hereNewDots")}</Title>
+				<DotList dots={newDots} lang={lang} translateData={translateData} />
+				<Button href={getLangPath("/page/1", lang)} center>
+					{getText(translateData, "_moreDots")}
 				</Button>
 			</div>
 			<div
@@ -134,11 +143,15 @@ export default function ({ dots, tags }: Props) {
 					`}
 				`}
 			>
-				<Title>{randomTag !== null ? randomTag.name : ""}のドット絵もあるよ！</Title>
-				{randomTagDots.length === 0 ? <DummyList length={10} /> : <DotList dots={randomTagDots} />}
+				<Title>{addArg(getText(translateData, "_alsoDots"), randomTag !== null ? randomTag.name : "")}</Title>
+				{randomTagDots.length === 0 ? (
+					<DummyList length={10} />
+				) : (
+					<DotList dots={randomTagDots} lang={lang} translateData={translateData} />
+				)}
 				{randomTagDotsLength > 10 && (
-					<Button href={randomTag !== null ? `/tags/${randomTag.id}` : undefined} center>
-						もっと{randomTag !== null ? randomTag.name : ""}のドット絵を見る
+					<Button href={randomTag !== null ? getLangPath(`/tags/${randomTag.id}`, lang) : undefined} center>
+						{addArg(getText(translateData, "moreTagDots"), randomTag !== null ? randomTag.name : "")}
 					</Button>
 				)}
 			</div>

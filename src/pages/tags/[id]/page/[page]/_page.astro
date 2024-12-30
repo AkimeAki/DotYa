@@ -1,0 +1,69 @@
+---
+import Base from "@/layouts/Base.astro";
+import type { DotData, DotTagData } from "@/libs/format-dotlist";
+import { css } from "@/styled-system/css";
+import Title from "@/components/atoms/Title";
+import Pagination from "@/components/molecules/Pagination.astro";
+import DotList from "@/components/templates/DotList";
+import type { Lang } from "@/define";
+import { i18n } from "@/libs/i18n";
+import { addArg, getText } from "@/libs/getI18n";
+import { getLangPath } from "@/libs/lang-path";
+import type { Page } from "astro";
+import GoogleAds from "@/components/atoms/GoogleAds";
+
+interface Props {
+	tag: DotTagData;
+	lang: Lang;
+	page: Page<DotData>;
+}
+
+const { tag, lang, page } = Astro.props;
+const { translateData } = await i18n(lang);
+---
+
+<Base
+	title={addArg(getText(translateData, "tags_id_pageTitle"), tag.name[lang])}
+	description={`${addArg(getText(translateData, "tags_id_description"), tag.name[lang])}${getText(translateData, "fixedDescription")}`}
+	lang={lang}
+	canonical={`${Astro.site}${getLangPath(`tags/${tag.id}`, lang)}`}
+>
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+		`}
+	>
+		<div
+			class={css`
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			`}
+		>
+			<Title>{addArg(getText(translateData, "tag_id_title"), tag.name[lang], String(page.currentPage))}</Title>
+			<Pagination
+				current={page.currentPage}
+				last={page.lastPage}
+				baseUrl={getLangPath(`/tags/${tag.id}/page/`, lang)}
+				fisrtPagePath={getLangPath(`/tags/${tag.id}`, lang)}
+			/>
+		</div>
+		<DotList dots={page.data.slice(0, 15)} lang={lang} translateData={translateData} />
+		{
+			page.data.length > 15 && (
+				<>
+					<GoogleAds slot="9512157076" />
+					<DotList dots={page.data.slice(15)} lang={lang} translateData={translateData} />
+				</>
+			)
+		}
+		<Pagination
+			current={page.currentPage}
+			last={page.lastPage}
+			baseUrl={getLangPath(`/tags/${tag.id}/page/`, lang)}
+			fisrtPagePath={getLangPath(`/tags/${tag.id}`, lang)}
+		/>
+	</div>
+</Base>

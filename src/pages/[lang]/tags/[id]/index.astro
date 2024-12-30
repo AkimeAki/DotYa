@@ -1,10 +1,10 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { paths } from "./_getStaticPaths";
-import Page from "./_page.astro";
+import { paths } from "@/pages/tags/[id]/_getStaticPaths";
+import Page from "@/pages/tags/[id]/_page.astro";
 
 export const getStaticPaths = (async () => {
-	return await paths();
+	return await paths(true);
 }) satisfies GetStaticPaths;
 ---
 

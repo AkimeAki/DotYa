@@ -2,9 +2,19 @@
 import Base from "@/layouts/Base.astro";
 import Title from "@/components/atoms/Title";
 import { css } from "@/styled-system/css";
+import type { Lang } from "@/define";
+import { i18n } from "@/libs/i18n";
+import { getText } from "@/libs/getI18n";
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = "ja" } = Astro.props;
+const { translateData } = await i18n(lang);
 ---
 
-<Base title="お問い合わせ">
+<Base title={getText(translateData, "contact_pageTitle")} lang={lang}>
 	<div
 		class={css`
 			display: flex;
@@ -12,7 +22,7 @@ import { css } from "@/styled-system/css";
 			gap: 30px;
 		`}
 	>
-		<Title>お問い合わせ</Title>
+		<Title>{getText(translateData, "contact_title")}</Title>
 		<div>
 			<iframe
 				class={css`
@@ -21,7 +31,7 @@ import { css } from "@/styled-system/css";
 				`}
 				src="https://docs.google.com/forms/d/e/1FAIpQLSfLI8zc_8L5piTSaO0inQwAsKCDikgfaUKcF8a9eA6WhSZSCA/viewform?embedded=true"
 			>
-				読み込んでいます…
+				Loading…
 			</iframe>
 		</div>
 	</div>

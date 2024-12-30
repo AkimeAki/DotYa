@@ -5,13 +5,18 @@ import DotList from "@/components/templates/DotList";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
 import { useState } from "react";
+import type { TranslateData } from "@/types";
+import type { Lang } from "@/define";
+import { addArg, getText } from "@/libs/getI18n";
 
 interface Props {
 	dots: DotData[] | null;
 	q: string;
+	lang: Lang;
+	translateData: TranslateData;
 }
 
-export default function ({ dots, q }: Props) {
+export default function ({ dots, q, lang, translateData }: Props) {
 	const [keywords, setKeywords] = useState<string>(q);
 
 	return (
@@ -29,7 +34,7 @@ export default function ({ dots, q }: Props) {
 					gap: 20px;
 				`}
 			>
-				<Title>検索</Title>
+				<Title>{getText(translateData, "search_title")}</Title>
 			</div>
 			<div
 				css={css`
@@ -38,7 +43,7 @@ export default function ({ dots, q }: Props) {
 				`}
 			>
 				<input
-					placeholder="検索ワードを入力"
+					placeholder={getText(translateData, "search_searchBoxPlaceholder")}
 					enterKeyHint="search"
 					value={keywords}
 					onChange={(e) => {
@@ -57,7 +62,7 @@ export default function ({ dots, q }: Props) {
 					`}
 				/>
 				<a
-					aria-label="検索"
+					aria-label={getText(translateData, "search_searchButtonAriaLabel")}
 					href={`/search?q=${keywords}`}
 					css={css`
 						padding: 15px 20px 17px;
@@ -79,17 +84,17 @@ export default function ({ dots, q }: Props) {
 						}
 					`}
 				>
-					検索
+					{getText(translateData, "search_searchButton")}
 				</a>
 			</div>
 			{dots === null ? (
-				<p>検索入力欄から検索してね！</p>
+				<p>{getText(translateData, "search_noSearch")}</p>
 			) : dots.length === 0 ? (
-				<p>検索結果が見つかりませんでした😿</p>
+				<p>{getText(translateData, "search_searchResultNo")}</p>
 			) : (
 				<>
-					<p>検索結果：{dots.length}件</p>
-					<DotList dots={dots} />
+					<p>{addArg(getText(translateData, "search_searchResult"), String(dots.length))}</p>
+					<DotList dots={dots} lang={lang} />
 				</>
 			)}
 		</div>

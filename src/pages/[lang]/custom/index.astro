@@ -1,0 +1,19 @@
+---
+import { pageLangList, type Lang } from "@/define";
+import Page from "@/pages/custom/index.astro";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (() => {
+	return pageLangList.map((lang) => {
+		return {
+			params: {
+				lang: lang as Lang
+			}
+		};
+	});
+}) satisfies GetStaticPaths;
+
+const { lang } = Astro.params;
+---
+
+<Page lang={lang} />

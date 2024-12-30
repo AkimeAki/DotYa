@@ -1,20 +1,26 @@
 import SidebarLink from "@/components/molecules/SidebarLink";
-import type { DotIllustTag } from "@/types";
-import type { MicroCMSListContent } from "microcms-js-sdk";
+import type { TranslateData } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
 import { css } from "@/styled-system/css";
 import { cx } from "@/libs/merge-panda";
+import { getText } from "@/libs/getI18n";
+import type { DotTagData } from "@/libs/format-dotlist";
+import type { Lang } from "@/define";
+import { getLangPath } from "@/libs/lang-path";
 
 interface Props {
-	tags: (DotIllustTag & MicroCMSListContent)[];
+	tags: DotTagData[];
+	translateData: TranslateData;
+	lang: Lang;
 }
 
-export default function ({ tags }: Props): JSX.Element {
+export default function ({ tags, translateData, lang }: Props): JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [keywords, setKeywords] = useState<string>("");
 	const sidebarElement = useRef<HTMLDivElement>(null);
 	const sidebarButtonElement = useRef<HTMLDivElement>(null);
+	const selectLangElement = useRef<HTMLSelectElement>(null);
 
 	useEffect(() => {
 		const click = (e: MouseEvent) => {
@@ -165,7 +171,7 @@ export default function ({ tags }: Props): JSX.Element {
 					`}
 				>
 					<input
-						placeholder="検索ワードを入力"
+						placeholder={getText(translateData, "sidebarSearchBoxPlaceholder")}
 						enterKeyHint="search"
 						value={keywords}
 						onChange={(e) => {
@@ -185,7 +191,7 @@ export default function ({ tags }: Props): JSX.Element {
 						`}
 					/>
 					<a
-						aria-label="検索"
+						aria-label={getText(translateData, "sidebarSearchButton")}
 						href={`/search?q=${keywords}`}
 						className={css`
 							padding: 15px 10px 17px;
@@ -207,13 +213,63 @@ export default function ({ tags }: Props): JSX.Element {
 							}
 						`}
 					>
-						検索
+						{getText(translateData, "sidebarSearchButton")}
 					</a>
 				</div>
-				<SidebarLink href="/">ホーム</SidebarLink>
-				<SidebarLink href="/page/1">ドット絵一覧</SidebarLink>
-				<SidebarLink href="/custom">カスタマイズ</SidebarLink>
-				<SidebarLink href="/terms">利用規約</SidebarLink>
+				<SidebarLink href={getLangPath("/", lang)}>{getText(translateData, "sidebarHome")}</SidebarLink>
+				<SidebarLink href={getLangPath("/page/1", lang)}>
+					{getText(translateData, "sidebarDotList")}
+				</SidebarLink>
+				<SidebarLink href={getLangPath("/custom", lang)}>{getText(translateData, "sidebarCustom")}</SidebarLink>
+				<SidebarLink href={getLangPath("/terms", lang)}>{getText(translateData, "sidebarTerms")}</SidebarLink>
+				<div>
+					<div
+						onClick={(e) => {
+							if (selectLangElement.current !== null && e.target !== selectLangElement.current) {
+								selectLangElement.current.showPicker();
+							}
+						}}
+						className={css`
+							display: inline-block;
+							padding: 6px 20px 8px;
+							text-decoration: none;
+							background-color: #4d3d36;
+							border-radius: 4px;
+							border-bottom: 2px solid #111516;
+							border-top: 2px solid #6e6358;
+							cursor: pointer;
+
+							* {
+								color: #faf5b1;
+							}
+						`}
+					>
+						<span>{getText(translateData, "sidebarLanguage")}</span>
+						<select
+							ref={selectLangElement}
+							value={lang ?? "ja"}
+							onChange={(e) => {
+								if (lang !== null) {
+									const option = "; max-age=2592000; path=/";
+									document.cookie = `language="${e.target.value}"${option}`;
+									window.location.reload();
+								}
+							}}
+							className={css`
+								background-color: transparent;
+								cursor: pointer;
+
+								option {
+									color: initial;
+								}
+							`}
+						>
+							<option value="ja">日本語</option>
+							<option value="zh-cn">简体中文</option>
+							<option value="zh-tw">正體中文</option>
+						</select>
+					</div>
+				</div>
 				<div
 					className={css`
 						display: flex;
@@ -224,7 +280,7 @@ export default function ({ tags }: Props): JSX.Element {
 					{tags.map((tag) => {
 						return (
 							<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
-								{tag.name}
+								{tag.name[lang]}
 							</PixelButton>
 						);
 					})}

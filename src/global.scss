@@ -1,6 +1,24 @@
 @font-face {
 	font-family: "DotGothic16";
-	src: url(/DotGothic16-Regular.ttf);
+	src: url("https://r2.aki.wtf/DotGothic16-Regular.ttf");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "ArkPixelJA";
+	src: url("https://r2.aki.wtf/ark-pixel-12px-proportional-ja.otf");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "ArkPixelZHTW";
+	src: url("https://r2.aki.wtf/ark-pixel-12px-proportional-zh-tw.otf");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "ArkPixelZHCN";
+	src: url("https://r2.aki.wtf/ark-pixel-12px-proportional-zh-cn.otf");
 	font-display: swap;
 }
 
@@ -12,7 +30,6 @@
 
 @layer base {
 	* {
-		font-family: "DotGothic16", sans-serif;
 		font-size: 17px;
 		color: #363636;
 		border: none;
@@ -20,9 +37,25 @@
 		overflow-wrap: break-word;
 		word-break: break-word;
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+		&:lang(ja) {
+			font-family: "ArkPixelJA", "DotGothic16", sans-serif;
+			font-variant-ligatures: none;
+		}
+
+		&:lang(zh-cn) {
+			font-family: "ArkPixelZHCN", "DotGothic16", sans-serif;
+			font-variant-ligatures: none;
+		}
+
+		&:lang(zh-tw) {
+			font-family: "ArkPixelZHTW", "DotGothic16", sans-serif;
+			font-variant-ligatures: none;
+		}
 	}
 
 	body {
 		background-color: #f3eee5;
+		overflow-x: hidden;
 	}
 }

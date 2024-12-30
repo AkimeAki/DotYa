@@ -1,0 +1,11 @@
+---
+import type { GetStaticPaths } from "astro";
+import { paths } from "@/pages/tags/[id]/page/[page]/_getStaticPaths";
+import Page from "@/pages/tags/[id]/page/[page]/_page.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	return await paths(paginate, true);
+}) satisfies GetStaticPaths;
+---
+
+<Page {...Astro.props} />

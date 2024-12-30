@@ -1,15 +1,20 @@
 import PixelButton from "@/components/atoms/PixelButton";
 import Title from "@/components/atoms/Title";
+import type { Lang } from "@/define";
 import type { DotData } from "@/libs/format-dotlist";
 import { dotJsonLd } from "@/libs/jsonld";
+import { getLangPath } from "@/libs/lang-path";
 import { cx } from "@/libs/merge-panda";
 import { css } from "@/styled-system/css";
+import type { TranslateData } from "@/types";
 
 interface Props {
 	dots: DotData[];
+	lang: Lang;
+	translateData: TranslateData;
 }
 
-export default function ({ dots }: Props): JSX.Element {
+export default function ({ dots, lang, translateData }: Props): JSX.Element {
 	return (
 		<div
 			className={css`
@@ -64,7 +69,7 @@ export default function ({ dots }: Props): JSX.Element {
 									image-rendering: pixelated;
 								`}
 								src={dot.illust.url}
-								alt={dot.title}
+								alt={dot.title[lang]}
 							/>
 						</div>
 						<div
@@ -129,7 +134,7 @@ export default function ({ dots }: Props): JSX.Element {
 										pointer-events: none;
 									`}
 									src={dot.illust.url}
-									alt={dot.title}
+									alt={dot.title[lang]}
 								/>
 							</div>
 							<div
@@ -146,10 +151,10 @@ export default function ({ dots }: Props): JSX.Element {
 								)}
 							</div>
 							<Title size="small" h={3}>
-								{dot.title}
+								{dot.title[lang]}
 							</Title>
 							<a
-								aria-label={dot.title}
+								aria-label={dot.title[lang]}
 								className={css`
 									position: absolute;
 									top: 0;
@@ -157,7 +162,7 @@ export default function ({ dots }: Props): JSX.Element {
 									width: 100%;
 									height: 100%;
 								`}
-								href={`/dot/${dot.id}`}
+								href={getLangPath(`/dot/${dot.id}`, lang)}
 							/>
 						</div>
 						{dot.illust.size === 32 && (
@@ -165,7 +170,13 @@ export default function ({ dots }: Props): JSX.Element {
 								type="application/ld+json"
 								dangerouslySetInnerHTML={{
 									__html: JSON.stringify(
-										dotJsonLd(`${dot.illust.url}?w=512&q=100&px=${16}`, dot.title, false)
+										dotJsonLd(
+											`${dot.illust.url}?w=512&q=100&px=${16}`,
+											dot.title[lang],
+											translateData,
+											lang,
+											false
+										)
 									)
 								}}
 							/>

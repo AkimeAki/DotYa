@@ -1,5 +1,5 @@
 ---
-import { fixedDescription, serviceTitle } from "@/define";
+import type { Lang } from "@/define";
 import "@akimeaki/reset-css";
 import "@/panda.css";
 import "@/global.scss";
@@ -8,6 +8,10 @@ import type { DotIllustTag } from "@/types";
 import { css } from "@/styled-system/css";
 import GoogleAds from "@/components/atoms/GoogleAds";
 import Sidebar from "@/components/organisms/Sidebar";
+import { i18n } from "@/libs/i18n";
+import { getText } from "@/libs/getI18n";
+import { formatTagList } from "@/libs/format-dotlist";
+import { getLangPath } from "@/libs/lang-path";
 
 interface Props {
 	title?: string;
@@ -18,13 +22,18 @@ interface Props {
 	canonical?: string;
 	publishedAt?: string | undefined;
 	jsonld?: unknown[];
+	lang: Lang;
 }
 
 const path = Astro.url.pathname.replace(/^\//, "").replace(/\.html$/, "");
 
+const { lang } = Astro.props;
+
+const { translateData } = await i18n(lang);
+
 const {
 	title,
-	description = `${fixedDescription}素材は規約の範囲内であれば、クレジット表記の必要なしで個人、 法人、商用、非商用問わず無料でご利用頂けます。`,
+	description = `${getText(translateData, "fixedDescription")}${getText(translateData, "_description")}`,
 	ogType = "article",
 	ogImage = `${Astro.site}default-ogp.png`,
 	notFound = false,
@@ -32,9 +41,10 @@ const {
 	jsonld = []
 } = Astro.props;
 
-const pageTitle = title === undefined ? serviceTitle : `${title} - ${serviceTitle}`;
+const pageTitle =
+	title === undefined ? getText(translateData, "serviceName") : `${title} - ${getText(translateData, "serviceName")}`;
 
-const tags = await getCachedContents<DotIllustTag>("tags");
+const tags = formatTagList(await getCachedContents<DotIllustTag>("tags"));
 
 const schema =
 	jsonld.length === 0
@@ -42,8 +52,8 @@ const schema =
 				{
 					"@context": "https://schema.org",
 					"@type": "WebSite",
-					name: serviceTitle,
-					alternateName: serviceTitle,
+					name: getText(translateData, "serviceName"),
+					alternateName: getText(translateData, "serviceName"),
 					description,
 					url: String(Astro.site),
 					publisher: {
@@ -68,7 +78,7 @@ const schema =
 		: jsonld;
 ---
 
-<html lang="ja" prefix="og: https://ogp.me/ns#">
+<html lang={lang} prefix="og: https://ogp.me/ns#">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -79,13 +89,13 @@ const schema =
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:url" content={`${Astro.site}${path}`} />
 		<meta property="og:type" content={ogType} />
-		<meta property="og:title" content={title ?? serviceTitle} />
+		<meta property="og:title" content={title ?? getText(translateData, "serviceName")} />
 		<meta property="og:description" content={description} />
-		<meta property="og:site_name" content={serviceTitle} />
+		<meta property="og:site_name" content={getText(translateData, "serviceName")} />
 		<meta property="og:image" content={ogImage} />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@Akime_Aki" />
-		<meta name="twitter:title" content={title ?? serviceTitle} />
+		<meta name="twitter:title" content={title ?? getText(translateData, "serviceName")} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 		<meta name="twitter:image" content={ogImage} />
@@ -128,250 +138,302 @@ const schema =
 
 		<div
 			class={css`
-				width: 100%;
-				height: 100svh;
-				overflow-y: scroll;
+				display: flex;
+				flex-direction: column;
 			`}
 		>
 			<div
 				class={css`
+					flex: 1;
+				`}
+			>
+				<header
+					class={css`
+						position: relative;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						gap: 10px;
+						justify-content: center;
+						background-color: #ebae7e;
+						padding: 30px 0;
+						border: 7px solid #492b18;
+					`}
+				>
+					<span
+						class={css`
+							position: absolute;
+							top: 17px;
+							left: 17px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #613e28;
+						`}></span>
+					<span
+						class={css`
+							position: absolute;
+							top: 10px;
+							left: 10px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #492b18;
+						`}></span>
+
+					<span
+						class={css`
+							position: absolute;
+							bottom: 10px;
+							right: 10px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #613e28;
+						`}></span>
+					<span
+						class={css`
+							position: absolute;
+							bottom: 17px;
+							right: 17px;
+							content: "";
+							display: block;
+							width: 20px;
+							height: 20px;
+							background-color: #492b18;
+						`}></span>
+					<a
+						aria-label={getText(translateData, "headerLinkAriaLabel")}
+						class={css`
+							text-decoration: none;
+						`}
+						href={getLangPath("/", lang)}
+					>
+						<h1
+							class={css`
+								display: inline-block;
+								font-size: 30px;
+								font-weight: bold;
+								color: #86664f;
+								text-shadow:
+									1px 1px 0 #492b18,
+									-1px -1px 0 #492b18,
+									-1px 1px 0 #492b18,
+									1px -1px 0 #492b18,
+									0px 1px 0 #492b18,
+									-1px 0 #492b18,
+									-1px 0 0 #492b18,
+									1px 0 0 #492b18;
+							`}
+						>
+							{getText(translateData, "serviceName")}
+						</h1>
+					</a>
+					<p
+						class={css`
+							text-align: center;
+							color: #313131;
+
+							@media (max-width: 700px) {
+								font-size: 14px;
+							}
+						`}
+					>
+						{getText(translateData, "headerSubTitle")}
+					</p>
+				</header>
+				<main
+					class={css`
+						padding: 50px 10px;
+						display: flex;
+						gap: 30px;
+						max-width: 1300px;
+						width: 100%;
+						margin: 0 auto;
+
+						@media (max-width: 1130px) {
+							flex-direction: column;
+						}
+					`}
+				>
+					<div>
+						<Sidebar tags={tags} translateData={translateData} lang={lang} client:load />
+					</div>
+					<div
+						class={css`
+							flex: 1;
+							min-width: 0;
+						`}
+					>
+						<div
+							class={css`
+								position: relative;
+							`}
+						>
+							<div><slot /></div>
+							<div
+								class={css`
+									padding-top: 70px;
+									overflow: hidden;
+								`}
+							>
+								<GoogleAds slot="6502850359" />
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+
+			<footer
+				class={css`
 					display: flex;
+					justify-content: center;
+					gap: 10px;
 					flex-direction: column;
+					align-items: center;
+					background-color: #5b4942;
+					height: 130px;
+					font-family: "BestTenCRT";
+					color: white;
+					user-select: none;
+
+					* {
+						font-family: "BestTenCRT";
+						color: white;
+					}
 				`}
 			>
 				<div
 					class={css`
-						flex: 1;
+						display: flex;
+						align-items: center;
+						gap: 20px;
 					`}
 				>
-					<header
+					<div>Created by</div>
+					<a
+						aria-label="篝之鼠"
+						href="https://kagari.aki.wtf"
+						target="_blank"
 						class={css`
-							position: relative;
 							display: flex;
-							flex-direction: column;
 							align-items: center;
 							gap: 10px;
-							justify-content: center;
-							background-color: #ebae7e;
-							padding: 30px 0;
-							border: 7px solid #492b18;
-						`}
-					>
-						<span
-							class={css`
-								position: absolute;
-								top: 17px;
-								left: 17px;
-								content: "";
-								display: block;
-								width: 20px;
-								height: 20px;
-								background-color: #613e28;
-							`}></span>
-						<span
-							class={css`
-								position: absolute;
-								top: 10px;
-								left: 10px;
-								content: "";
-								display: block;
-								width: 20px;
-								height: 20px;
-								background-color: #492b18;
-							`}></span>
+							text-decoration: none;
 
-						<span
-							class={css`
-								position: absolute;
-								bottom: 10px;
-								right: 10px;
-								content: "";
-								display: block;
-								width: 20px;
-								height: 20px;
-								background-color: #613e28;
-							`}></span>
-						<span
-							class={css`
-								position: absolute;
-								bottom: 17px;
-								right: 17px;
-								content: "";
-								display: block;
-								width: 20px;
-								height: 20px;
-								background-color: #492b18;
-							`}></span>
-						<a
-							aria-label="トップページ"
-							class={css`
-								text-decoration: none;
-							`}
-							href="/"
-						>
-							<h1
-								class={css`
-									display: inline-block;
-									font-size: 30px;
-									font-weight: bold;
-									color: #86664f;
-									text-shadow:
-										1px 1px 0 #492b18,
-										-1px -1px 0 #492b18,
-										-1px 1px 0 #492b18,
-										1px -1px 0 #492b18,
-										0px 1px 0 #492b18,
-										-1px 0 #492b18,
-										-1px 0 0 #492b18,
-										1px 0 0 #492b18;
-								`}
-							>
-								どっとや
-							</h1>
-						</a>
-						<p
-							class={css`
-								text-align: center;
-								color: #313131;
+							&:hover {
+								color: #9deb83;
 
-								@media (max-width: 700px) {
-									font-size: 14px;
+								* {
+									color: #9deb83;
 								}
-							`}
-						>
-							ドット絵のフリーイラスト素材屋さんです
-						</p>
-					</header>
-					<main
-						class={css`
-							padding: 50px 10px;
-							display: flex;
-							gap: 30px;
-							max-width: 1300px;
-							width: 100%;
-							margin: 0 auto;
-
-							@media (max-width: 1130px) {
-								flex-direction: column;
 							}
 						`}
 					>
-						<div>
-							<Sidebar tags={tags} client:load />
-						</div>
-						<div
+						<div>篝之鼠</div>
+						<img
+							width={51}
+							height={20}
 							class={css`
-								flex: 1;
-								min-width: 0;
+								height: 20px;
+								gap: 20px;
+								display: block;
 							`}
-						>
-							<div
-								class={css`
-									position: relative;
-								`}
-							>
-								<div><slot /></div>
-								<div
-									class={css`
-										padding-top: 70px;
-										overflow: hidden;
-									`}
-								>
-									<GoogleAds slot="6502850359" />
-								</div>
-							</div>
-						</div>
-					</main>
+							alt="篝之鼠"
+							src="https://r2.aki.wtf/kagari-rat.png"
+							loading="lazy"
+						/>
+						<div>かがりのす</div>
+					</a>
 				</div>
-
-				<footer
+				<div
 					class={css`
 						display: flex;
-						justify-content: center;
-						gap: 10px;
-						flex-direction: column;
 						align-items: center;
-						background-color: #5b4942;
-						height: 130px;
-						font-family: "BestTenCRT";
-						color: white;
-						user-select: none;
+						gap: 20px;
 
-						* {
-							font-family: "BestTenCRT";
-							color: white;
+						a {
+							font-size: 14px;
+						}
+
+						a:hover {
+							color: #9deb83;
 						}
 					`}
 				>
-					<div
-						class={css`
-							display: flex;
-							align-items: center;
-							gap: 20px;
-						`}
+					<a
+						aria-label={getText(translateData, "footerUpdate")}
+						href="https://blog.aki.wtf/categories/pixel-gives"
+						target="_blank"
 					>
-						<div>Created by</div>
-						<a
-							aria-label="篝之鼠"
-							href="https://kagari.aki.wtf"
-							target="_blank"
-							class={css`
-								display: flex;
-								align-items: center;
-								gap: 10px;
-								text-decoration: none;
-
-								&:hover {
-									color: #9deb83;
-
-									* {
-										color: #9deb83;
-									}
-								}
-							`}
-						>
-							<div>篝之鼠</div>
-							<img
-								width={51}
-								height={20}
-								class={css`
-									height: 20px;
-									gap: 20px;
-									display: block;
-								`}
-								alt="篝之鼠ロゴ"
-								src="https://r2.aki.wtf/kagari-rat.png"
-								loading="lazy"
-							/>
-							<div>かがりのす</div>
-						</a>
-					</div>
-					<div
-						class={css`
-							display: flex;
-							align-items: center;
-							gap: 20px;
-
-							a {
-								font-size: 14px;
-							}
-
-							a:hover {
-								color: #9deb83;
-							}
-						`}
-					>
-						<a
-							aria-label="アップデート情報"
-							href="https://blog.aki.wtf/categories/pixel-gives"
-							target="_blank"
-						>
-							アップデート情報
-						</a>
-						<a aria-label="お問い合わせ" href="/contact"> お問い合わせ </a>
-					</div>
-				</footer>
-			</div>
+						{getText(translateData, "footerUpdate")}
+					</a>
+					<a aria-label={getText(translateData, "footerContact")} href={getLangPath("/contact", lang)}>
+						{getText(translateData, "footerContact")}
+					</a>
+				</div>
+			</footer>
 		</div>
 	</body>
 </html>
+
+<script>
+	import { pageLangList } from "@/define";
+	import { getCurrentLanguage } from "@/libs/get-language";
+	import { getCurrentPathList } from "@/libs/lang-path";
+
+	const currentLanguage = getCurrentLanguage();
+	const currentPath: string[] = getCurrentPathList();
+
+	const option = "; max-age=2592000; path=/";
+	if (currentLanguage !== "") {
+		document.cookie = `language="${currentLanguage}"${option}`;
+
+		if (currentLanguage !== "ja") {
+			// 言語判定が日本語じゃない時
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			if (currentPath[1] !== undefined && pageLangList.includes(currentPath[1] as any)) {
+				// パスが日本語じゃない時
+
+				if (currentLanguage !== currentPath[1]) {
+					let redirectPath = currentPath.slice(2).join("/");
+					if (redirectPath !== "") {
+						redirectPath = "/" + redirectPath;
+					}
+
+					window.location.href = "/" + currentLanguage + redirectPath;
+				}
+			} else {
+				// パスが日本語の時
+
+				let redirectPath = currentPath.slice(1).join("/");
+				if (redirectPath !== "") {
+					redirectPath = "/" + redirectPath;
+				}
+				window.location.href = "/" + currentLanguage + redirectPath;
+			}
+		} else {
+			// 言語判定が日本語の時
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			if (currentPath[1] !== undefined && pageLangList.includes(currentPath[1] as any)) {
+				// パスが日本語じゃない時
+
+				if (currentLanguage !== currentPath[1]) {
+					let redirectPath = currentPath.slice(2).join("/");
+					if (redirectPath === "") {
+						redirectPath = "/";
+					} else {
+						redirectPath = "/" + redirectPath;
+					}
+
+					window.location.href = redirectPath;
+				}
+			}
+		}
+	}
+</script>

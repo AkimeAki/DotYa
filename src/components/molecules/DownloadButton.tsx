@@ -4,12 +4,14 @@ import { useState } from "react";
 import Checkbox from "@/components/atoms/Checkbox";
 import type { DotData } from "@/libs/format-dotlist";
 import { css } from "@/styled-system/css";
+import type { Lang } from "@/define";
 
 interface Props {
 	dot: DotData;
+	lang: Lang;
 }
 
-export default function ({ dot }: Props): JSX.Element {
+export default function ({ dot, lang }: Props): JSX.Element {
 	const [termsAgree, setTermsAgree] = useState<boolean>(false);
 
 	return (
@@ -35,9 +37,9 @@ export default function ({ dot }: Props): JSX.Element {
 						if (dot.illust.size === 32) {
 							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 							// @ts-expect-error
-							dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title });
+							dataLayer.push({ event: "download-32", dot_id: dot.id, dot_name: dot.title[lang] });
 						}
-						void downloadImage(`${dot.illust.url}?fm=png`, dot.title);
+						void downloadImage(`${dot.illust.url}?fm=png`, dot.title[lang]);
 					}
 				}}
 			>

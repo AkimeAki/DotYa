@@ -1,10 +1,10 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { paths } from "./_getStaticPaths";
-import Page from "./_page.astro";
+import { paths } from "@/pages/page/[page]/_getStaticPaths";
+import Page from "@/pages/page/[page]/_page.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	return await paths(paginate);
+	return await paths(paginate, true);
 }) satisfies GetStaticPaths;
 ---
 

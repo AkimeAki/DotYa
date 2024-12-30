@@ -1,0 +1,298 @@
+---
+import Base from "@/layouts/Base.astro";
+import { dotJsonLd } from "@/libs/jsonld";
+import { css } from "@/styled-system/css";
+import Title from "@/components/atoms/Title";
+import PictureFrame from "@/components/atoms/PictureFrame";
+import PixelButton from "@/components/atoms/PixelButton";
+import DownloadButton from "@/components/molecules/DownloadButton";
+import ShareButton from "@/components/atoms/ShareButton";
+import GoogleAds from "@/components/atoms/GoogleAds";
+import DotList from "@/components/templates/DotList";
+import Button from "@/components/atoms/Button";
+import type { DotData } from "@/libs/format-dotlist";
+import type { Lang } from "@/define";
+import { addArg, getText } from "@/libs/getI18n";
+import { i18n } from "@/libs/i18n";
+
+interface Props {
+	dot: DotData;
+	sameTag1Dots: DotData[];
+	allSameTag1Dots: DotData[];
+	sameTag2Dots: DotData[];
+	allSameTag2Dots: DotData[];
+	lang: Lang;
+}
+
+const { dot, sameTag1Dots, allSameTag1Dots, sameTag2Dots, allSameTag2Dots, lang } = Astro.props;
+
+const { translateData } = await i18n(lang);
+
+let image: string | undefined = undefined;
+if (dot.illust.size === 32) {
+	image = `${dot.illust.url}?w=512&q=100&px=${16}`;
+}
+
+if (image === undefined) {
+	return;
+}
+
+const schema = [];
+if (dot.illust.size === 32) {
+	schema.push(dotJsonLd(image, dot.title[lang], translateData, lang));
+}
+
+schema.push({
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	name: "パンくずリスト",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			item: {
+				"@id": Astro.site,
+				name: getText(translateData, "serviceName")
+			}
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			item: {
+				"@id": `${Astro.site}page/1`,
+				name: getText(translateData, "breadcrumbDot")
+			}
+		},
+		{
+			"@type": "ListItem",
+			position: 3,
+			item: {
+				"@id": `${Astro.site}dot/${dot.id}`,
+				name: addArg(getText(translateData, "breadcrumbDotOf"), dot.title[lang])
+			}
+		}
+	]
+});
+
+const sameTagDots = [sameTag1Dots, sameTag2Dots];
+---
+
+<Base
+	title={`${dot.title[lang]}のドット絵`}
+	ogImage={image}
+	description={`${addArg(getText(translateData, "dot_id_description"), dot.title[lang])}${getText(translateData, "fixedDescription")}`}
+	publishedAt={dot.publishedAt}
+	jsonld={[...schema]}
+	lang={lang}
+>
+	<div
+		class={css`
+			display: flex;
+			flex-direction: column;
+			gap: 30px;
+		`}
+	>
+		<Title>{dot.title[lang]}</Title>
+		<div
+			class={css`
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
+			`}
+		>
+			<div
+				class={css`
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+					align-items: flex-start;
+				`}
+			>
+				<div
+					class={css`
+						display: flex;
+						flex-wrap: wrap;
+						align-items: flex-end;
+						user-select: none;
+						pointer-events: none;
+						gap: 20px;
+					`}
+				>
+					<img
+						class={css`
+							display: none;
+						`}
+						src={dot.illust.url}
+						alt={dot.title[lang]}
+					/>
+					{
+						[256, 128, 64, 32].map((pixel) => {
+							return <PictureFrame size={pixel} src={dot.illust.url} alt={dot.title[lang]} />;
+						})
+					}
+				</div>
+			</div>
+			{
+				/* {dot.dot64 !== undefined && (
+					<div
+						class={css`
+							display: flex;
+							flex-direction: column;
+							gap: 10px;
+							align-items: flex-start;
+						`}
+					>
+						<Title size="small" h={3}>
+							64px
+						</Title>
+						<div
+							class={css`
+								display: flex;
+								flex-wrap: wrap;
+								align-items: flex-end;
+								user-select: none;
+								pointer-events: none;
+								gap: 20px;
+							`}
+						>
+							{[256, 128, 64, 32].map((pixel) => {
+								return (
+									<PictureFrameDom key={pixel} size={pixel} width={64} dom={dot.dot64?.dom ?? ""} />
+								);
+							})}
+						</div>
+					</div>
+				)} */
+			}
+			<div
+				class={css`
+					display: flex;
+					gap: 5px;
+					flex-direction: column;
+				`}
+			>
+				<p>
+					サイズ：{dot.illust.size}px × {dot.illust.size}px
+				</p>
+				<div
+					class={css`
+						display: flex;
+						gap: 5px;
+						flex-wrap: wrap;
+						align-items: baseline;
+					`}
+				>
+					タグ：
+					{
+						dot.tags.map((tag) => {
+							return (
+								<PixelButton href={`/tags/${tag.id}`} color="#4d3d36">
+									{tag.name[lang]}
+								</PixelButton>
+							);
+						})
+					}
+				</div>
+			</div>
+
+			<DownloadButton dot={dot} lang={lang} client:load />
+		</div>
+
+		<div
+			class={css`
+				display: flex;
+				gap: 5px;
+				flex-wrap: wrap;
+			`}
+		>
+			<ShareButton
+				target="_blank"
+				icon="/icons/x.png"
+				size={18}
+				alt={getText(translateData, "dot_id_snsShareX")}
+				serviceName={getText(translateData, "dot_id_xServiceName")}
+				href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(dot.title[lang])}&url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}&hashtags=${encodeURIComponent(`${getText(translateData, "dot_id_snsShareHashTagDotya")},${getText(translateData, "dot_id_snsShareHashTagPixelGives")}`)}`}
+				client:load
+			>
+				{getText(translateData, "dot_id_snsShareXButton")}
+			</ShareButton>
+			<ShareButton
+				size={22}
+				icon="/icons/bluesky.png"
+				alt={getText(translateData, "dot_id_snsShareBluesky")}
+				target="_blank"
+				serviceName="Bluesky"
+				href={`https://bsky.app/intent/compose?text=${encodeURIComponent(dot.title[lang])} ${encodeURIComponent(`#${getText(translateData, "dot_id_snsShareHashTagDotya")} #${getText(translateData, "dot_id_snsShareHashTagPixelGives")}`)} ${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				client:load
+			>
+				{getText(translateData, "dot_id_snsShareBlueskyButton")}
+			</ShareButton>
+			<ShareButton
+				size={22}
+				icon="/icons/pocket.png"
+				alt={getText(translateData, "dot_id_snsSharePocket")}
+				target="_blank"
+				serviceName="Pocket"
+				href={`https://getpocket.com/save?url=${encodeURIComponent(`https://pixel.gives/dot/${dot.id}`)}`}
+				client:load
+			>
+				{getText(translateData, "dot_id_snsSharePocketButton")}
+			</ShareButton>
+			<ShareButton
+				size={20}
+				icon="/icons/hatena.png"
+				alt={getText(translateData, "dot_id_snsShareHatenaBookmark")}
+				target="_blank"
+				serviceName="はてなブックマーク"
+				href={`https://b.hatena.ne.jp/entry/s/pixel.gives/dot/${dot.id}#bbutton`}
+				client:load
+			>
+				{getText(translateData, "dot_id_snsShareHatenaBookmarkButton")}
+			</ShareButton>
+		</div>
+
+		<GoogleAds slot="9512157076" />
+
+		{
+			dot.tags[0] !== undefined && sameTagDots[0] !== undefined && sameTagDots[0].length !== 0 && (
+				<div
+					class={css`
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+					`}
+				>
+					<Title>{addArg(getText(translateData, "dot_id_alsoDots"), dot.tags[0].name[lang])}</Title>
+					<DotList dots={sameTagDots[0]} lang={lang} translateData={translateData} />
+					{allSameTag1Dots.length > 15 && (
+						<Button href={`/tags/${dot.tags[0].id}`}>
+							{addArg(getText(translateData, "moreTagDots"), dot.tags[0].name[lang])}
+						</Button>
+					)}
+				</div>
+			)
+		}
+
+		{
+			dot.tags[1] !== undefined && sameTagDots[1] !== undefined && sameTagDots[1].length !== 0 && (
+				<div
+					class={css`
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+					`}
+				>
+					<Title>{addArg(getText(translateData, "dot_id_moreDots"), dot.tags[1].name[lang])}</Title>
+					<DotList dots={sameTagDots[1]} lang={lang} translateData={translateData} />
+					{allSameTag2Dots.length > 15 && (
+						<Button href={`/tags/${dot.tags[1].id}`}>
+							{addArg(getText(translateData, "moreTagDots"), dot.tags[1].name[lang])}
+						</Button>
+					)}
+				</div>
+			)
+		}
+
+		<GoogleAds slot="9512157076" />
+	</div>
+</Base>

@@ -1,14 +1,17 @@
-import { siteRootUrl } from "@/define";
+import { siteRootUrl, type Lang } from "@/define";
+import { getLangPath } from "@/libs/lang-path";
+import type { TranslateData } from "@/types";
+import { addArg, getText } from "@/libs/getI18n";
 
-export const dotJsonLd = (imageUrl: string, name: string, isMain = true) => {
+export const dotJsonLd = (imageUrl: string, name: string, translateData: TranslateData, lang: Lang, isMain = true) => {
 	return {
 		"@context": "https://schema.org/",
 		"@type": "ImageObject",
 		contentUrl: imageUrl,
-		license: `${siteRootUrl}/terms`,
-		acquireLicensePage: `${siteRootUrl}/terms`,
+		license: `${siteRootUrl}${getLangPath("/terms", lang)}`,
+		acquireLicensePage: `${siteRootUrl}${getLangPath("/terms", lang)}`,
 		name,
-		caption: `${name}のドット絵`,
+		caption: addArg(getText(translateData, "dot_id_schmaDotCaption"), name),
 		creator: {
 			"@type": "Organization",
 			name: "篝之鼠",
