@@ -193,146 +193,156 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 			>
 				<div
 					className={css`
-						display: flex;
-						gap: 5px;
+						min-height: calc(100vh);
 					`}
 				>
-					<input
-						placeholder={getText(translateData, "sidebarSearchBoxPlaceholder")}
-						enterKeyHint="search"
-						value={keywords}
-						onChange={(e) => {
-							setKeywords(e.target.value);
-						}}
-						onKeyDown={(e) => {
-							if (e.key === "Enter" && keywords !== "") {
-								location.href = `/search?q=${keywords}`;
-							}
-						}}
-						className={css`
-							padding: 10px 20px;
-							flex: 1;
-							border: 2px solid #4d3d36;
-							border-radius: 4px;
-							width: 100%;
-						`}
-					/>
-					<a
-						aria-label={getText(translateData, "sidebarSearchButton")}
-						href={`/search?q=${keywords}`}
-						className={css`
-							padding: 15px 10px 17px;
-							display: block;
-							text-decoration: none;
-							background-color: #4d3d36;
-							color: #faf5b1;
-							border-radius: 4px;
-							border-bottom: 2px solid #111516;
-							border-top: 2px solid #6e6358;
-							user-select: none;
-							cursor: pointer;
-							white-space: nowrap;
-
-							@media (hover: hover) {
-								&:hover {
-									background-color: #554a46;
-								}
-							}
-						`}
-					>
-						{getText(translateData, "sidebarSearchButton")}
-					</a>
-				</div>
-				<SidebarLink href={getLangPath("/", lang)}>{getText(translateData, "sidebarHome")}</SidebarLink>
-				<SidebarLink href={getLangPath("/page/1", lang)}>
-					{getText(translateData, "sidebarDotList")}
-				</SidebarLink>
-				<SidebarLink href={getLangPath("/custom", lang)}>{getText(translateData, "sidebarCustom")}</SidebarLink>
-				<SidebarLink href={getLangPath("/terms", lang)}>{getText(translateData, "sidebarTerms")}</SidebarLink>
-				<div>
 					<div
-						onClick={(e) => {
-							if (selectLangElement.current !== null && e.target !== selectLangElement.current) {
-								selectLangElement.current.showPicker();
-							}
-						}}
 						className={css`
-							display: inline-block;
-							padding: 6px 20px 8px;
-							text-decoration: none;
-							background-color: #4d3d36;
-							border-radius: 4px;
-							border-bottom: 2px solid #111516;
-							border-top: 2px solid #6e6358;
-							cursor: pointer;
-							user-select: none;
-
-							* {
-								color: #faf5b1;
-							}
+							display: flex;
+							gap: 5px;
 						`}
 					>
-						<span>{getText(translateData, "sidebarLanguage")}</span>
-						<select
-							ref={selectLangElement}
-							value={lang ?? "ja"}
+						<input
+							placeholder={getText(translateData, "sidebarSearchBoxPlaceholder")}
+							enterKeyHint="search"
+							value={keywords}
 							onChange={(e) => {
-								if (lang !== null) {
-									const option = "; max-age=2592000; path=/";
-									document.cookie = `language="${e.target.value}"${option}`;
-									window.location.reload();
+								setKeywords(e.target.value);
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter" && keywords !== "") {
+									location.href = `/search?q=${keywords}`;
 								}
 							}}
 							className={css`
-								background-color: transparent;
+								padding: 10px 20px;
+								flex: 1;
+								border: 2px solid #4d3d36;
+								border-radius: 4px;
+								width: 100%;
+							`}
+						/>
+						<a
+							aria-label={getText(translateData, "sidebarSearchButton")}
+							href={`/search?q=${keywords}`}
+							className={css`
+								padding: 15px 10px 17px;
+								display: block;
+								text-decoration: none;
+								background-color: #4d3d36;
+								color: #faf5b1;
+								border-radius: 4px;
+								border-bottom: 2px solid #111516;
+								border-top: 2px solid #6e6358;
+								user-select: none;
 								cursor: pointer;
+								white-space: nowrap;
 
-								option {
-									color: initial;
+								@media (hover: hover) {
+									&:hover {
+										background-color: #554a46;
+									}
 								}
 							`}
 						>
-							<option
-								value="ja"
-								className={css`
-									font-family: "DotGothic16";
-								`}
-							>
-								日本語
-							</option>
-							<option
-								value="zh-cn"
-								className={css`
-									font-family: "ArkPixelZHCN";
-								`}
-							>
-								简体中文
-							</option>
-							<option
-								value="zh-tw"
-								className={css`
-									font-family: "ArkPixelZHTW";
-								`}
-							>
-								正體中文
-							</option>
-						</select>
+							{getText(translateData, "sidebarSearchButton")}
+						</a>
 					</div>
-				</div>
-				<div
-					className={css`
-						display: flex;
-						gap: 5px;
-						flex-wrap: wrap;
-					`}
-				>
-					{tags.map((tag) => {
-						return (
-							<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
-								{tag.name[lang]}
-							</PixelButton>
-						);
-					})}
+					<SidebarLink href={getLangPath("/", lang)}>{getText(translateData, "sidebarHome")}</SidebarLink>
+					<SidebarLink href={getLangPath("/page/1", lang)}>
+						{getText(translateData, "sidebarDotList")}
+					</SidebarLink>
+					<SidebarLink href={getLangPath("/custom", lang)}>
+						{getText(translateData, "sidebarCustom")}
+					</SidebarLink>
+					<SidebarLink href={getLangPath("/terms", lang)}>
+						{getText(translateData, "sidebarTerms")}
+					</SidebarLink>
+					<div>
+						<div
+							onClick={(e) => {
+								if (selectLangElement.current !== null && e.target !== selectLangElement.current) {
+									selectLangElement.current.showPicker();
+								}
+							}}
+							className={css`
+								display: inline-block;
+								padding: 6px 20px 8px;
+								text-decoration: none;
+								background-color: #4d3d36;
+								border-radius: 4px;
+								border-bottom: 2px solid #111516;
+								border-top: 2px solid #6e6358;
+								cursor: pointer;
+								user-select: none;
+
+								* {
+									color: #faf5b1;
+								}
+							`}
+						>
+							<span>{getText(translateData, "sidebarLanguage")}</span>
+							<select
+								ref={selectLangElement}
+								value={lang ?? "ja"}
+								onChange={(e) => {
+									if (lang !== null) {
+										const option = "; max-age=2592000; path=/";
+										document.cookie = `language="${e.target.value}"${option}`;
+										window.location.reload();
+									}
+								}}
+								className={css`
+									background-color: transparent;
+									cursor: pointer;
+
+									option {
+										color: initial;
+									}
+								`}
+							>
+								<option
+									value="ja"
+									className={css`
+										font-family: "DotGothic16";
+									`}
+								>
+									日本語
+								</option>
+								<option
+									value="zh-cn"
+									className={css`
+										font-family: "ArkPixelZHCN";
+									`}
+								>
+									简体中文
+								</option>
+								<option
+									value="zh-tw"
+									className={css`
+										font-family: "ArkPixelZHTW";
+									`}
+								>
+									正體中文
+								</option>
+							</select>
+						</div>
+					</div>
+					<div
+						className={css`
+							display: flex;
+							gap: 5px;
+							flex-wrap: wrap;
+						`}
+					>
+						{tags.map((tag) => {
+							return (
+								<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
+									{tag.name[lang]}
+								</PixelButton>
+							);
+						})}
+					</div>
 				</div>
 			</aside>
 			{isOpen && (
