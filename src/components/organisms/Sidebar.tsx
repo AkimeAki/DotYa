@@ -83,8 +83,8 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 						position: fixed;
 						top: 10px;
 						left: 10px;
-						width: 40px;
-						height: 40px;
+						width: 50px;
+						height: 50px;
 						border-top: 2px solid #6e6358;
 						border-bottom: 2px solid #111516;
 						background-color: #4d3d36;
@@ -105,7 +105,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 							position: absolute;
 							left: 50%;
 							width: calc(100% - 10px);
-							height: 2px;
+							height: 4px;
 							background-color: #faf5b1;
 							user-select: none;
 							pointer-events: none;
@@ -162,10 +162,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 					css`
 						position: sticky;
 						top: 30px;
-						display: flex;
-						flex-direction: column;
 						width: 300px;
-						gap: 15px;
 
 						@media (max-width: 1130px) {
 							position: fixed;
@@ -174,7 +171,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 							background-color: #383838d4;
 							width: 300px;
 							height: 100%;
-							padding: 60px 10px 10px;
+							padding: 70px 10px 10px;
 							overflow-y: scroll;
 							transform: translateX(-100%);
 							transition-duration: 200ms;
@@ -193,6 +190,9 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 			>
 				<div
 					className={css`
+						display: flex;
+						flex-direction: column;
+						gap: 15px;
 						min-height: calc(100vh);
 					`}
 				>
