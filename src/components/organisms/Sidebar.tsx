@@ -104,7 +104,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 						span {
 							position: absolute;
 							left: 50%;
-							width: calc(100% - 10px);
+							width: calc(100% - 20px);
 							height: 4px;
 							background-color: #faf5b1;
 							user-select: none;
@@ -120,7 +120,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 				<span
 					className={cx(
 						css`
-							top: 8px;
+							top: 10px;
 							transform: translateX(-50%);
 						`,
 						isOpen &&
@@ -145,7 +145,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 				<span
 					className={cx(
 						css`
-							bottom: 8px;
+							bottom: 10px;
 							transform: translateX(-50%);
 						`,
 						isOpen &&
@@ -275,6 +275,12 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 								border-top: 2px solid #6e6358;
 								cursor: pointer;
 								user-select: none;
+
+								@media (hover: hover) {
+									&:hover {
+										background-color: #554a46;
+									}
+								}
 
 								* {
 									color: #faf5b1;
