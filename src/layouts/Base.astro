@@ -1,5 +1,5 @@
 ---
-import type { Lang } from "@/define";
+import { langList, pageLangList, type Lang } from "@/define";
 import "@akimeaki/reset-css";
 import "@/panda.css";
 import "@/global.scss";
@@ -100,6 +100,44 @@ const schema =
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 		<meta name="twitter:image" content={ogImage} />
+		{
+			langList.map((lang) => {
+				let href = "";
+
+				if (lang === "ja") {
+					let langFind = false;
+					for (const pageLang of pageLangList) {
+						if (path.startsWith(pageLang)) {
+							href = path.replace(pageLang, "").replace("/", "");
+							langFind = true;
+							break;
+						}
+					}
+
+					if (!langFind) {
+						href = path;
+					}
+				} else {
+					let langFind = false;
+					for (const pageLang of pageLangList) {
+						if (path.startsWith(pageLang)) {
+							href = path.replace(pageLang, "").replace("/", "");
+							href = lang + "/" + href;
+							langFind = true;
+							break;
+						}
+					}
+
+					if (!langFind) {
+						href = lang + "/" + path;
+					}
+
+					href = href.replace(/\/$/, "");
+				}
+
+				return <link rel="alternate" hreflang={lang} href={`${Astro.site}${href}`} />;
+			})
+		}
 		{notFound && <meta name="robots" content="noindex" />}
 		<!-- Google Tag Manager -->
 		<script is:inline>
