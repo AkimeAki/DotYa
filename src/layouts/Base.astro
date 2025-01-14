@@ -1,5 +1,5 @@
 ---
-import { langList, pageLangList, type Lang } from "@/define";
+import { hrefLangList, pageLangList, type Lang } from "@/define";
 import "@akimeaki/reset-css";
 import "@/panda.css";
 import "@/global.scss";
@@ -101,8 +101,13 @@ const schema =
 		<meta name="twitter:image" content={ogImage} />
 		<meta name="twitter:image" content={ogImage} />
 		{
-			langList.map((lang) => {
+			hrefLangList.map((lang) => {
 				let href = "";
+				let _lang = lang;
+				switch (lang) {
+					case "zh":
+						_lang = "zh-cn";
+				}
 
 				if (lang === "ja") {
 					let langFind = false;
@@ -122,14 +127,14 @@ const schema =
 					for (const pageLang of pageLangList) {
 						if (path.startsWith(pageLang)) {
 							href = path.replace(pageLang, "").replace("/", "");
-							href = lang + "/" + href;
+							href = _lang + "/" + href;
 							langFind = true;
 							break;
 						}
 					}
 
 					if (!langFind) {
-						href = lang + "/" + path;
+						href = _lang + "/" + path;
 					}
 
 					href = href.replace(/\/$/, "");
