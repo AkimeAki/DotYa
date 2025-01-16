@@ -343,7 +343,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 					>
 						{tags.map((tag) => {
 							return (
-								<PixelButton key={tag.id} href={`/tags/${tag.id}`} color="#4d3d36">
+								<PixelButton key={tag.id} href={getLangPath(`/tags/${tag.id}`, lang)} color="#4d3d36">
 									{tag.name[lang]}
 								</PixelButton>
 							);
