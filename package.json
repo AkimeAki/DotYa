@@ -21,7 +21,6 @@
 		"@astrojs/cloudflare": "11.2.0",
 		"@astrojs/react": "3.6.3",
 		"@astrojs/sitemap": "3.2.1",
-		"@emotion/react": "11.13.5",
 		"@pandacss/dev": "0.49.0",
 		"@types/cheerio": "0.22.35",
 		"@types/react": "18.3.12",
