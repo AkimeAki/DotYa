@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	dom: string;
@@ -11,7 +9,7 @@ interface Props {
 export default function ({ dom, width, size }: Props): JSX.Element {
 	return (
 		<div
-			css={css`
+			className={css`
 				background-color: white;
 				position: relative;
 				padding: 10px;
@@ -31,12 +29,13 @@ export default function ({ dom, width, size }: Props): JSX.Element {
 		>
 			<div
 				dangerouslySetInnerHTML={{ __html: dom }}
-				css={css`
-					width: ${size}px;
+				style={{ "--width": `${width}px`, "--size": `${size}px` } as React.CSSProperties}
+				className={css`
+					width: var(--size);
 					aspect-ratio: 1/1;
 
 					div {
-						width: ${size / width}px;
+						width: calc(var(--size) / var(--width));
 						aspect-ratio: 1/1;
 					}
 				`}

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Button from "@/components/atoms/Button";
 import PictureFrame from "@/components/atoms/PictureFrame";
 import Title from "@/components/atoms/Title";
@@ -6,8 +5,8 @@ import Modal from "@/components/molecules/Modal";
 import type { Lang } from "@/define";
 import type { DotData } from "@/libs/format-dotlist";
 import { addArg, getText } from "@/libs/getI18n";
+import { css } from "@/styled-system/css";
 import type { TranslateData } from "@/types";
-import { css } from "@emotion/react";
 import { Fragment, useEffect, useState } from "react";
 
 interface Props {
@@ -146,7 +145,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 	return (
 		<>
 			<div
-				css={css`
+				className={css`
 					display: flex;
 					flex-direction: column;
 					gap: 30px;
@@ -155,7 +154,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 				<Title>{getText(translateData, "custom_title")}</Title>
 				<div dangerouslySetInnerHTML={{ __html: getText(translateData, "custom_content", true) }} />
 				<div
-					css={css`
+					className={css`
 						display: flex;
 						gap: 20px;
 
@@ -165,7 +164,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 					`}
 				>
 					<div
-						css={css`
+						className={css`
 							display: flex;
 							flex-direction: column;
 							gap: 30px;
@@ -176,7 +175,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 						`}
 					>
 						<div
-							css={css`
+							className={css`
 								display: flex;
 								flex-direction: column;
 								gap: 10px;
@@ -184,7 +183,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							`}
 						>
 							<div
-								css={css`
+								className={css`
 									cursor: pointer;
 								`}
 								onClick={() => {
@@ -215,7 +214,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							</Button>
 						</div>
 						<div
-							css={css`
+							className={css`
 								display: flex;
 								flex-direction: column;
 								gap: 10px;
@@ -223,7 +222,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							`}
 						>
 							<div
-								css={css`
+								className={css`
 									cursor: pointer;
 								`}
 								onClick={() => {
@@ -255,7 +254,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 						</div>
 					</div>
 					<div
-						css={css`
+						className={css`
 							flex: 1;
 						`}
 					>
@@ -263,7 +262,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							id="canvas"
 							width={64}
 							height={64}
-							css={css`
+							className={css`
 								width: 100%;
 								image-rendering: pixelated;
 								cursor: grab;
@@ -310,7 +309,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 			</div>
 			<Modal isOpen={isOpenImage1} setIsOpen={setIsOpenImage1}>
 				<div
-					css={css`
+					className={css`
 						padding: 20px;
 						display: flex;
 						flex-wrap: wrap;
@@ -323,7 +322,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							return (
 								<div
 									key={dot.id}
-									css={css`
+									className={css`
 										cursor: pointer;
 									`}
 									onClick={() => {
@@ -347,7 +346,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 			</Modal>
 			<Modal isOpen={isOpenImage2} setIsOpen={setIsOpenImage2}>
 				<div
-					css={css`
+					className={css`
 						padding: 20px;
 						display: flex;
 						flex-wrap: wrap;
@@ -360,7 +359,7 @@ export default function ({ dots, lang, translateData }: Props): JSX.Element {
 							return (
 								<div
 									key={dot.id}
-									css={css`
+									className={css`
 										cursor: pointer;
 									`}
 									onClick={() => {

@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
 import DotList from "@/components/templates/DotList";
 import type { DotIllustTag, TranslateData } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
@@ -15,6 +12,8 @@ import GoogleAds from "@/components/atoms/GoogleAds";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
 import { getLangPath } from "@/libs/lang-path";
+import { css } from "@/styled-system/css";
+import { cx } from "@/libs/merge-panda";
 
 interface Props {
 	dots: DotData[];
@@ -77,14 +76,14 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 
 	return (
 		<div
-			css={css`
+			className={css`
 				display: flex;
 				flex-direction: column;
 				gap: 70px;
 			`}
 		>
 			<div
-				css={css`
+				className={css`
 					display: flex;
 					flex-direction: column;
 					gap: 40px;
@@ -109,7 +108,7 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 			<GoogleAds slot="9512157076" />
 
 			<div
-				css={css`
+				className={css`
 					display: flex;
 					flex-direction: column;
 					gap: 40px;
@@ -128,20 +127,21 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				</Button>
 			</div>
 			<div
-				css={css`
-					display: flex;
-					flex-direction: column;
-					gap: 40px;
-
-					${randomTagDotsLength > 10 &&
+				className={cx(
 					css`
-						@media (max-width: 700px) {
-							.dot-list-item:last-child {
-								display: none;
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+					`,
+					randomTagDotsLength > 10 &&
+						css`
+							@media (max-width: 700px) {
+								.dot-list-item:last-child {
+									display: none;
+								}
 							}
-						}
-					`}
-				`}
+						`
+				)}
 			>
 				<Title>{addArg(getText(translateData, "_alsoDots"), randomTag !== null ? randomTag.name : "")}</Title>
 				{randomTagDots.length === 0 ? (

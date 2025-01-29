@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from "@emotion/react";
 import DotList from "@/components/templates/DotList";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
@@ -8,6 +5,7 @@ import { useState } from "react";
 import type { TranslateData } from "@/types";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
+import { css } from "@/styled-system/css";
 
 interface Props {
 	dots: DotData[] | null;
@@ -21,14 +19,14 @@ export default function ({ dots, q, lang, translateData }: Props) {
 
 	return (
 		<div
-			css={css`
+			className={css`
 				display: flex;
 				flex-direction: column;
 				gap: 40px;
 			`}
 		>
 			<div
-				css={css`
+				className={css`
 					display: flex;
 					flex-direction: column;
 					gap: 20px;
@@ -37,7 +35,7 @@ export default function ({ dots, q, lang, translateData }: Props) {
 				<Title>{getText(translateData, "search_title")}</Title>
 			</div>
 			<div
-				css={css`
+				className={css`
 					display: flex;
 					gap: 5px;
 				`}
@@ -54,7 +52,7 @@ export default function ({ dots, q, lang, translateData }: Props) {
 							location.href = `/search?q=${keywords}`;
 						}
 					}}
-					css={css`
+					className={css`
 						padding: 10px 20px;
 						flex: 1;
 						border: 2px solid #4d3d36;
@@ -64,7 +62,7 @@ export default function ({ dots, q, lang, translateData }: Props) {
 				<a
 					aria-label={getText(translateData, "search_searchButtonAriaLabel")}
 					href={`/search?q=${keywords}`}
-					css={css`
+					className={css`
 						padding: 15px 20px 17px;
 						display: block;
 						text-decoration: none;
