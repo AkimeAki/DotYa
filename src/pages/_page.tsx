@@ -4,7 +4,7 @@ import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import Title from "@/components/atoms/Title";
 import { copy } from "@/libs/copy-object";
 import { arrayShuffle } from "@/libs/array-shuffle";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
 import type { DotData } from "@/libs/format-dotlist";
@@ -14,6 +14,7 @@ import { addArg, getText } from "@/libs/getI18n";
 import { getLangPath } from "@/libs/lang-path";
 import { css } from "@/styled-system/css";
 import { cx } from "@/libs/merge-panda";
+import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	dots: DotData[];
@@ -99,7 +100,19 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				{randomDots.length === 0 ? (
 					<DummyList length={10} />
 				) : (
-					<DotList dots={randomDots} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{randomDots.map((dot) => (
+								<DotListItem
+									key={dot.id}
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+								/>
+							))}
+						</Fragment>
+					</DotList>
 				)}
 				<Button href={getLangPath("/page/1", lang)} center>
 					{getText(translateData, "_moreDots")}
@@ -121,7 +134,19 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				`}
 			>
 				<Title>{getText(translateData, "_hereNewDots")}</Title>
-				<DotList dots={newDots} lang={lang} translateData={translateData} />
+				<DotList>
+					<Fragment>
+						{newDots.map((dot) => (
+							<DotListItem
+								key={dot.id}
+								dot={dot}
+								lang={lang}
+								translateData={translateData}
+								family={dot.family}
+							/>
+						))}
+					</Fragment>
+				</DotList>
 				<Button href={getLangPath("/page/1", lang)} center>
 					{getText(translateData, "_moreDots")}
 				</Button>
@@ -147,7 +172,19 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				{randomTagDots.length === 0 ? (
 					<DummyList length={10} />
 				) : (
-					<DotList dots={randomTagDots} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{randomTagDots.map((dot) => (
+								<DotListItem
+									key={dot.id}
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+								/>
+							))}
+						</Fragment>
+					</DotList>
 				)}
 				{randomTagDotsLength > 10 && (
 					<Button href={randomTag !== null ? getLangPath(`/tags/${randomTag.id}`, lang) : undefined} center>

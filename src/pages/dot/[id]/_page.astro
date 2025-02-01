@@ -14,6 +14,8 @@ import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
 import { i18n } from "@/libs/i18n";
 import { Size } from "./_page";
+import { getLangPath } from "@/libs/lang-path";
+import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	dot: DotData;
@@ -84,6 +86,7 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 	publishedAt={dot.publishedAt}
 	jsonld={[...schema]}
 	lang={lang}
+	canonical={`${getLangPath(`${Astro.site}dot/${dot.parent ?? dot.id}`, lang)}`}
 >
 	<div
 		class={css`
@@ -163,6 +166,49 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 						</div>
 					</div>
 				)} */
+			}
+			{
+				dot.family.length > 1 && (
+					<div
+						class={css`
+							display: flex;
+							gap: 10px;
+							flex-direction: column;
+						`}
+					>
+						<p>{getText(translateData, "dot_id_pattern")}</p>
+						<div
+							class={css`
+								display: flex;
+								gap: 10px;
+								align-items: flex-start;
+							`}
+						>
+							{dot.family.map((familyDot) => {
+								if (dot.id === familyDot.id) {
+									return (
+										<PictureFrame
+											size={32}
+											src={familyDot.illust.url}
+											alt={familyDot.title[lang]}
+											active
+										/>
+									);
+								}
+
+								return (
+									<a href={`${getLangPath(`/dot/${familyDot.id}`, lang)}`}>
+										<PictureFrame
+											size={32}
+											src={familyDot.illust.url}
+											alt={familyDot.title[lang]}
+										/>
+									</a>
+								);
+							})}
+						</div>
+					</div>
+				)
 			}
 			<div
 				class={css`
@@ -250,7 +296,32 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 					`}
 				>
 					<Title>{addArg(getText(translateData, "dot_id_alsoDots"), dot.tags[0].name[lang])}</Title>
-					<DotList dots={sameTagDots[0]} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{sameTagDots[0].map((dot) => {
+								if (dot.family.length > 1) {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+											client:load
+										/>
+									);
+								} else {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+										/>
+									);
+								}
+							})}
+						</Fragment>
+					</DotList>
 					{allSameTag1Dots.length > 15 && (
 						<Button href={`/tags/${dot.tags[0].id}`}>
 							{addArg(getText(translateData, "moreTagDots"), dot.tags[0].name[lang])}
@@ -270,7 +341,32 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 					`}
 				>
 					<Title>{addArg(getText(translateData, "dot_id_moreDots"), dot.tags[1].name[lang])}</Title>
-					<DotList dots={sameTagDots[1]} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{sameTagDots[1].map((dot) => {
+								if (dot.family.length > 1) {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+											client:load
+										/>
+									);
+								} else {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+										/>
+									);
+								}
+							})}
+						</Fragment>
+					</DotList>
 					{allSameTag2Dots.length > 15 && (
 						<Button href={`/tags/${dot.tags[1].id}`}>
 							{addArg(getText(translateData, "moreTagDots"), dot.tags[1].name[lang])}

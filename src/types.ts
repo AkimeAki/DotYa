@@ -25,6 +25,7 @@ export interface DotIllust {
 		"word_zh-tw"?: string;
 	}[];
 	loading?: boolean;
+	parent?: DotIllust & MicroCMSListContent;
 }
 
 export interface Translate {

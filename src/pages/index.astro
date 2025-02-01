@@ -13,7 +13,9 @@ interface Props {
 
 const { lang = "ja" } = Astro.props;
 
-const dots = await formatDotList(await getCachedContents<DotIllust>("dot"));
+const dots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((data) => {
+	return data.parent === undefined;
+});
 const tags = await getCachedContents<DotIllustTag>("tags");
 const { translateData } = await i18n(lang);
 ---

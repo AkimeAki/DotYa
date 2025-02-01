@@ -11,6 +11,7 @@ import { i18n } from "@/libs/i18n";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
 import { getLangPath } from "@/libs/lang-path";
+import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	page: Page<DotData>;
@@ -44,12 +45,59 @@ const { translateData } = await i18n(lang);
 			<Title>{addArg(getText(translateData, "page_id_title"), String(page.currentPage))}</Title>
 			<Pagination current={page.currentPage} last={page.lastPage} baseUrl={getLangPath("/page/", lang)} />
 		</div>
-		<DotList dots={page.data.slice(0, 15)} lang={lang} translateData={translateData} />
+		<DotList>
+			<Fragment>
+				{
+					page.data.slice(0, 15).map((dot) => {
+						if (dot.family.length > 1) {
+							return (
+								<DotListItem
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+									client:load
+								/>
+							);
+						} else {
+							return (
+								<DotListItem dot={dot} lang={lang} translateData={translateData} family={dot.family} />
+							);
+						}
+					})
+				}
+			</Fragment>
+		</DotList>
 		{
 			page.data.length > 15 && (
 				<>
 					<GoogleAds slot="9512157076" client:load />
-					<DotList dots={page.data.slice(15)} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{page.data.slice(15).map((dot) => {
+								if (dot.family.length > 1) {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+											client:load
+										/>
+									);
+								} else {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+										/>
+									);
+								}
+							})}
+						</Fragment>
+					</DotList>
 				</>
 			)
 		}

@@ -12,6 +12,7 @@ import { i18n } from "@/libs/i18n";
 import { addArg, getText } from "@/libs/getI18n";
 import { getLangPath } from "@/libs/lang-path";
 import GoogleAds from "@/components/atoms/GoogleAds";
+import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	tag: DotTagData;
@@ -21,10 +22,14 @@ interface Props {
 const { tag, lang } = Astro.props;
 const { translateData } = await i18n(lang);
 
-let dots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((dot) => {
-	const tagIds = dot.tags.map((dotTag) => dotTag.id);
-	return tagIds.includes(tag.id);
-});
+let dots = (await formatDotList(await getCachedContents<DotIllust>("dot")))
+	.filter((data) => {
+		return data.parent === undefined;
+	})
+	.filter((dot) => {
+		const tagIds = dot.tags.map((dotTag) => dotTag.id);
+		return tagIds.includes(tag.id);
+	});
 
 const lastPage = Math.ceil(dots.length / 30);
 dots.length = 30;
@@ -54,12 +59,59 @@ dots = dots.filter(Boolean);
 			<Title>{addArg(getText(translateData, "tag_id_title"), tag.name[lang], "1")}</Title>
 			<Pagination current={1} last={lastPage} baseUrl={getLangPath(`/tags/${tag.id}/page/`, lang)} />
 		</div>
-		<DotList dots={dots.slice(0, 15)} lang={lang} translateData={translateData} />
+		<DotList>
+			<Fragment>
+				{
+					dots.slice(0, 15).map((dot) => {
+						if (dot.family.length > 1) {
+							return (
+								<DotListItem
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+									client:load
+								/>
+							);
+						} else {
+							return (
+								<DotListItem dot={dot} lang={lang} translateData={translateData} family={dot.family} />
+							);
+						}
+					})
+				}
+			</Fragment>
+		</DotList>
 		{
 			dots.length > 15 && (
 				<>
 					<GoogleAds slot="9512157076" client:load />
-					<DotList dots={dots.slice(15)} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{dots.slice(15).map((dot) => {
+								if (dot.family.length > 1) {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+											client:load
+										/>
+									);
+								} else {
+									return (
+										<DotListItem
+											dot={dot}
+											lang={lang}
+											translateData={translateData}
+											family={dot.family}
+										/>
+									);
+								}
+							})}
+						</Fragment>
+					</DotList>
 				</>
 			)
 		}

@@ -8,21 +8,29 @@ export const paths = async (enabledLang: boolean = false) => {
 	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
 
 	return allDots.flatMap((content) => {
-		let sameTag1Dots = allDots.filter((item) => {
-			if (item.id === content.id) {
-				return false;
-			}
+		let sameTag1Dots = allDots
+			.filter((data) => {
+				return data.parent === undefined;
+			})
+			.filter((item) => {
+				if (item.id === content.id) {
+					return false;
+				}
 
-			if (content.tags[0] !== undefined) {
-				for (const tag of item.tags) {
-					if (tag.id === content.tags[0].id) {
-						return true;
+				if (item.family.find((dot) => dot.id === content.id) !== undefined) {
+					return false;
+				}
+
+				if (content.tags[0] !== undefined) {
+					for (const tag of item.tags) {
+						if (tag.id === content.tags[0].id) {
+							return true;
+						}
 					}
 				}
-			}
 
-			return false;
-		});
+				return false;
+			});
 
 		const allSameTag1Dots = copy<typeof sameTag1Dots>(sameTag1Dots);
 		sameTag1Dots.length = 15;
@@ -44,21 +52,29 @@ export const paths = async (enabledLang: boolean = false) => {
 			return false;
 		});
 
-		let sameTag2Dots = allDots.filter((item) => {
-			if (item.id === content.id) {
-				return false;
-			}
+		let sameTag2Dots = allDots
+			.filter((data) => {
+				return data.parent === undefined;
+			})
+			.filter((item) => {
+				if (item.id === content.id) {
+					return false;
+				}
 
-			if (content.tags[1] !== undefined) {
-				for (const tag of item.tags) {
-					if (tag.id === content.tags[1].id) {
-						return true;
+				if (item.family.find((dot) => dot.id === content.id) !== undefined) {
+					return false;
+				}
+
+				if (content.tags[1] !== undefined) {
+					for (const tag of item.tags) {
+						if (tag.id === content.tags[1].id) {
+							return true;
+						}
 					}
 				}
-			}
 
-			return false;
-		});
+				return false;
+			});
 
 		const filterdSameTag2Dots = copy<typeof sameTag2Dots>(sameTag2Dots).filter((dot) => {
 			const dot1Ids = sameTag1DotsInSameTag2Dots.map((dot) => dot.id);

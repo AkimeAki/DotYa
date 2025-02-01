@@ -1,11 +1,12 @@
 import DotList from "@/components/templates/DotList";
 import Title from "@/components/atoms/Title";
 import type { DotData } from "@/libs/format-dotlist";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import type { TranslateData } from "@/types";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
 import { css } from "@/styled-system/css";
+import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	dots: DotData[] | null;
@@ -92,7 +93,13 @@ export default function ({ dots, q, lang, translateData }: Props) {
 			) : (
 				<>
 					<p>{addArg(getText(translateData, "search_searchResult"), String(dots.length))}</p>
-					<DotList dots={dots} lang={lang} translateData={translateData} />
+					<DotList>
+						<Fragment>
+							{dots.map((dot) => (
+								<DotListItem key={dot.id} dot={dot} lang={lang} translateData={translateData} />
+							))}
+						</Fragment>
+					</DotList>
 				</>
 			)}
 		</div>

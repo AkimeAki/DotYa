@@ -5,7 +5,9 @@ import type { DotIllust } from "@/types";
 import type { PaginateFunction } from "astro";
 
 export const paths = async (paginate: PaginateFunction, enabledLang: boolean = false) => {
-	const response = await formatDotList(await getCachedContents<DotIllust>("dot"));
+	const response = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((data) => {
+		return data.parent === undefined;
+	});
 
 	if (enabledLang) {
 		return pageLangList
