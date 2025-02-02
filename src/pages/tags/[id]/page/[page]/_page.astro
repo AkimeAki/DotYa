@@ -27,7 +27,7 @@ const { translateData } = await i18n(lang);
 	title={addArg(getText(translateData, "tags_id_pageTitle"), tag.name[lang])}
 	description={`${addArg(getText(translateData, "tags_id_description"), tag.name[lang])}${getText(translateData, "fixedDescription")}`}
 	lang={lang}
-	canonical={`${Astro.site}${getLangPath(`tags/${tag.id}`, lang)}`}
+	canonical={`${getLangPath(`${Astro.site}tags/${tag.id}`, lang)}`}
 >
 	<div
 		class={css`
