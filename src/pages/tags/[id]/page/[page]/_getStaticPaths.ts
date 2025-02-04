@@ -6,7 +6,9 @@ import type { PaginateFunction } from "astro";
 
 export const paths = async (paginate: PaginateFunction, enabledLang: boolean = false) => {
 	const allTags = formatTagList(await getCachedContents<DotIllustTag>("tags"));
-	const allDots = await formatDotList(await getCachedContents<DotIllust>("dot"));
+	const allDots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((data) => {
+		return data.parent === undefined;
+	});
 
 	return allTags.flatMap((tag) => {
 		if (enabledLang) {

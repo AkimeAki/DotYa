@@ -10,16 +10,8 @@ export default function ({ children }: PropsWithChildren): JSX.Element {
 				column-gap: 20px;
 				row-gap: 30px;
 
-				@media (max-width: 1130px) {
-					grid-template-columns: repeat(6, 1fr);
-				}
-
 				@media (max-width: 1000px) {
 					grid-template-columns: repeat(5, 1fr);
-				}
-
-				@media (max-width: 900px) {
-					grid-template-columns: repeat(4, 1fr);
 				}
 
 				@media (max-width: 700px) {
