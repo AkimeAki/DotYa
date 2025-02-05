@@ -1,3 +1,4 @@
+import type { Lang } from "@/define";
 import type { DotIllust, DotIllustTag } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 // import { imageToDiv } from "./div-image";
@@ -5,16 +6,10 @@ import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 export interface DotTagData {
 	id: string;
 	name: {
-		ja: string;
-		"zh-cn": string;
-		"zh-tw": string;
-		en: string;
+		[key in Lang]: string;
 	};
 	keywords: {
-		ja: string;
-		"zh-cn": string;
-		"zh-tw": string;
-		en: string;
+		[key in Lang]: string;
 	}[];
 }
 
@@ -73,10 +68,7 @@ export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMS
 export interface DotData {
 	id: string;
 	title: {
-		ja: string;
-		"zh-cn": string;
-		"zh-tw": string;
-		en: string;
+		[key in Lang]: string;
 	};
 	illust: {
 		url: string;
@@ -85,10 +77,7 @@ export interface DotData {
 	};
 	tags: DotTagData[];
 	keywords: {
-		ja: string;
-		"zh-cn": string;
-		"zh-tw": string;
-		en: string;
+		[key in Lang]: string;
 	}[];
 	publishedAt?: string | undefined;
 	parent?: string | undefined;

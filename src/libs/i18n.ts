@@ -1,14 +1,7 @@
 import type { Translate, TranslateData } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
-import type { Lang } from "@/define";
+import { langPriority, type Lang } from "@/define";
 import * as cheerio from "cheerio";
-
-const langPriority: Record<Lang, Lang[]> = {
-	"zh-cn": ["zh-cn", "zh-tw", "en", "ja"],
-	"zh-tw": ["zh-tw", "zh-cn", "en", "ja"],
-	en: ["en", "ja"],
-	ja: ["ja"]
-};
 
 export const i18n = async (lang: Lang) => {
 	const translate = await getCachedContents<Translate>("translate");
