@@ -1,4 +1,4 @@
-import { langList } from "@/define";
+import { langList, type Lang } from "@/define";
 import { getCurrentPathList } from "@/libs/lang-path";
 
 export const getCurrentLanguage = () => {
@@ -31,6 +31,10 @@ export const getCurrentLanguage = () => {
 		if (language === "zh" || language.startsWith("zh-")) {
 			currentLanguage = "zh-cn";
 		}
+
+		if (language === "en" || language.startsWith("en-")) {
+			currentLanguage = "en";
+		}
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,5 +49,5 @@ export const getCurrentLanguage = () => {
 		}
 	}
 
-	return currentLanguage;
+	return langList.includes(currentLanguage as Lang) ? (currentLanguage as Lang) : "ja";
 };

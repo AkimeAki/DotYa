@@ -331,6 +331,14 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 								>
 									正體中文
 								</option>
+								<option
+									value="en"
+									className={css`
+										font-family: "DotGothic16";
+									`}
+								>
+									English
+								</option>
 							</select>
 						</div>
 					</div>

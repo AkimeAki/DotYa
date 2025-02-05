@@ -8,11 +8,13 @@ export interface DotTagData {
 		ja: string;
 		"zh-cn": string;
 		"zh-tw": string;
+		en: string;
 	};
 	keywords: {
 		ja: string;
 		"zh-cn": string;
 		"zh-tw": string;
+		en: string;
 	}[];
 }
 
@@ -33,7 +35,8 @@ export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMS
 						? data["name_zh-tw"]
 						: data["name_zh-cn"] !== "" && data["name_zh-cn"] !== undefined
 							? data["name_zh-cn"]
-							: data.name
+							: data.name,
+				en: data["name_en"] !== "" && data["name_en"] !== undefined ? data["name_en"] : data.name
 			},
 			keywords:
 				data.keyword?.map((keyword) => {
@@ -50,7 +53,11 @@ export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMS
 								? keyword["text_zh-tw"]
 								: keyword["text_zh-cn"] !== "" && keyword["text_zh-cn"] !== undefined
 									? keyword["text_zh-cn"]
-									: keyword.text
+									: keyword.text,
+						en:
+							keyword["text_en"] !== "" && keyword["text_en"] !== undefined
+								? keyword["text_en"]
+								: keyword.text
 					};
 				}) ?? []
 		};
@@ -69,6 +76,7 @@ export interface DotData {
 		ja: string;
 		"zh-cn": string;
 		"zh-tw": string;
+		en: string;
 	};
 	illust: {
 		url: string;
@@ -80,6 +88,7 @@ export interface DotData {
 		ja: string;
 		"zh-cn": string;
 		"zh-tw": string;
+		en: string;
 	}[];
 	publishedAt?: string | undefined;
 	parent?: string | undefined;
@@ -117,7 +126,8 @@ const createDotListData = (data: DotIllust & MicroCMSContentId & MicroCMSDate): 
 					? data["title_zh-tw"]
 					: data["title_zh-cn"] !== "" && data["title_zh-cn"] !== undefined
 						? data["title_zh-cn"]
-						: data.title
+						: data.title,
+			en: data["title_en"] !== "" && data["title_en"] !== undefined ? data["title_en"] : data.title
 		},
 		illust: {
 			url: data.illust.url,
@@ -140,7 +150,11 @@ const createDotListData = (data: DotIllust & MicroCMSContentId & MicroCMSDate): 
 							? keyword["word_zh-tw"]
 							: keyword["word_zh-cn"] !== "" && keyword["word_zh-cn"] !== undefined
 								? keyword["word_zh-cn"]
-								: keyword.word
+								: keyword.word,
+					en:
+						keyword["word_en"] !== "" && keyword["word_en"] !== undefined
+							? keyword["word_en"]
+							: keyword.word
 				};
 			}) ?? [],
 		publishedAt: data.publishedAt,

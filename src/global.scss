@@ -52,6 +52,11 @@
 			font-family: "ArkPixelZHTW", "DotGothic16", sans-serif;
 			font-variant-ligatures: none;
 		}
+
+		&:lang(en) {
+			font-family: "DotGothic16", "ArkPixelJA", sans-serif;
+			font-variant-ligatures: none;
+		}
 	}
 
 	body {
