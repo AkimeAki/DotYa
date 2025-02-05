@@ -139,6 +139,31 @@ export const i18n = async (lang: Lang) => {
 					}
 				}
 			}
+		} else if (lang === "en") {
+			if (data["en"] !== undefined) {
+				const $ = cheerio.load(data["en"]);
+				if ($("body").text() === "") {
+					const $ = cheerio.load(data["ja"]);
+					if (rich) {
+						result = $("body").html() ?? "<p></p>";
+					} else {
+						result = $("body").text();
+					}
+				} else {
+					if (rich) {
+						result = $("body").html() ?? "<p></p>";
+					} else {
+						result = $("body").text();
+					}
+				}
+			} else {
+				const $ = cheerio.load(data["ja"]);
+				if (rich) {
+					result = $("body").html() ?? "<p></p>";
+				} else {
+					result = $("body").text();
+				}
+			}
 		} else if (lang === "ja") {
 			const $ = cheerio.load(data["ja"]);
 			if (rich) {
