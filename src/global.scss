@@ -8,6 +8,7 @@
 	font-family: "ArkPixelJA";
 	src: url("https://r2.aki.wtf/ark-pixel-12px-proportional-ja.otf");
 	font-display: swap;
+	unicode-range: U+0021-007E, U+FF01, U+FF1F;
 }
 
 @font-face {
@@ -39,7 +40,7 @@
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 		&:lang(ja) {
-			font-family: "DotGothic16", "ArkPixelJA", sans-serif;
+			font-family: "ArkPixelJA", "DotGothic16", sans-serif;
 			font-variant-ligatures: none;
 		}
 
@@ -54,7 +55,7 @@
 		}
 
 		&:lang(en) {
-			font-family: "DotGothic16", "ArkPixelJA", sans-serif;
+			font-family: "ArkPixelJA", "DotGothic16", sans-serif;
 			font-variant-ligatures: none;
 		}
 	}
