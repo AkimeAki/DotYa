@@ -1,4 +1,4 @@
-import type { Lang } from "@/define";
+import { langList, langPriority, type Lang } from "@/define";
 import type { DotIllust, DotIllustTag } from "@/types";
 import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 // import { imageToDiv } from "./div-image";
@@ -8,53 +8,35 @@ export interface DotTagData {
 	name: {
 		[key in Lang]: string;
 	};
-	keywords: {
-		[key in Lang]: string;
-	}[];
 }
 
 export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMSDate)[]): DotTagData[] => {
 	const result = tags.map((data) => {
+		const name: { [key in Lang]: string } = {} as { [key in Lang]: string };
+		for (const lang of langList) {
+			const langPriorityData = langPriority[lang];
+			for (const _lang of langPriorityData) {
+				let key = `name_${_lang}`;
+				if (_lang === "ja") {
+					key = "name";
+				}
+
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				if (data[key] === undefined || data[key] === "") {
+					continue;
+				}
+
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				name[lang] = data[key];
+				break;
+			}
+		}
+
 		return {
 			id: data.id,
-			name: {
-				ja: data.name,
-				"zh-cn":
-					data["name_zh-cn"] !== "" && data["name_zh-cn"] !== undefined
-						? data["name_zh-cn"]
-						: data["name_zh-tw"] !== "" && data["name_zh-tw"] !== undefined
-							? data["name_zh-tw"]
-							: data.name,
-				"zh-tw":
-					data["name_zh-tw"] !== "" && data["name_zh-tw"] !== undefined
-						? data["name_zh-tw"]
-						: data["name_zh-cn"] !== "" && data["name_zh-cn"] !== undefined
-							? data["name_zh-cn"]
-							: data.name,
-				en: data["name_en"] !== "" && data["name_en"] !== undefined ? data["name_en"] : data.name
-			},
-			keywords:
-				data.keyword?.map((keyword) => {
-					return {
-						ja: keyword.text,
-						"zh-cn":
-							keyword["text_zh-cn"] !== "" && keyword["text_zh-cn"] !== undefined
-								? keyword["text_zh-cn"]
-								: keyword["text_zh-tw"] !== "" && keyword["text_zh-tw"] !== undefined
-									? keyword["text_zh-tw"]
-									: keyword.text,
-						"zh-tw":
-							keyword["text_zh-tw"] !== "" && keyword["text_zh-tw"] !== undefined
-								? keyword["text_zh-tw"]
-								: keyword["text_zh-cn"] !== "" && keyword["text_zh-cn"] !== undefined
-									? keyword["text_zh-cn"]
-									: keyword.text,
-						en:
-							keyword["text_en"] !== "" && keyword["text_en"] !== undefined
-								? keyword["text_en"]
-								: keyword.text
-					};
-				}) ?? []
+			name: name
 		};
 	});
 
@@ -76,9 +58,6 @@ export interface DotData {
 		size: 32;
 	};
 	tags: DotTagData[];
-	keywords: {
-		[key in Lang]: string;
-	}[];
 	publishedAt?: string | undefined;
 	parent?: string | undefined;
 	family: Omit<DotData, "family">[];
@@ -100,52 +79,37 @@ const createDotListData = (data: DotIllust & MicroCMSContentId & MicroCMSDate): 
 		return undefined;
 	}
 
+	const title: { [key in Lang]: string } = {} as { [key in Lang]: string };
+	for (const lang of langList) {
+		const langPriorityData = langPriority[lang];
+		for (const _lang of langPriorityData) {
+			let key = `title_${_lang}`;
+			if (_lang === "ja") {
+				key = "title";
+			}
+
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			if (data[key] === undefined || data[key] === "") {
+				continue;
+			}
+
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			title[lang] = data[key];
+			break;
+		}
+	}
+
 	return {
 		id: data.id,
-		title: {
-			ja: data.title,
-			"zh-cn":
-				data["title_zh-cn"] !== "" && data["title_zh-cn"] !== undefined
-					? data["title_zh-cn"]
-					: data["title_zh-tw"] !== "" && data["title_zh-tw"] !== undefined
-						? data["title_zh-tw"]
-						: data.title,
-			"zh-tw":
-				data["title_zh-tw"] !== "" && data["title_zh-tw"] !== undefined
-					? data["title_zh-tw"]
-					: data["title_zh-cn"] !== "" && data["title_zh-cn"] !== undefined
-						? data["title_zh-cn"]
-						: data.title,
-			en: data["title_en"] !== "" && data["title_en"] !== undefined ? data["title_en"] : data.title
-		},
+		title: title,
 		illust: {
 			url: data.illust.url,
 			dom: "", // await imageToDiv(data.dot64.url)
 			size: size
 		},
 		tags: formatTagList(data.tags),
-		keywords:
-			data.keywords?.map((keyword) => {
-				return {
-					ja: keyword.word,
-					"zh-cn":
-						keyword["word_zh-cn"] !== "" && keyword["word_zh-cn"] !== undefined
-							? keyword["word_zh-cn"]
-							: keyword["word_zh-tw"] !== "" && keyword["word_zh-tw"] !== undefined
-								? keyword["word_zh-tw"]
-								: keyword.word,
-					"zh-tw":
-						keyword["word_zh-tw"] !== "" && keyword["word_zh-tw"] !== undefined
-							? keyword["word_zh-tw"]
-							: keyword["word_zh-cn"] !== "" && keyword["word_zh-cn"] !== undefined
-								? keyword["word_zh-cn"]
-								: keyword.word,
-					en:
-						keyword["word_en"] !== "" && keyword["word_en"] !== undefined
-							? keyword["word_en"]
-							: keyword.word
-				};
-			}) ?? [],
 		publishedAt: data.publishedAt,
 		parent: data.parent?.id
 	};
