@@ -49,5 +49,5 @@ export const getCurrentLanguage = () => {
 		}
 	}
 
-	return langList.includes(currentLanguage as Lang) ? (currentLanguage as Lang) : "ja";
+	return langList.includes(currentLanguage as Lang) ? currentLanguage : "ja";
 };
