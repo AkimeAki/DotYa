@@ -170,12 +170,6 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 							display: flex;
 							flex-direction: column;
 							gap: 40px;
-
-							@media (max-width: 700px) {
-								.dot-list-item:last-child {
-									display: none;
-								}
-							}
 						`,
 						eventTagDots.length > 9 &&
 							css`
