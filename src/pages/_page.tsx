@@ -165,17 +165,27 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 
 			{eventTag !== null && eventTag.event !== undefined && eventTagDots.length !== 0 && (
 				<div
-					className={css`
-						display: flex;
-						flex-direction: column;
-						gap: 40px;
+					className={cx(
+						css`
+							display: flex;
+							flex-direction: column;
+							gap: 40px;
 
-						@media (max-width: 700px) {
-							.dot-list-item:last-child {
-								display: none;
+							@media (max-width: 700px) {
+								.dot-list-item:last-child {
+									display: none;
+								}
 							}
-						}
-					`}
+						`,
+						eventTagDots.length > 9 &&
+							css`
+								@media (max-width: 700px) {
+									.dot-list-item:last-child {
+										display: none;
+									}
+								}
+							`
+					)}
 				>
 					<Title>{eventTag.event.word[lang]}</Title>
 					<DotList>
@@ -241,7 +251,7 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 						flex-direction: column;
 						gap: 40px;
 					`,
-					randomTagDotsLength > 10 &&
+					randomTagDotsLength > 9 &&
 						css`
 							@media (max-width: 700px) {
 								.dot-list-item:last-child {
