@@ -5,6 +5,13 @@
 }
 
 @font-face {
+	font-family: "DotGothic16KANA";
+	src: url("https://r2.aki.wtf/DotGothic16-Regular.ttf");
+	font-display: swap;
+	unicode-range: U+3041-3096, U+3099-309C, U+309D, U+309E, U+309F, U+30A0-30FF;
+}
+
+@font-face {
 	font-family: "ArkPixelJA";
 	src: url("https://r2.aki.wtf/ark-pixel-12px-proportional-ja.otf");
 	font-display: swap;
@@ -45,12 +52,12 @@
 		}
 
 		&:lang(zh-cn) {
-			font-family: "ArkPixelZHCN", "DotGothic16", sans-serif;
+			font-family: "DotGothic16KANA", "ArkPixelZHCN", "DotGothic16", sans-serif;
 			font-variant-ligatures: none;
 		}
 
 		&:lang(zh-tw) {
-			font-family: "ArkPixelZHTW", "DotGothic16", sans-serif;
+			font-family: "DotGothic16KANA", "ArkPixelZHTW", "DotGothic16", sans-serif;
 			font-variant-ligatures: none;
 		}
 
