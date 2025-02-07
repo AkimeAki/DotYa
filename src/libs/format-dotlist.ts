@@ -8,6 +8,15 @@ export interface DotTagData {
 	name: {
 		[key in Lang]: string;
 	};
+	event:
+		| {
+				startTime: string;
+				endTime: string;
+				word: {
+					[key in Lang]: string;
+				};
+		  }
+		| undefined;
 }
 
 export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMSDate)[]): DotTagData[] => {
@@ -34,9 +43,35 @@ export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMS
 			}
 		}
 
+		let event: DotTagData["event"] = undefined;
+
+		if (data.event_start !== undefined && data.event_end !== undefined && data.event_word !== undefined) {
+			const word: { [key in Lang]: string } = {} as { [key in Lang]: string };
+			for (const lang of langList) {
+				const langPriorityData = langPriority[lang];
+				for (const _lang of langPriorityData) {
+					const key = _lang;
+
+					if (data.event_word[key] === undefined || data.event_word[key] === "") {
+						continue;
+					}
+
+					word[lang] = data.event_word[key];
+					break;
+				}
+			}
+
+			event = {
+				startTime: data.event_start,
+				endTime: data.event_end,
+				word: word
+			};
+		}
+
 		return {
 			id: data.id,
-			name: name
+			name: name,
+			event: event
 		};
 	});
 

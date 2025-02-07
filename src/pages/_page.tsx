@@ -1,13 +1,12 @@
 import DotList from "@/components/templates/DotList";
-import type { DotIllustTag, TranslateData } from "@/types";
-import type { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import type { TranslateData } from "@/types";
 import Title from "@/components/atoms/Title";
 import { copy } from "@/libs/copy-object";
 import { arrayShuffle } from "@/libs/array-shuffle";
 import { Fragment, useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import DummyList from "@/components/templates/DummyList";
-import type { DotData } from "@/libs/format-dotlist";
+import { type DotData, type DotTagData } from "@/libs/format-dotlist";
 import GoogleAds from "@/components/atoms/GoogleAds";
 import type { Lang } from "@/define";
 import { addArg, getText } from "@/libs/getI18n";
@@ -18,48 +17,89 @@ import DotListItem from "@/components/atoms/DotListItem";
 
 interface Props {
 	dots: DotData[];
-	tags: (DotIllustTag & MicroCMSContentId & MicroCMSDate)[];
+	tags: DotTagData[];
 	lang: Lang;
 	translateData: TranslateData;
 }
 
 export default function ({ dots, tags, lang, translateData }: Props) {
+	const [newDots, setNewDots] = useState<typeof dots>([]);
 	const [randomDots, setRandomDots] = useState<typeof dots>([]);
-	const [randomTag, setRandomTag] = useState<(DotIllustTag & MicroCMSContentId & MicroCMSDate) | null>(null);
+	const [randomTag, setRandomTag] = useState<DotTagData | null>(null);
 	const [randomTagDots, setRandomTagDots] = useState<typeof dots>([]);
 	const [randomTagDotsLength, setRandomTagDotsLength] = useState<number>(0);
-
-	let newDots = copy<typeof dots>(dots);
-	newDots.length = 10;
-	newDots = newDots.filter(Boolean);
+	const [eventTag, setEventTag] = useState<DotTagData | null>(null);
+	const [eventTagDots, setEventTagDots] = useState<typeof dots>([]);
 
 	useEffect(() => {
-		const deletedNewDots = copy<typeof dots>(dots).slice(-1 * (dots.length - 10));
-		let shuffleDots = arrayShuffle<typeof dots>(deletedNewDots);
-		shuffleDots.length = 10;
-		shuffleDots = shuffleDots.filter(Boolean);
-		setRandomDots(shuffleDots);
+		// イベントドット絵を作成
+		let allDots = copy<typeof dots>(dots);
+		let eventDots: typeof dots = [];
+		let eventTag: DotTagData | null = null;
+		const currentTime = new Date().getTime();
+		for (const tag of tags) {
+			if (tag.event !== undefined) {
+				const eventStart = new Date(tag.event.startTime).getTime();
+				const eventEnd = new Date(tag.event.endTime).getTime();
 
-		const shuffleTags = arrayShuffle<typeof tags>(copy<typeof tags>(tags));
+				if (eventStart <= currentTime && currentTime <= eventEnd) {
+					eventTag = tag;
+					setEventTag(tag);
+					eventDots = arrayShuffle<typeof dots>(dots)
+						.filter((dot) => {
+							const tagIds = dot.tags.map((tag) => tag.id);
+							return tagIds.includes(tag.id);
+						})
+						.slice(0, 10);
+					setEventTagDots(eventDots);
+
+					break;
+				}
+			}
+		}
+
+		// 全てのドット絵からイベントドットを削除
+		allDots = allDots.filter((dot) => {
+			const eventDotIds = eventDots.map((dot) => dot.id);
+			return !eventDotIds.includes(dot.id);
+		});
+
+		const newDots = copy<typeof allDots>(allDots.splice(0, 10));
+		// 新着ドット絵を作成 & 全てのドット絵から新着ドット絵を削除
+		setNewDots(newDots);
+
+		// 全てのドット絵からランダムドット絵を作成 & 全てのランダムドット絵からランダム抽出したドット絵を削除
+		const shuffleDots = arrayShuffle<typeof dots>(allDots);
+		setRandomDots(shuffleDots.splice(0, 10));
+
+		// 全てのタグ（イベントタグ以外）からランダムタグを作成
+		const shuffleTags = arrayShuffle<typeof tags>(
+			copy<typeof tags>(
+				tags.filter((tag) => {
+					return eventTag !== null && tag.id !== eventTag.id;
+				})
+			)
+		);
 		const shuffleTag = shuffleTags[0];
 
-		let shuffleTagDots: typeof dots = [];
+		let shuffleTagDots: typeof allDots = [];
 		if (shuffleTag !== undefined) {
 			setRandomTag(shuffleTag);
-			shuffleTagDots = copy<typeof dots>(dots).filter((dot) => {
+			shuffleTagDots = copy<typeof allDots>(allDots).filter((dot) => {
 				const tagIds = dot.tags.map((tag) => tag.id);
 
 				return tagIds.includes(shuffleTag.id);
 			});
-			setRandomTagDotsLength(shuffleTagDots.length);
 
 			// ランダムに抽出するタグのドット絵のうち、既に表示されているドット絵を取得
-			const displayedDots = [...copy<typeof newDots>(newDots), ...copy<typeof shuffleDots>(shuffleDots)].filter(
-				(dot) => {
-					const tagIds = dot.tags.map((tag) => tag.id);
-					return tagIds.includes(shuffleTag.id);
-				}
-			);
+			const displayedDots = [
+				...copy<typeof newDots>(newDots),
+				...copy<typeof shuffleDots>(shuffleDots),
+				...copy<typeof eventDots>(eventDots)
+			].filter((dot) => {
+				const tagIds = dot.tags.map((tag) => tag.id);
+				return tagIds.includes(shuffleTag.id);
+			});
 
 			// ランダムに抽出するタグのドット絵のうち、既に表示されていないドット絵を取得
 			const filterdDisplayedDots = shuffleTagDots.filter((dot) => {
@@ -69,8 +109,8 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 
 			// 既に表示されているドット絵を後ろに持ってくる
 			shuffleTagDots = [...arrayShuffle<typeof filterdDisplayedDots>(filterdDisplayedDots), ...displayedDots];
-			shuffleTagDots.length = 10;
-			shuffleTagDots = shuffleTagDots.filter(Boolean);
+			setRandomTagDotsLength(shuffleTagDots.length);
+			shuffleTagDots = shuffleTagDots.slice(0, 10);
 			setRandomTagDots(shuffleTagDots);
 		}
 	}, []);
@@ -118,6 +158,41 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 					{getText(translateData, "_moreDots")}
 				</Button>
 			</div>
+
+			{eventTag !== null && eventTag.event !== undefined && eventTagDots.length !== 0 && (
+				<div
+					className={css`
+						display: flex;
+						flex-direction: column;
+						gap: 40px;
+
+						@media (max-width: 700px) {
+							.dot-list-item:last-child {
+								display: none;
+							}
+						}
+					`}
+				>
+					<Title>{eventTag.event.word[lang]}</Title>
+					<DotList>
+						<Fragment>
+							{eventTagDots.map((dot) => (
+								<DotListItem
+									key={dot.id}
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+								/>
+							))}
+						</Fragment>
+					</DotList>
+					<Button href={getLangPath(`/tags/${eventTag.id}`, lang)} center>
+						{addArg(getText(translateData, "moreTagDots"), eventTag.name[lang])}
+					</Button>
+				</div>
+			)}
+
 			<GoogleAds slot="9512157076" />
 
 			<div
@@ -134,19 +209,23 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				`}
 			>
 				<Title>{getText(translateData, "_hereNewDots")}</Title>
-				<DotList>
-					<Fragment>
-						{newDots.map((dot) => (
-							<DotListItem
-								key={dot.id}
-								dot={dot}
-								lang={lang}
-								translateData={translateData}
-								family={dot.family}
-							/>
-						))}
-					</Fragment>
-				</DotList>
+				{newDots.length === 0 ? (
+					<DummyList length={10} />
+				) : (
+					<DotList>
+						<Fragment>
+							{newDots.map((dot) => (
+								<DotListItem
+									key={dot.id}
+									dot={dot}
+									lang={lang}
+									translateData={translateData}
+									family={dot.family}
+								/>
+							))}
+						</Fragment>
+					</DotList>
+				)}
 				<Button href={getLangPath("/page/1", lang)} center>
 					{getText(translateData, "_moreDots")}
 				</Button>
@@ -168,7 +247,9 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 						`
 				)}
 			>
-				<Title>{addArg(getText(translateData, "_alsoDots"), randomTag !== null ? randomTag.name : "")}</Title>
+				<Title>
+					{addArg(getText(translateData, "_alsoDots"), randomTag !== null ? randomTag.name[lang] : "")}
+				</Title>
 				{randomTagDots.length === 0 ? (
 					<DummyList length={10} />
 				) : (
@@ -188,7 +269,7 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 				)}
 				{randomTagDotsLength > 10 && (
 					<Button href={randomTag !== null ? getLangPath(`/tags/${randomTag.id}`, lang) : undefined} center>
-						{addArg(getText(translateData, "moreTagDots"), randomTag !== null ? randomTag.name : "")}
+						{addArg(getText(translateData, "moreTagDots"), randomTag !== null ? randomTag.name[lang] : "")}
 					</Button>
 				)}
 			</div>

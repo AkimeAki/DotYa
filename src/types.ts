@@ -12,6 +12,15 @@ export interface DotIllustTag {
 		"text_zh-tw"?: string;
 		text_en?: string;
 	}[];
+	event_start?: string;
+	event_end?: string;
+	event_word?: {
+		fieldId: "word";
+		ja: string;
+		"zh-cn"?: string;
+		"zh-tw"?: string;
+		en?: string;
+	};
 }
 
 export interface DotIllust {

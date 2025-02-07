@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import type { DotIllust, DotIllustTag } from "@/types";
 import { getCachedContents } from "@/libs/microcms";
 import Page from "./_page";
-import { formatDotList } from "@/libs/format-dotlist";
+import { formatDotList, formatTagList } from "@/libs/format-dotlist";
 import type { Lang } from "@/define";
 import { i18n } from "@/libs/i18n";
 
@@ -16,7 +16,7 @@ const { lang = "ja" } = Astro.props;
 const dots = (await formatDotList(await getCachedContents<DotIllust>("dot"))).filter((data) => {
 	return data.parent === undefined;
 });
-const tags = await getCachedContents<DotIllustTag>("tags");
+const tags = formatTagList(await getCachedContents<DotIllustTag>("tags"));
 const { translateData } = await i18n(lang);
 ---
 
