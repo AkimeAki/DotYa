@@ -36,13 +36,17 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 		let allDots = copy<typeof dots>(dots);
 		let eventDots: typeof dots = [];
 		let eventTag: DotTagData | null = null;
-		const currentTime = new Date().getTime();
+		const currentTime = new Date();
 		for (const tag of tags) {
 			if (tag.event !== undefined) {
-				const eventStart = new Date(tag.event.startTime).getTime();
-				const eventEnd = new Date(tag.event.endTime).getTime();
+				const eventStart = new Date(
+					tag.event.startTime.replace(/^[0-9]{4}/, currentTime.getFullYear().toString())
+				).getTime();
+				const eventEnd = new Date(
+					tag.event.endTime.replace(/^[0-9]{4}/, currentTime.getFullYear().toString())
+				).getTime();
 
-				if (eventStart <= currentTime && currentTime <= eventEnd) {
+				if (eventStart <= currentTime.getTime() && currentTime.getTime() <= eventEnd) {
 					eventTag = tag;
 					setEventTag(tag);
 					eventDots = arrayShuffle<typeof dots>(dots)
