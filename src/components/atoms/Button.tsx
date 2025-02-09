@@ -39,6 +39,10 @@ export default function ({
 			border-top: 2px solid #6e6358;
 			user-select: none;
 			cursor: pointer;
+
+			body[data-os="android"] & {
+				padding: 15px 20px 15px;
+			}
 		`,
 		center &&
 			css`
@@ -51,6 +55,10 @@ export default function ({
 				padding-top: 10px;
 				padding-bottom: 10px;
 				font-size: 15px;
+
+				body[data-os="android"] & {
+					padding-bottom: 8px;
+				}
 			`,
 
 		selected &&
