@@ -52,12 +52,11 @@ export default function ({
 
 		size === "slim" &&
 			css`
-				padding-top: 10px;
-				padding-bottom: 10px;
+				padding: 10px 20px 10px;
 				font-size: 15px;
 
 				body[data-os="android"] & {
-					padding-bottom: 8px !important;
+					padding: 10px 20px 8px;
 				}
 			`,
 
