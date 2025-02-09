@@ -57,7 +57,7 @@ export default function ({
 				font-size: 15px;
 
 				body[data-os="android"] & {
-					padding-bottom: 8px;
+					padding-bottom: 8px !important;
 				}
 			`,
 
