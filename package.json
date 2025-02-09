@@ -15,6 +15,7 @@
 		"prepare": "panda codegen"
 	},
 	"dependencies": {
+		"@akimeaki/check-browser": "0.1.0",
 		"@akimeaki/null-to-undefined": "1.0.1",
 		"@akimeaki/reset-css": "0.3.0",
 		"@astrojs/check": "0.9.4",

@@ -19,6 +19,10 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 			border-top: 2px solid #58586e;
 			font-size: 30px;
 
+			body[data-os="android"] & {
+				padding: 15px 20px 18px;
+			}
+
 			@media (max-width: 1130px) {
 				font-size: 20px;
 			}
@@ -26,6 +30,10 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 			@media (max-width: 700px) {
 				font-size: 16px;
 				padding: 11px 20px 14px;
+
+				body[data-os="android"] & {
+					padding: 11px 20px 12px;
+				}
 			}
 		`,
 		size === "small" &&
@@ -33,14 +41,26 @@ export default function ({ children, size = "normal", h = 2 }: Props) {
 				padding: 5px 10px 8px;
 				font-size: 15px;
 
+				body[data-os="android"] & {
+					padding: 5px 10px 6px;
+				}
+
 				@media (max-width: 1130px) {
 					padding: 5px 10px 8px;
 					font-size: 15px;
+
+					body[data-os="android"] & {
+						padding: 5px 10px 6px;
+					}
 				}
 
 				@media (max-width: 700px) {
 					padding: 5px 10px 8px;
 					font-size: 12px;
+
+					body[data-os="android"] & {
+						padding: 5px 10px 6px;
+					}
 				}
 			`
 	);
