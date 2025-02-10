@@ -7,6 +7,7 @@ import { getListAllContents } from "@/libs/microcms";
 import { formatDotList, type DotData } from "@/libs/format-dotlist";
 import { i18n } from "@/libs/i18n";
 import { getText } from "@/libs/getI18n";
+import { getLangPath } from "@/libs/lang-path";
 
 interface Props {
 	lang?: Lang;
@@ -55,7 +56,7 @@ if (searchText !== null && searchText !== "") {
 <Base
 	title={getText(translateData, "search_pageTitle")}
 	description={`${getText(translateData, "search_description")}${getText(translateData, "fixedDescription")}`}
-	canonical={`${Astro.site}search`}
+	canonical={getLangPath(`${Astro.site}search`, lang)}
 	lang={lang}
 >
 	<ThisPage dots={dots} q={searchText ?? ""} lang={lang} translateData={translateData} client:load />

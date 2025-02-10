@@ -86,7 +86,7 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 	publishedAt={dot.publishedAt}
 	jsonld={[...schema]}
 	lang={lang}
-	canonical={`${getLangPath(`${Astro.site}dot/${dot.id}`, lang)}`}
+	canonical={getLangPath(`${Astro.site}dot/${dot.id}`, lang)}
 >
 	<div
 		class={css`
