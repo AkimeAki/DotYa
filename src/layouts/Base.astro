@@ -338,68 +338,6 @@ const schema =
 </html>
 
 <script>
-	import { pageLangList } from "@/define";
-	import { getCurrentLanguage } from "@/libs/get-language";
-	import { getCurrentPathList } from "@/libs/lang-path";
-
-	const currentLanguage = getCurrentLanguage();
-	const currentPath: string[] = getCurrentPathList();
-
-	const option = "; max-age=2592000; path=/";
-
-	const agent = window.navigator.userAgent.toLowerCase();
-	if (!agent.includes("googlebot")) {
-		if (currentLanguage !== "") {
-			document.cookie = `language="${currentLanguage}"${option}`;
-
-			if (currentLanguage !== "ja") {
-				// 言語判定が日本語じゃない時
-
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				if (currentPath[1] !== undefined && pageLangList.includes(currentPath[1] as any)) {
-					// パスが日本語じゃない時
-
-					if (currentLanguage !== currentPath[1]) {
-						let redirectPath = currentPath.slice(2).join("/");
-						if (redirectPath !== "") {
-							redirectPath = "/" + redirectPath;
-						}
-
-						window.location.href = "/" + currentLanguage + redirectPath;
-					}
-				} else {
-					// パスが日本語の時
-
-					let redirectPath = currentPath.slice(1).join("/");
-					if (redirectPath !== "") {
-						redirectPath = "/" + redirectPath;
-					}
-					window.location.href = "/" + currentLanguage + redirectPath;
-				}
-			} else {
-				// 言語判定が日本語の時
-
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				if (currentPath[1] !== undefined && pageLangList.includes(currentPath[1] as any)) {
-					// パスが日本語じゃない時
-
-					if (currentLanguage !== currentPath[1]) {
-						let redirectPath = currentPath.slice(2).join("/");
-						if (redirectPath === "") {
-							redirectPath = "/";
-						} else {
-							redirectPath = "/" + redirectPath;
-						}
-
-						window.location.href = redirectPath;
-					}
-				}
-			}
-		}
-	}
-</script>
-
-<script>
 	import checkBrowser from "@akimeaki/check-browser";
 
 	const data = checkBrowser();

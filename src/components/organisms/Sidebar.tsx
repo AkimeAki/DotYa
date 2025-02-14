@@ -6,8 +6,9 @@ import { css } from "@/styled-system/css";
 import { cx } from "@/libs/merge-panda";
 import { getText } from "@/libs/getI18n";
 import type { DotTagData } from "@/libs/format-dotlist";
-import type { Lang } from "@/define";
-import { getLangPath } from "@/libs/lang-path";
+import { pageLangList, type Lang } from "@/define";
+import { getCurrentPathList, getLangPath } from "@/libs/lang-path";
+import { getCurrentLanguage } from "@/libs/get-language";
 
 interface Props {
 	tags: DotTagData[];
@@ -292,10 +293,59 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 								ref={selectLangElement}
 								value={lang ?? "ja"}
 								onChange={(e) => {
+									const currentPath: string[] = getCurrentPathList();
+
 									if (lang !== null) {
-										const option = "; max-age=2592000; path=/";
-										document.cookie = `language="${e.target.value}"${option}`;
-										window.location.reload();
+										const selectLanguage = e.target.value;
+										if (e.target.value !== "ja") {
+											// 言語判定が日本語じゃない時
+
+											if (
+												currentPath[1] !== undefined &&
+												// eslint-disable-next-line @typescript-eslint/no-explicit-any
+												pageLangList.includes(currentPath[1] as any)
+											) {
+												// パスが日本語じゃない時
+
+												if (selectLanguage !== currentPath[1]) {
+													let redirectPath = currentPath.slice(2).join("/");
+													if (redirectPath !== "") {
+														redirectPath = "/" + redirectPath;
+													}
+
+													window.location.href = "/" + selectLanguage + redirectPath;
+												}
+											} else {
+												// パスが日本語の時
+
+												let redirectPath = currentPath.slice(1).join("/");
+												if (redirectPath !== "") {
+													redirectPath = "/" + redirectPath;
+												}
+												window.location.href = "/" + selectLanguage + redirectPath;
+											}
+										} else {
+											// 言語判定が日本語の時
+
+											if (
+												currentPath[1] !== undefined &&
+												// eslint-disable-next-line @typescript-eslint/no-explicit-any
+												pageLangList.includes(currentPath[1] as any)
+											) {
+												// パスが日本語じゃない時
+
+												if (selectLanguage !== currentPath[1]) {
+													let redirectPath = currentPath.slice(2).join("/");
+													if (redirectPath === "") {
+														redirectPath = "/";
+													} else {
+														redirectPath = "/" + redirectPath;
+													}
+
+													window.location.href = redirectPath;
+												}
+											}
+										}
 									}
 								}}
 								className={css`
