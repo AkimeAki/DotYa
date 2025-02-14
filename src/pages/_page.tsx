@@ -80,7 +80,7 @@ export default function ({ dots, tags, lang, translateData }: Props) {
 		const shuffleTags = arrayShuffle<typeof tags>(
 			copy<typeof tags>(
 				tags.filter((tag) => {
-					return eventTag !== null && tag.id !== eventTag.id;
+					return eventTag == null || tag.id !== eventTag.id;
 				})
 			)
 		);
