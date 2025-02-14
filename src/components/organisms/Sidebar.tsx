@@ -8,7 +8,6 @@ import { getText } from "@/libs/getI18n";
 import type { DotTagData } from "@/libs/format-dotlist";
 import { pageLangList, type Lang } from "@/define";
 import { getCurrentPathList, getLangPath } from "@/libs/lang-path";
-import { getCurrentLanguage } from "@/libs/get-language";
 
 interface Props {
 	tags: DotTagData[];
