@@ -80,7 +80,7 @@ const sameTagDots = [sameTag1Dots, sameTag2Dots];
 ---
 
 <Base
-	title={`${dot.title[lang]}のドット絵`}
+	title={addArg(getText(translateData, "dot_id_pageTitle"), dot.title[lang])}
 	ogImage={image}
 	description={`${addArg(getText(translateData, "dot_id_description"), dot.title[lang])}${getText(translateData, "fixedDescription")}`}
 	publishedAt={dot.publishedAt}
