@@ -82,41 +82,45 @@ const { translateData } = await i18n(lang);
 			<div class="footer-ben-ten-crt">かがりのす</div>
 		</a>
 	</div>
-	<div
-		class={css`
-			display: flex;
-			align-items: center;
-			gap: 3px;
+	{
+		(lang === "zh-cn" || lang === "zh-tw") && (
+			<div
+				class={css`
+					display: flex;
+					align-items: center;
+					gap: 3px;
 
-			a {
-				font-size: 14px;
-			}
-
-			a:hover {
-				color: #9deb83;
-			}
-		`}
-	>
-		<span>{getText(translateData, "footerTranslator")}</span>
-		<span
-			class={cx(
-				css`
-					transform: translateY(-1px);
-
-					&:lang(zh-cn) {
-						transform: translateY(-3px);
+					a {
+						font-size: 14px;
 					}
 
-					&:lang(zh-tw) {
-						transform: translateY(-3px);
+					a:hover {
+						color: #9deb83;
 					}
-				`,
-				"footer-ben-ten-crt"
-			)}
-		>
-			ノブ
-		</span>
-	</div>
+				`}
+			>
+				<span>{getText(translateData, "footerTranslator")}</span>
+				<span
+					class={cx(
+						css`
+							transform: translateY(-1px);
+
+							&:lang(zh-cn) {
+								transform: translateY(-3px);
+							}
+
+							&:lang(zh-tw) {
+								transform: translateY(-3px);
+							}
+						`,
+						"footer-ben-ten-crt"
+					)}
+				>
+					ノブ
+				</span>
+			</div>
+		)
+	}
 	<div
 		class={css`
 			display: flex;
