@@ -12,6 +12,7 @@ export interface DotTagData {
 		| {
 				startTime: string;
 				endTime: string;
+				only: boolean;
 				word: {
 					[key in Lang]: string;
 				};
@@ -64,7 +65,8 @@ export const formatTagList = (tags: (DotIllustTag & MicroCMSContentId & MicroCMS
 			event = {
 				startTime: data.event_start,
 				endTime: data.event_end,
-				word: word
+				word: word,
+				only: data.only_event
 			};
 		}
 

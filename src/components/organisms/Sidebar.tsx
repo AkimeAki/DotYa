@@ -1,6 +1,6 @@
 import SidebarLink from "@/components/molecules/SidebarLink";
 import type { TranslateData } from "@/types";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import PixelButton from "@/components/atoms/PixelButton";
 import { css } from "@/styled-system/css";
 import { cx } from "@/libs/merge-panda";
@@ -399,6 +399,10 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 						`}
 					>
 						{tags.map((tag) => {
+							if (tag.event?.only) {
+								return <Fragment key={tag.id} />;
+							}
+
 							return (
 								<PixelButton key={tag.id} href={getLangPath(`/tags/${tag.id}`, lang)} color="#4d3d36">
 									{tag.name[lang]}

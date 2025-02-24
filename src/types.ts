@@ -14,6 +14,7 @@ export interface DotIllustTag {
 	}[];
 	event_start?: string;
 	event_end?: string;
+	only_event: boolean;
 	event_word?: {
 		fieldId: "word";
 		ja: string;
