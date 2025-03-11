@@ -46,7 +46,11 @@ export default function ({ dots, q, lang, translateData }: Props) {
 					enterKeyHint="search"
 					value={keywords}
 					onChange={(e) => {
-						setKeywords(e.target.value);
+						if (e.target.value.replaceAll(/\s/g, "") !== "") {
+							setKeywords(e.target.value);
+						} else {
+							setKeywords("");
+						}
 					}}
 					onKeyDown={(e) => {
 						if (!e.nativeEvent.isComposing && e.key === "Enter" && keywords !== "") {
@@ -62,7 +66,7 @@ export default function ({ dots, q, lang, translateData }: Props) {
 				/>
 				<a
 					aria-label={getText(translateData, "search_searchButtonAriaLabel")}
-					href={`/search?q=${keywords}`}
+					href={keywords !== "" ? `/search?q=${keywords}` : undefined}
 					className={css`
 						padding: 15px 20px 17px;
 						display: block;

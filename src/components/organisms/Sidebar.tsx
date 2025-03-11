@@ -207,7 +207,11 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 							enterKeyHint="search"
 							value={keywords}
 							onChange={(e) => {
-								setKeywords(e.target.value);
+								if (e.target.value.replaceAll(/\s/g, "") !== "") {
+									setKeywords(e.target.value);
+								} else {
+									setKeywords("");
+								}
 							}}
 							onKeyDown={(e) => {
 								if (e.key === "Enter" && keywords !== "") {
@@ -224,7 +228,7 @@ export default function ({ tags, translateData, lang }: Props): JSX.Element {
 						/>
 						<a
 							aria-label={getText(translateData, "sidebarSearchButton")}
-							href={`/search?q=${keywords}`}
+							href={keywords !== "" ? `/search?q=${keywords}` : undefined}
 							className={css`
 								padding: 15px 10px 17px;
 								display: block;
