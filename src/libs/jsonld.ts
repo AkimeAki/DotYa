@@ -15,10 +15,10 @@ export const dotJsonLd = (imageUrl: string, name: string, translateData: Transla
 		creator: {
 			"@type": "Organization",
 			name: "篝之鼠",
-			url: "https://kagari.aki.wtf/",
+			url: "https://kagari.shikiiro.net/",
 			logo: {
 				"@type": "ImageObject",
-				url: "https://kagari.aki.wtf/default-ogp.png",
+				url: "https://kagari.shikiiro.net/default-ogp.png",
 				width: 512,
 				height: 512
 			}
