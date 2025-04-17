@@ -161,9 +161,25 @@ export default function ({ dot, lang, translateData, family = [dot] }: Props): J
 						</PixelButton>
 					)}
 				</div>
-				<Title size="small" h={3}>
-					{viewDot.title[lang]}
-				</Title>
+				<div
+					className={css`
+						height: 50px;
+						position: relative;
+					`}
+				>
+					<div
+						className={css`
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+						`}
+					>
+						<Title size="small" h={3}>
+							{viewDot.title[lang]}
+						</Title>
+					</div>
+				</div>
 				<a
 					aria-label={dot.title[lang]}
 					className={css`

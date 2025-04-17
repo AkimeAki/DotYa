@@ -103,9 +103,25 @@ export default function ({ length }: Props): JSX.Element {
 									ㅤㅤ
 								</PixelButton>
 							</div>
-							<Title size="small" h={3}>
-								ㅤㅤ
-							</Title>
+							<div
+								className={css`
+									height: 50px;
+									position: relative;
+								`}
+							>
+								<div
+									className={css`
+										position: absolute;
+										top: 0;
+										left: 0;
+										width: 100%;
+									`}
+								>
+									<Title size="small" h={3}>
+										ㅤㅤ
+									</Title>
+								</div>
+							</div>
 							<span
 								className={css`
 									position: absolute;
