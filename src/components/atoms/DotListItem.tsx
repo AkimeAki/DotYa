@@ -119,7 +119,6 @@ export default function ({ dot, lang, translateData, family = [dot] }: Props): J
 							padding: 10px;
 							background-color: white;
 							width: calc(100% - 3px);
-							height: calc(100% - 3px);
 
 							&:after {
 								content: "";

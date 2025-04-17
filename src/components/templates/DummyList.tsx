@@ -62,7 +62,6 @@ export default function ({ length }: Props): JSX.Element {
 										padding: 10px;
 										background-color: white;
 										width: calc(100% - 3px);
-										height: calc(100% - 3px);
 
 										&:after {
 											content: "";
